@@ -1,0 +1,10 @@
+
+<%= form_for @category do |f| %>
+  <div>
+    <%= f.label :name, 'Category name' %>
+    <%= f.text_field :name, :placeholder => "Category name" %>
+  </div><br>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

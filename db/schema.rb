@@ -1,0 +1,82 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20120903082129) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "cities", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "commodities", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "title"
+    t.text     "features"
+    t.decimal  "actual_price"
+    t.decimal  "selling_price"
+    t.text     "description"
+    t.string   "delivery_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "commodity_skus", :force => true do |t|
+    t.integer  "quantity"
+    t.string   "color"
+    t.string   "size"
+    t.integer  "commodity_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "city_id"
+  end
+
+  create_table "images", :force => true do |t|
+    t.integer  "snapshot_id"
+    t.string   "snapshot_type"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.decimal  "wallet",          :default => 0.0
+    t.integer  "mobile_no"
+    t.string   "role",            :default => "user"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  create_table "vouchers", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "redeem_procedure"
+    t.date     "redeem_date"
+    t.integer  "commodity_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+end

@@ -1,0 +1,54 @@
+<fieldset>
+  <legend>Add A new commodity</legend>
+  <legend>Add/select a new category</legend>
+  <div id = "add">
+    
+    <%= render 'categories/form', :remote => true %>
+  </div>
+    <%= form_for(@commodity) do |f| %>
+      <div>
+        <%= f.select :category, @categories, prompt: "Select a Category" %>
+        <img src = "/assets/plus.png"/><span> (add a new category)</span>
+      </div>
+      <div class = "commodity">
+        <br><br>
+        <div id = 'upload_images'>
+          <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
+            <% if img_f.object.new_record? %>
+              <%= img_f.label :photo, "Image File" %>
+              <%= img_f.file_field :photo %>
+            <% end %>
+          <% end %>
+        </div>
+        <div>
+          <%= f.label :title, 'Name' %>
+          <%= f.text_field :title %>
+        </div><br>
+        <div>
+          <%= f.label :features, 'Features' %>
+          <%= f.text_area :features %>
+        </div><br>
+        <div>
+          <%= f.label :actual_price, 'Actual Price' %>
+          <%= f.text_field :actual_price %>
+        </div><br>
+        <div>
+          <%= f.label :selling_price, 'Discounted Price' %>
+          <%= f.text_field :selling_price %>
+        </div><br>
+        <div>
+          <%= f.label :description, 'Description' %>
+          <%= f.text_field :description %>
+        </div><br>
+        <div>
+          <%= f.label :delivery_type, 'Type' %>
+          <%= f.select :delivery_type, Commodity::DELIVERY_TYPE %>
+        </div><br>
+        <div>
+          <legend>Add/Select a city</legend>
+          <%= select("city", "id", City.all.collect { |x| [x.name, x.id] }) %>
+        </div>
+        <%= f.submit %>
+      </div>
+    <% end %>
+</fieldset>

@@ -1,0 +1,34 @@
+// Place all the styles related to the Commodity controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#add {
+  float:left;
+  display:none;
+}
+fieldset{
+  legend{
+    background-color: green;
+    color: white;
+  }
+  width:500px;
+  background-color: purple;
+  color:white;
+}
+fieldset.category{
+  width:350px;
+}
+#new_commodity{
+  div.commodity{
+    clear:left;
+    div {
+      label {
+      vertical-align:top;
+      }
+    }
+  }
+  img{
+    height: 20px;
+    vertical-align: bottom;
+  }
+
+}

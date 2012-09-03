@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  snapshot_id: 1
+  snapshot_type: MyString
+
+two:
+  snapshot_id: 1
+  snapshot_type: MyString

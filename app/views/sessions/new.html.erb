@@ -1,0 +1,18 @@
+<%= notice %>
+<fieldset>
+  <legend>Please Log In</legend>  
+  <%= form_tag do %>
+    <div>
+      <%= label_tag :name, 'Name' %>
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+    <div>
+      <%= label_tag :password, 'Password' %>
+      <%= password_field_tag :password, params[:password] %>
+    </div>
+    <div>
+      <%= button_tag 'Login'%>
+    </div>
+  <% end %>
+  <%= button_to 'Sign up', new_user_path, :method => :get %>
+</fieldset>

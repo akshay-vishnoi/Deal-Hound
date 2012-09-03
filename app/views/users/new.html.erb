@@ -1,0 +1,29 @@
+<%= notice %>
+<%= form_for(@user) do |f| %>
+  <fieldset>
+    <legend>Please Enter Details</legend>
+    <div>
+      <%= f.label :name, 'Name' %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :password, 'Password' %>
+      <%= f.password_field :password %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation, 'Confirm Password' %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div>
+      <%= f.label :email, 'Email' %>
+      <%= f.text_field :email %>
+    </div>
+    <div>
+      <%= f.label :mobile_no, 'Mobile number' %>
+      <%= f.text_field :mobile_no %>
+    </div>
+    <div>
+      <%= f.submit 'Submit' %>
+    </div>
+  </fieldset>
+<% end %>
