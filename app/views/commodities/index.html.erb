@@ -1,3 +1,16 @@
-<div>
-  <%= image_tag @img.photo.url(:small) %>
-</div>
+<table>
+  <% @commodities.each do |commodity| %>
+    <tr>
+    Name: <%= commodity.title %><br>
+    <% commodity.commodity_skus.each do |sku| %>
+      <% if sku.quantity %> Quantity: <%= sku.quantity %><br> <% end %>
+      <% unless sku.size.empty? %> Size: <%= sku.size %><br> <% end %>
+      <% unless sku.color.empty? %>Color: <%= sku.color %><br><% end %>
+    <% end %>
+    <% commodity.images.each do |img| %>
+      <%= image_tag img.photo.url(:small) %>
+    <% end %><br>
+    <%= link_to 'Edit', edit_commodity_path(commodity) %>
+    <%= link_to 'Delete', commodity, method: :delete, data: { confirm: "Are you sure?"} %>
+  <% end %>
+</table>

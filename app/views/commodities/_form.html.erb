@@ -1,54 +1,71 @@
 <fieldset>
-  <legend>Add A new commodity</legend>
+  <legend>Add A new commodity</legend><br>
   <legend>Add/select a new category</legend>
   <div id = "add">
-    
     <%= render 'categories/form', :remote => true %>
   </div>
-    <%= form_for(@commodity) do |f| %>
-      <div>
-        <%= f.select :category, @categories, prompt: "Select a Category" %>
-        <img src = "/assets/plus.png"/><span> (add a new category)</span>
-      </div>
-      <div class = "commodity">
-        <br><br>
-        <div id = 'upload_images'>
-          <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
-            <% if img_f.object.new_record? %>
-              <%= img_f.label :photo, "Image File" %>
-              <%= img_f.file_field :photo %>
-            <% end %>
-          <% end %>
-        </div>
-        <div>
-          <%= f.label :title, 'Name' %>
-          <%= f.text_field :title %>
-        </div><br>
-        <div>
-          <%= f.label :features, 'Features' %>
-          <%= f.text_area :features %>
-        </div><br>
-        <div>
-          <%= f.label :actual_price, 'Actual Price' %>
-          <%= f.text_field :actual_price %>
-        </div><br>
-        <div>
-          <%= f.label :selling_price, 'Discounted Price' %>
-          <%= f.text_field :selling_price %>
-        </div><br>
-        <div>
-          <%= f.label :description, 'Description' %>
-          <%= f.text_field :description %>
-        </div><br>
-        <div>
-          <%= f.label :delivery_type, 'Type' %>
-          <%= f.select :delivery_type, Commodity::DELIVERY_TYPE %>
-        </div><br>
-        <div>
-          <legend>Add/Select a city</legend>
-          <%= select("city", "id", City.all.collect { |x| [x.name, x.id] }) %>
-        </div>
-        <%= f.submit %>
-      </div>
-    <% end %>
+  <%= form_for(@commodity) do |f| %>
+    <div>
+      <%= f.select :category, @categories, prompt: "Select a Category" %>
+      <span><img src = "/assets/plus.png"/> (add a new category)</span>
+    </div>
+    <br>
+    <fieldset class = "sub_fieldset">
+      <legend>Details:</legend>
+      <table class = "commodity">
+        <tr>
+          <td><%= f.label :title, 'Name' %></td>
+          <td><%= f.text_field :title %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :features, 'Features' %></td>
+          <td><%= f.text_area :features %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :vender, 'Vender' %></td>
+          <td><%= f.text_field :vender %></td>
+        </tr>          
+        <tr>
+          <td><%= f.label :actual_price, 'Actual Price' %></td>
+          <td><%= f.text_field :actual_price %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :selling_price, 'Discounted Price' %></td>
+          <td><%= f.text_field :selling_price %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :description, 'Description' %></td>
+          <td><%= f.text_field :description %></td>
+        </tr>
+      </table>
+    </fieldset><br>
+    <fieldset class = "sub_fieldset">
+      <legend>Image Files</legend>
+        <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
+          <% if img_f.object.new_record? %>              
+            <%= img_f.file_field :photo %>
+          <% end %><br>
+        <% end %>
+    </fieldset><br>
+    <%= f.fields_for :commodity_skus do |sku_f| %>
+      <fieldset class = "sub_fieldset">
+        <legend>Type</legend>
+        <table>
+          <tr>
+            <td><%= sku_f.label :size, 'Size' %></td>
+            <td><%= sku_f.text_field :size %></td>
+          </tr>
+          <tr>
+            <td><%= sku_f.label :color, 'Color' %></td>
+            <td><%= sku_f.text_field :color %></td>
+          </tr>
+          <tr>
+            <td><%= sku_f.label :quantity, 'Quantity' %></td>
+            <td><%= sku_f.text_field :quantity %></td>
+          </tr>
+        </table>
+      </fieldset><br>
+     <% end %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
 </fieldset>

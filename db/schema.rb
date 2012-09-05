@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903082129) do
+ActiveRecord::Schema.define(:version => 20120904071234) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "nature"
   end
 
   create_table "cities", :force => true do |t|
@@ -32,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20120903082129) do
     t.decimal  "actual_price"
     t.decimal  "selling_price"
     t.text     "description"
-    t.string   "delivery_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "vender"
   end
 
   create_table "commodity_skus", :force => true do |t|
@@ -44,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20120903082129) do
     t.integer  "commodity_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "city_id"
   end
 
   create_table "images", :force => true do |t|
@@ -73,10 +73,11 @@ ActiveRecord::Schema.define(:version => 20120903082129) do
     t.string   "title"
     t.text     "description"
     t.text     "redeem_procedure"
-    t.date     "redeem_date"
+    t.date     "redeem_within"
     t.integer  "commodity_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.decimal  "discount",         :default => 0.0
   end
 
 end

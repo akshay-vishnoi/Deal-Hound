@@ -1,5 +1,6 @@
 DealHound::Application.routes.draw do
   resources :commodities
+  #match '/commodity_sku_build' => 'commodity#commodity_sku_build', :via => 'post', :as => "commodity_sku_build"
   resources :admins
   controller :sessions do
     get 'login' => :new
@@ -8,7 +9,7 @@ DealHound::Application.routes.draw do
   end
   resources :users
   resources :categories
-  match 'images_path' => 'commodities#index', :via => 'get'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

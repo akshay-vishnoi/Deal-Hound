@@ -10,25 +10,24 @@ fieldset{
     background-color: green;
     color: white;
   }
-  width:500px;
+  width:530px;
+  height:auto;
   background-color: purple;
   color:white;
 }
-fieldset.category{
-  width:350px;
+fieldset.add_category{
+  width:300px;
+}
+fieldset.sub_fieldset{
+  width:500px;
+  clear:left;
 }
 #new_commodity{
-  div.commodity{
-    clear:left;
-    div {
-      label {
-      vertical-align:top;
-      }
-    }
-  }
   img{
     height: 20px;
     vertical-align: bottom;
   }
-
+}
+input[type = "submit"]{
+  float:right;
 }
