@@ -7,7 +7,7 @@
   <%= form_for(@commodity) do |f| %>
     <div>
       <%= f.select :category, @categories, prompt: "Select a Category" %>
-      <span><img src = "/assets/plus.png"/> (add a new category)</span>
+      <span><img id = "add_cat" src = "/assets/plus.png"/> (add a new category)</span>
     </div>
     <br>
     <fieldset class = "sub_fieldset">
@@ -39,6 +39,17 @@
         </tr>
       </table>
     </fieldset><br>
+    <% if params[:edit_img] %>
+      <fieldset class = "sub_fieldset">
+        <legend>Edit images</legend>
+        <% @commodity.images.each do |img_f|%>
+          <% unless img_f.id.nil? %>
+            <%= image_tag img_f.photo.url(:small) %>
+            <%= link_to 'Delete', delete_img_url({:image_id => img_f.id}), method: :post %>
+          <% end %>
+        <% end %>
+      </fieldset>
+    <% end %>
     <fieldset class = "sub_fieldset">
       <legend>Image Files</legend>
         <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>

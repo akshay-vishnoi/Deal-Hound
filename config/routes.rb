@@ -1,11 +1,16 @@
 DealHound::Application.routes.draw do
-  resources :commodities
+  resources :commodities 
+  controller :commodities do
+    post 'delete_img' => :del_image
+    get 'category' => :show_category
+  end
+ 
   #match '/commodity_sku_build' => 'commodity#commodity_sku_build', :via => 'post', :as => "commodity_sku_build"
   resources :admins
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
-    delete 'logout' => :delete
+    get 'logout' => :delete
   end
   resources :users
   resources :categories

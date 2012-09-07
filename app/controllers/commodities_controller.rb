@@ -1,6 +1,5 @@
 class CommoditiesController < ApplicationController
- # before_filter(:only => [:new, :index]){ |controller| controller.authorize('admin')}
- #<%= image_tag @img.photo.url(:small) %>
+before_filter(:only => [:new, :index]){ |controller| controller.authorize('admin')}
   def index
     @commodities = Commodity.all
   end
@@ -21,6 +20,27 @@ class CommoditiesController < ApplicationController
     @categories = Category.select('name').collect { |cont| cont.name }
     @category = Category.new
     @commodity = Commodity.find(params[:id])
+    2.times { @commodity.images.build }
+    @commodity.commodity_skus.build
+    params[:edit_img] = true
+  end
+  def show_category
+    @category = Category.find(params["category_id"])
+    @commodities = @category.commodities
+    render 'commodities/index'
+  end
+  def update
+    @cat = Category.find_by_name(params[:commodity]["category"])
+    params[:commodity].delete_if { |k,v| k == "category" }
+    @commodity = Commodity.find(params[:id])
+    @commodity.category = @cat
+    if @commodity.update_attributes(params[:commodity])
+      redirect_to request.referrer, notice: "Image deleted #{params}"
+    end
+  end
+  def del_image
+    Image.delete(params[:image_id])
+    redirect_to request.referrer, notice: "Image deleted #{params}"
   end
   def destroy
     @commodity = Commodity.find(params[:id])

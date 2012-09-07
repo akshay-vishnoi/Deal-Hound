@@ -3,12 +3,49 @@
 <head>
   <title>DealHound</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%#= javascript_include_tag "application" %>
+  <script type="text/javascript", src = "/assets/jquery-1.7.2"></script>
+  <script type="text/javascript" src = "/assets/commodity.js.coffee"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div>
+  <div class = "header">
+    <h1>DealHound.com</h1>
+    <div>
+      <br>
+      <% unless session[:user_id].nil? %>
+        Welcome&nbsp;
+        <%= User.find_by_id(session[:user_id]).name %>&nbsp;&nbsp;&nbsp;
+        <%= link_to 'Logout', logout_url %>
+      <% else %>
+        <%= link_to 'Login', login_url %>
+      <% end %>
+    </div>    
+  </div>
+  <div id = "columns">
+    <div id = "left_div">
+      <div>
+        <%= render 'commodities/side_bar' %>
+      </div>
+      <div>
+        <% if session[:role] == 'admin' %>
+          <%= render 'layouts/admin_layout' %>
+        <% else %>
+        <% end %>
+      </div>
+    </div>
+    <div id = "right_div">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 </body>
 </html>

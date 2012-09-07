@@ -31,3 +31,34 @@ fieldset.sub_fieldset{
 input[type = "submit"]{
   float:right;
 }
+#show_products {
+  border-collapse: collapse;
+  tr{
+    td{
+      padding:5px;
+    }
+  }
+  img{
+    vertical-align: top;
+  }
+  table{
+    background-color: #9933dd;
+    color:white;
+  }
+}
+.commodity_even {
+  background: #e1e1e1;
+}
+
+.commodity_odd {
+  background: #f8b0f8;
+}
+#store_header {
+  background-color: blue;
+  color:white;
+}
+#category{
+  margin:0px;
+  padding:0px;
+  list-style:none;
+}

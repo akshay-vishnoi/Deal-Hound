@@ -1,0 +1,90 @@
+digraph DealHound {
+  rankdir = "LR"; ranksep = "0.5"; nodesep = "0.4"; pad = "0.4,0.4"; margin = "0,0"; concentrate = "true"; labelloc = "t"; fontsize = "13"; fontname = "Arial Bold";
+  node [shape = "Mrecord", fontsize = "10", fontname = "Arial", margin = "0.07,0.05", penwidth = "1.0"];
+  edge [fontname = "Arial", fontsize = "7", dir = "both", arrowsize = "0.9", penwidth = "1.0", labelangle = "32", labeldistance = "1.8"];
+  label = "DealHound domain model\n\n";
+  m_Category [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Category</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="nature">nature <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_City [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">City</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_Commodity [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Commodity</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="actual_price">actual_price <font face="Arial Italic" color="grey60">decimal</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="features">features <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="selling_price">selling_price <font face="Arial Italic" color="grey60">decimal</font></td></tr>
+  <tr><td align="left" width="130" port="title">title <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="vender">vender <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_CommoditySku [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">CommoditySku</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="color">color <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="quantity">quantity <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="size">size <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_Image [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Image</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="photo_content_type">photo_content_type <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="photo_file_name">photo_file_name <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="photo_file_size">photo_file_size <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="photo_updated_at">photo_updated_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="snapshot_type">snapshot_type <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_User [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">User</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="mobile_no">mobile_no <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="password_digest">password_digest <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="role">role <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="wallet">wallet <font face="Arial Italic" color="grey60">decimal</font></td></tr>
+</table>
+>];
+  m_Voucher [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Voucher</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="commodity_id">commodity_id <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="discount">discount <font face="Arial Italic" color="grey60">decimal</font></td></tr>
+  <tr><td align="left" width="130" port="redeem_procedure">redeem_procedure <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="redeem_within">redeem_within <font face="Arial Italic" color="grey60">date</font></td></tr>
+  <tr><td align="left" width="130" port="title">title <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_Category -> m_Commodity [arrowhead = "normal", arrowtail = "none", weight = "2"]
+  m_Commodity -> m_CommoditySku [arrowhead = "normal", arrowtail = "none", weight = "2"]
+  m_Commodity -> m_Image [arrowhead = "normal", arrowtail = "none", weight = "1"]
+  m_Voucher -> m_Image [arrowhead = "normal", arrowtail = "none", weight = "1"]
+  m_City -> m_CommoditySku [arrowhead = "normal", arrowtail = "none", weight = "1"]
+  m_City -> m_Commodity [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"]
+}
