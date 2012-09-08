@@ -9,8 +9,9 @@ $ ->
   a = $('#slideshow').children()
   a.hide()
   a.first().fadeIn()
-  setInterval('al()', 2000);
-al ->
+  
+  
+al = () ->
   console.log("hhe")
 
 

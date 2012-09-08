@@ -39,13 +39,13 @@
         </tr>
       </table>
     </fieldset><br>
-    <% if params[:edit_img] %>
+    <% unless params[:edit_img]  %>
       <fieldset class = "sub_fieldset">
         <legend>Edit images</legend>
         <% @commodity.images.each do |img_f|%>
           <% unless img_f.id.nil? %>
             <%= image_tag img_f.photo.url(:small) %>
-            <%= link_to 'Delete', delete_img_url({:image_id => img_f.id}), method: :post %>
+            <%= link_to 'Delete', delete_img_url({:image_id => img_f.id}) %>
           <% end %>
         <% end %>
       </fieldset>

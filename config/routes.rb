@@ -1,7 +1,7 @@
 DealHound::Application.routes.draw do
   resources :commodities 
   controller :commodities do
-    post 'delete_img' => :del_image
+    get 'delete_img' => :del_image
     get 'category' => :show_category
   end
  

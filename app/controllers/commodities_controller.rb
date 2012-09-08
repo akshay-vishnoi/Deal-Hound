@@ -1,8 +1,9 @@
 class CommoditiesController < ApplicationController
-before_filter(:only => [:new, :index]){ |controller| controller.authorize('admin')}
+before_filter(:only => [:new, :create, :delete, :edit]){ |controller| controller.authorize('admin')}
   def index
     @commodities = Commodity.all
   end
+
   def new
     @category = Category.new
     @categories = Category.select('name').collect { |cont| cont.name }
@@ -13,22 +14,27 @@ before_filter(:only => [:new, :index]){ |controller| controller.authorize('admin
       format.html
     end
   end
+
   def show
     @commodity = Commodity.find_by_id(params[:id])
   end
+
   def edit
     @categories = Category.select('name').collect { |cont| cont.name }
     @category = Category.new
     @commodity = Commodity.find(params[:id])
+    params[:edit_img] = @commodity.images.empty?
     2.times { @commodity.images.build }
     @commodity.commodity_skus.build
-    params[:edit_img] = true
+    
   end
+
   def show_category
     @category = Category.find(params["category_id"])
     @commodities = @category.commodities
     render 'commodities/index'
   end
+
   def update
     @cat = Category.find_by_name(params[:commodity]["category"])
     params[:commodity].delete_if { |k,v| k == "category" }
@@ -38,15 +44,18 @@ before_filter(:only => [:new, :index]){ |controller| controller.authorize('admin
       redirect_to request.referrer, notice: "Image deleted #{params}"
     end
   end
+
   def del_image
-    Image.delete(params[:image_id])
+    Image.destroy(params[:image_id])
     redirect_to request.referrer, notice: "Image deleted #{params}"
   end
+  
   def destroy
     @commodity = Commodity.find(params[:id])
     @commodity.destroy
     redirect_to commodities_path
   end
+  
   def create
     @cat = Category.find_by_name(params[:commodity]["category"])
     params[:commodity].delete_if { |k,v| k == "category" }
