@@ -1,18 +1,18 @@
 class CommoditiesController < ApplicationController
-before_filter(:only => [:new, :create, :delete, :edit]){ |controller| controller.authorize('admin')}
+  include CommodityHelper
+
+  before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(1) }
+  
   def index
     @commodities = Commodity.all
   end
 
   def new
     @category = Category.new
-    @categories = Category.select('name').collect { |cont| cont.name }
+    @categories = category_list
     @commodity = Commodity.new
     3.times { @commodity.images.build }
     2.times { @commodity.commodity_skus.build }
-    respond_to do |format|
-      format.html
-    end
   end
 
   def show
@@ -20,13 +20,12 @@ before_filter(:only => [:new, :create, :delete, :edit]){ |controller| controller
   end
 
   def edit
-    @categories = Category.select('name').collect { |cont| cont.name }
+    @categories = category_list
     @category = Category.new
     @commodity = Commodity.find(params[:id])
     params[:edit_img] = @commodity.images.empty?
     2.times { @commodity.images.build }
-    @commodity.commodity_skus.build
-    
+    @commodity.commodity_skus.build    
   end
 
   def show_category
@@ -61,7 +60,7 @@ before_filter(:only => [:new, :create, :delete, :edit]){ |controller| controller
     params[:commodity].delete_if { |k,v| k == "category" }
     @commodity = Commodity.new(params[:commodity])
     @commodity.category = @cat
-    if @commodity.save
+    if false
       respond_to do |format|
         format.html { redirect_to @commodity }
       end

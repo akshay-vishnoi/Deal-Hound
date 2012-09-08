@@ -11,13 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904071234) do
+ActiveRecord::Schema.define(:version => 20120908075723) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "nature"
   end
 
   create_table "cities", :force => true do |t|
@@ -30,12 +29,13 @@ ActiveRecord::Schema.define(:version => 20120904071234) do
     t.integer  "category_id"
     t.string   "title"
     t.text     "features"
-    t.decimal  "actual_price"
-    t.decimal  "selling_price"
     t.text     "description"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "vender"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "vendor"
+    t.integer  "voucher"
+    t.integer  "actual_price",  :limit => 2
+    t.integer  "selling_price", :limit => 2
   end
 
   create_table "commodity_skus", :force => true do |t|
@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(:version => 20120904071234) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.decimal  "wallet",          :default => 0.0
     t.integer  "mobile_no"
-    t.string   "role",            :default => "user"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+    t.integer  "admin",                                         :default => 0
+    t.decimal  "wallet",          :precision => 2, :scale => 0, :default => 0
   end
 
   create_table "vouchers", :force => true do |t|
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(:version => 20120904071234) do
     t.text     "redeem_procedure"
     t.date     "redeem_within"
     t.integer  "commodity_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.decimal  "discount",         :default => 0.0
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+    t.decimal  "discount",         :precision => 2, :scale => 0, :default => 0
   end
 
 end

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
   <title>DealHound</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%#= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <script type="text/javascript", src = "/assets/jquery-1.7.2"></script>
   <script type="text/javascript" src = "/assets/commodity.js.coffee"></script>
   <%= csrf_meta_tags %>
+
 </head>
+
 <body>
 
 <div>
@@ -30,22 +33,21 @@
         <%= render 'commodities/side_bar' %>
       </div>
       <div>
-        <% if session[:role] == 'admin' %>
+        <% if session[:admin] == 1 %>
           <%= render 'layouts/admin_layout' %>
-        <% else %>
         <% end %>
       </div>
     </div>
     <div id = "right_div">
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, :id => key %>
+      <% end %>
+      <br> 
       <%= yield %>
     </div>
   </div>
 </div>
 
-
-
-
-
-
 </body>
+
 </html>

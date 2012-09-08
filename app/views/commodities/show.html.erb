@@ -1,8 +1,7 @@
 <h1> Hello</h1>
 
-  <div id = "slideshow">
-    <% @commodity.images.each do |img| %>
-    <%= image_tag img.photo.url(:small) %>
-    <% end %>    
-
-  </div>
+<div id = "slideshow">
+  <% @commodity.images.each do |img| %>
+  <%= image_tag img.photo.url(:small) %>
+  <% end %>    
+</div>

@@ -55,6 +55,7 @@ div{
   }
   #right_div{
     margin-left: 17em;
+    border: 1px solid white;
     background-color: white;
     h1{
       margin:0px;
@@ -68,4 +69,28 @@ div{
     background-color: blue;
     color:#e1e1e1;
   }
+}
+
+#notice{
+  margin-top: 5px;
+  margin-left:25%;
+  width:50%;
+  height:15px;
+  padding:15px;
+  color:green;
+  border: 2px solid green;
+  background-color: #e1e2e3;
+  text-align: center;
+}
+
+#error{
+  margin-top: 5px;
+  margin-left:25%;
+  width:50%;
+  height:15px;
+  padding:15px;
+  color:red;
+  border: 2px solid red;
+  background-color: #e1e2e3;
+  text-align: center;
 }

@@ -14,38 +14,71 @@
       <legend>Details:</legend>
       <table class = "commodity">
         <tr>
-          <td><%= f.label :title, 'Name' %></td>
-          <td><%= f.text_field :title %></td>
+          <td>
+            <%= f.label :title, 'Name' %>
+          </td>
+          <td>
+            <%= f.text_field :title %>
+          </td>
         </tr>
         <tr>
-          <td><%= f.label :features, 'Features' %></td>
-          <td><%= f.text_area :features %></td>
+          <td>
+            <%= f.label :features, 'Features' %>
+          </td>
+          <td>
+            <%= f.text_area :features %>
+          </td>
         </tr>
         <tr>
-          <td><%= f.label :vender, 'Vender' %></td>
-          <td><%= f.text_field :vender %></td>
-        </tr>          
-        <tr>
-          <td><%= f.label :actual_price, 'Actual Price' %></td>
-          <td><%= f.text_field :actual_price %></td>
+          <td>
+            <%= f.label :vendor, 'Vendor' %>
+          </td>
+          <td>
+            <%= f.text_field :vendor %>
+          </td>
         </tr>
         <tr>
-          <td><%= f.label :selling_price, 'Discounted Price' %></td>
-          <td><%= f.text_field :selling_price %></td>
+          <td>
+            <%= f.label :voucher, 'Type' %>
+          </td>
+          <td>
+            <%= f.select :voucher, Commodity::TYPE %>
+          </td>
         </tr>
         <tr>
-          <td><%= f.label :description, 'Description' %></td>
-          <td><%= f.text_field :description %></td>
+          <td>
+            <%= f.label :actual_price, 'Actual Price' %>
+          </td>
+          <td>
+            <%= f.text_field :actual_price %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :selling_price, 'Discounted Price' %>
+          </td>
+          <td>
+            <%= f.text_field :selling_price %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :description, 'Description' %>
+          </td>
+          <td>
+            <%= f.text_field :description %>
+          </td>
         </tr>
       </table>
-    </fieldset><br>
-    <% unless params[:edit_img]  %>
+    </fieldset>
+    <br>
+    <% unless params[:edit_img] %>
       <fieldset class = "sub_fieldset">
         <legend>Edit images</legend>
-        <% @commodity.images.each do |img_f|%>
+        <% @commodity.images.each do |img_f| %>
           <% unless img_f.id.nil? %>
             <%= image_tag img_f.photo.url(:small) %>
-            <%= link_to 'Delete', delete_img_url({:image_id => img_f.id}) %>
+            <%= link_to 'Delete', delete_img_url( { :image_id => img_f.id } ) %>
           <% end %>
         <% end %>
       </fieldset>
@@ -55,7 +88,8 @@
         <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
           <% if img_f.object.new_record? %>              
             <%= img_f.file_field :photo %>
-          <% end %><br>
+          <% end %>
+          <br>
         <% end %>
     </fieldset><br>
     <%= f.fields_for :commodity_skus do |sku_f| %>
@@ -63,19 +97,32 @@
         <legend>Type</legend>
         <table>
           <tr>
-            <td><%= sku_f.label :size, 'Size' %></td>
-            <td><%= sku_f.text_field :size %></td>
+            <td>
+              <%= sku_f.label :size, 'Size' %>
+            </td>
+            <td>
+              <%= sku_f.text_field :size %>
+            </td>
           </tr>
           <tr>
-            <td><%= sku_f.label :color, 'Color' %></td>
-            <td><%= sku_f.text_field :color %></td>
+            <td>
+              <%= sku_f.label :color, 'Color' %>
+            </td>
+            <td>
+              <%= sku_f.text_field :color %>
+            </td>
           </tr>
           <tr>
-            <td><%= sku_f.label :quantity, 'Quantity' %></td>
-            <td><%= sku_f.text_field :quantity %></td>
+            <td>
+              <%= sku_f.label :quantity, 'Quantity' %>
+            </td>
+            <td>
+              <%= sku_f.text_field :quantity %>
+            </td>
           </tr>
         </table>
-      </fieldset><br>
+      </fieldset>
+      <br>
      <% end %>
     <%= submit_tag 'Submit' %>
   <% end %>

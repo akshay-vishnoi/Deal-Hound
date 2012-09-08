@@ -1,21 +1,30 @@
-<%= notice %>
 <table id = "show_products">
   <tr>
-    <th id = "store_header" colspan = 5><h4>Commodities<h4></th>
+    <th id = "store_header" colspan = 5>
+      <h4>
+        Commodities
+      <h4>
+    </th>
   </tr>
   <% @commodities.each do |commodity| %>
-    <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
-      <td>
-        <%= commodity.title %><br>
-        <%= commodity.actual_price %>
-      </td>
-      <td>
-        <% unless commodity.commodity_skus.empty? %>
+  <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
+    <td>
+      <%= commodity.title %><br>
+      <%= commodity.actual_price %>
+    </td>
+    <td>
+      <% unless commodity.commodity_skus.empty? %>
         <table>
           <tr>
-            <td>Quantity</td>
-            <td>Size</td>
-            <td>Color</td>
+            <td>
+              Quantity
+            </td>
+            <td>
+              Size
+            </td>
+            <td>
+              Color
+            </td>
           </tr>
           <% commodity.commodity_skus.each do |sku| %>
           <tr>
@@ -37,23 +46,23 @@
           </tr>
           <% end %>
         </table>
-        <% end %>
-      </td>
-      <td>
-        <% commodity.images.each do |img| %>
-          <%= image_tag img.photo.url(:small) %>
-        <% end %>
-      </td>
-      <% if session[:role] == 'admin' %>
-        <td>
-          <%= link_to 'Edit', edit_commodity_path(commodity) %>
-          <%= link_to 'Delete', commodity, method: :delete, data: { confirm: "Are you sure?"} %>
-        </td>
       <% end %>
-      <td id = "buy_column">
-        <%= link_to 'Show', commodity_url(commodity)%>
-        <%= link_to 'BUY' %>
+    </td>
+    <td>
+      <% commodity.images.each do |img| %>
+        <%= image_tag img.photo.url(:small) %>
+      <% end %>
+    </td>
+    <% if session[:admin] == 1 %>
+      <td>
+        <%= link_to 'Edit', edit_commodity_path(commodity) %>
+        <%= link_to 'Delete', commodity, method: :delete, data: { confirm: "Are you sure?"} %>
       </td>
-    <tr>
+    <% end %>
+    <td id = "buy_column">
+      <%= link_to 'Show', commodity_url(commodity)%>
+      <%= link_to 'BUY' %>
+    </td>
+  <tr>
   <% end %>
 </table>

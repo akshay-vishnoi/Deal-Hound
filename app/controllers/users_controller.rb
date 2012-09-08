@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_filter(:except => [:new, :create]) { |conroller| conroller.authorize("user") }
+
+  before_filter(:except => [:new, :create]) { |conroller| conroller.authorize(0) }
+
   def index
   end
 
@@ -10,9 +12,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     respond_to do |format|
-    if @user.save
-      format.html { redirect_to users_path }
-    end
+      if @user.save
+        format.html { redirect_to users_path }
+      else
+        format.html { render :new }
+      end
     end
   end
 end

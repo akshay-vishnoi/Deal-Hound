@@ -1,14 +1,10 @@
-
 <%= form_for @category do |f| %>
   <fieldset class = "add_category">
     <div>
       <%= f.label :name, 'Category name' %>
       <%= f.text_field :name, :placeholder => "Category name" %>
-    </div><br>
-    <div>
-      <%= f.label :nature, 'Type' %>
-      <%= f.select :nature, Category::NATURES %>
-    </div><br>
+    </div>
+    <br>
     <div>
       <%= f.submit %>
     </div>

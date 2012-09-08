@@ -1,8 +1,11 @@
 class Category < ActiveRecord::Base
-  attr_accessible :name, :nature
+
+  attr_accessible :name
+
+  #Validation
   validates :name, presence: true, uniqueness: true
-  NATURES = [ 'Product', 'Service']
-  validates :nature, inclusion: NATURES
+  
+  #Commodity Association
   has_many :commodities, dependent: :destroy
   accepts_nested_attributes_for :commodities
 end
