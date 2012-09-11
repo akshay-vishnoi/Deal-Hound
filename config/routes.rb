@@ -1,4 +1,5 @@
 DealHound::Application.routes.draw do
+
   resources :commodities 
   controller :commodities do
     get 'delete_img' => :del_image
@@ -14,7 +15,11 @@ DealHound::Application.routes.draw do
   end
   resources :users
   resources :categories
-  
+  # #resources :admins, :module => "admin"
+  # scope "/admin" do
+    
+  # end  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -64,7 +69,7 @@ DealHound::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+   #root :to => 'commodities#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,17 +1,31 @@
 <fieldset>
-  <legend>Please Log In</legend>  
+  <legend>Please Log In</legend>
+  <table id = "login_table">
   <%= form_tag do %>
-    <div>
-      <%= label_tag :name, 'Name' %>
-      <%= text_field_tag :name, params[:name] %>
-    </div>
-    <div>
-      <%= label_tag :password, 'Password' %>
-      <%= password_field_tag :password, params[:password] %>
-    </div>
-    <div>
-      <%= button_tag 'Login'%>
-    </div>
+    <tr>
+      <td>
+        <%= label_tag :name, 'Name' %>
+      </td>
+      <td>
+        <%= text_field_tag :name, params[:name] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= label_tag :password, 'Password' %>
+      </td>
+      <td>
+        <%= password_field_tag :password, params[:password] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <%= button_tag 'Login'%>
+      </td>
+    </tr>
   <% end %>
+  </table>
   <%= button_to 'Sign up', new_user_path, :method => :get %>
 </fieldset>

@@ -22,7 +22,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
+gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password

@@ -11,8 +11,8 @@ class CommoditiesController < ApplicationController
     @category = Category.new
     @categories = category_list
     @commodity = Commodity.new
-    3.times { @commodity.images.build }
-    2.times { @commodity.commodity_skus.build }
+    @commodity.images.build
+    @commodity.commodity_skus.build
   end
 
   def show
@@ -23,8 +23,9 @@ class CommoditiesController < ApplicationController
     @categories = category_list
     @category = Category.new
     @commodity = Commodity.find(params[:id])
-    params[:edit_img] = @commodity.images.empty?
-    2.times { @commodity.images.build }
+    params[:selected_category] = @commodity.category.name
+    params[:edit_img] = !(@commodity.images.empty?)
+    @commodity.images.build
     @commodity.commodity_skus.build    
   end
 
@@ -40,13 +41,13 @@ class CommoditiesController < ApplicationController
     @commodity = Commodity.find(params[:id])
     @commodity.category = @cat
     if @commodity.update_attributes(params[:commodity])
-      redirect_to request.referrer, notice: "Image deleted #{params}"
+      redirect_to commodities_url, notice: "Update successful"
     end
   end
 
   def del_image
     Image.destroy(params[:image_id])
-    redirect_to request.referrer, notice: "Image deleted #{params}"
+    redirect_to request.referrer, notice: "Image deleted"
   end
   
   def destroy
@@ -60,12 +61,14 @@ class CommoditiesController < ApplicationController
     params[:commodity].delete_if { |k,v| k == "category" }
     @commodity = Commodity.new(params[:commodity])
     @commodity.category = @cat
-    if false
-      respond_to do |format|
+    respond_to do |format|
+      if @commodity.save
         format.html { redirect_to @commodity }
+      else
+        @category = Category.new
+        @categories = category_list
+        format.html { render :new }
       end
-    else
-      redirect_to login_url, notice: "#{params}, #{@cat}"
     end 
   end
 end

@@ -36,15 +36,19 @@ body{
 div{
   margin: 0px;
 }
-#columns{
+#main_table{
+  margin: 0px;
+  border-collapse: collapse;
+}
+#main_row{
   background-color: green;
-  min-height:100%;
-  #left_div{
+  margin: 0px;
+  #left_col{
     float:left;
     padding: 1em 2em;
-    width: 13em;
+    width: 250px;
     background-color: green;
-    height:100%;
+    margin: 0;
     div#admin_links{
       ul{
         margin: 0px;
@@ -53,8 +57,7 @@ div{
       }
     }
   }
-  #right_div{
-    margin-left: 17em;
+  #right_col{    
     border: 1px solid white;
     background-color: white;
     h1{
@@ -93,4 +96,50 @@ div{
   border: 2px solid red;
   background-color: #e1e2e3;
   text-align: center;
+}
+#no_commodity{
+  background-color: grey; 
+}
+#login_table{
+  tr{
+    td:first-child{
+      width:200px;
+      text-align: left;
+    }
+    td:last-child{
+      text-align: right;
+    }
+  }
+}
+.error{
+  input{
+    border: 2px solid red;
+  }
+  color: red;
+}
+#signup{
+  background-color: #e1e2e3;
+  width:700px;
+  color:black;
+}
+#slideshow{
+  float: right;
+  margin-top: 20px;
+  border: 2px solid black;
+  width: 120px;
+  height: 120px;
+  display:inline-block;
+}
+#show_left{
+  margin-left: 20px;
+  float: left;
+  margin-right: 100px;
+}
+#actual_price{
+ text-decoration: line-through;
+ color: grey;
+}
+#selling_price{
+  font-weight: bold;
+  color:#ab2c26;
 }

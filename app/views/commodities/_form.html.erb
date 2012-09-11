@@ -4,21 +4,33 @@
   <div id = "add">
     <%= render 'categories/form', :remote => true %>
   </div>
-  <%= form_for(@commodity) do |f| %>
+  <%= nested_form_for @commodity do |f| %>
     <div>
-      <%= f.select :category, @categories, prompt: "Select a Category" %>
+      <% if @commodity.errors.get(:category) %>
+        <%= @commodity.errors.get(:category).join(', ') %>
+      <% end %>
+      <%= f.select :category, @categories, :selected => params[:selected_category] %>
       <span><img id = "add_cat" src = "/assets/plus.png"/> (add a new category)</span>
     </div>
     <br>
     <fieldset class = "sub_fieldset">
       <legend>Details:</legend>
       <table class = "commodity">
+        <% if @commodity.errors.get(:title) %>
+        <tr class = "error">
+        <% else %>
         <tr>
+        <% end %>
           <td>
             <%= f.label :title, 'Name' %>
           </td>
           <td>
             <%= f.text_field :title %>
+          </td>
+          <td>
+            <% if @commodity.errors.get(:title) %>
+            <%= @commodity.errors.get(:title).join(', ') %>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -72,7 +84,7 @@
       </table>
     </fieldset>
     <br>
-    <% unless params[:edit_img] %>
+    <% if params[:edit_img] %>
       <fieldset class = "sub_fieldset">
         <legend>Edit images</legend>
         <% @commodity.images.each do |img_f| %>
@@ -86,11 +98,14 @@
     <fieldset class = "sub_fieldset">
       <legend>Image Files</legend>
         <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
-          <% if img_f.object.new_record? %>              
+          <% if img_f.object.new_record? %>        
             <%= img_f.file_field :photo %>
           <% end %>
-          <br>
+          <% unless params[:edit_img] %>
+          <%= img_f.link_to_remove "Remove this image" %>
+          <% end %>
         <% end %>
+        <%= f.link_to_add "Add a image", :images %>
     </fieldset><br>
     <%= f.fields_for :commodity_skus do |sku_f| %>
       <fieldset class = "sub_fieldset">
@@ -120,10 +135,12 @@
               <%= sku_f.text_field :quantity %>
             </td>
           </tr>
+          <tr><td></td><td><%= sku_f.link_to_remove "Remove this type" %>
         </table>
       </fieldset>
       <br>
      <% end %>
-    <%= submit_tag 'Submit' %>
+     <%= f.link_to_add "Add a type", :commodity_skus %>
+    <%= f.submit 'Submit' %>
   <% end %>
 </fieldset>

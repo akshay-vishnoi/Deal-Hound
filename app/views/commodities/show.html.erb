@@ -1,7 +1,35 @@
-<h1> Hello</h1>
+<div>
+  <div id ="show_left">
+    <table id = "show_commodity">
+      <tr>
+        <td><h2><%= @commodity.title %></h2></td>
+        <td> (By <%= @commodity.vendor.capitalize %> )</td>
+      </tr>
+      <tr>
+        <td id = "actual_price">&#8377; <%= @commodity.actual_price %></td>
+        <td id = "selling_price">&#8377; <%= @commodity.selling_price %></td>
+      </tr>
+      <tr>
+        <td><br>Features: </td>
+      </tr>
+      <tr>
+        <td colspan = 2>
+          <% @commodity.features.split("\n").each do |feature| %>
+          <%= feature %><br>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>
 
-<div id = "slideshow">
-  <% @commodity.images.each do |img| %>
-  <%= image_tag img.photo.url(:small) %>
-  <% end %>    
+        </td>
+              
+      </tr>
+    </table>
+  </div>
+  <div id = "slideshow">
+    <% @commodity.images.each do |img| %>
+    <%= image_tag img.photo.url(:small) %>
+    <% end %>    
+  </div>
 </div>

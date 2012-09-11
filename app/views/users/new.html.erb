@@ -1,28 +1,78 @@
 <%= form_for(@user) do |f| %>
-  <fieldset>
+  <fieldset id = "signup">
     <legend>Please Enter Details</legend>
-    <div>
-      <%= f.label :name, 'Name' %>
-      <%= f.text_field :name %>
-    </div>
-    <div>
-      <%= f.label :password, 'Password' %>
-      <%= f.password_field :password %>
-    </div>
-    <div>
-      <%= f.label :password_confirmation, 'Confirm Password' %>
-      <%= f.password_field :password_confirmation %>
-    </div>
-    <div>
-      <%= f.label :email, 'Email' %>
-      <%= f.text_field :email %>
-    </div>
-    <div>
-      <%= f.label :mobile_no, 'Mobile number' %>
-      <%= f.text_field :mobile_no %>
-    </div>
-    <div>
-      <%= f.submit 'Submit' %>
-    </div>
+    <table>
+    <% if @user.errors.get(:name) %>
+    <tr class = "error"> 
+    <% else %>
+    <tr>
+    <% end %>
+      <td>
+        <%= f.label :name, 'Name' %>
+      </td>
+      <td>
+        <%= f.text_field :name %>
+      </td>
+      <td>
+        <% if @user.errors.get(:name) %>
+        <%= @user.errors.get(:name).join(', ') %>
+        <% end %>
+      </td>
+    </tr>
+    <% if @user.errors.get(:password) %>
+    <tr class = "error">
+    <% else %>
+    <tr>
+    <% end %>
+      <td>
+        <%= f.label :password, 'Password' %>
+      </td>
+      <td>
+        <%= f.password_field :password %>
+      </td>
+      <td>
+        <% if @user.errors.get(:password) %>
+        <%= @user.errors.get(:password).join(', ') %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :password_confirmation, 'Confirm Password' %>
+      </td>
+      <td>
+        <%= f.password_field :password_confirmation %>
+      </td>
+    </tr>
+    <% if @user.errors.get(:email) %>
+    <tr class = "error"> 
+    <% else %>
+    <tr>
+    <% end %>
+      <td>
+        <%= f.label :email, 'Email' %>
+      </td>
+      <td>
+        <%= f.email_field :email %>
+      </td>
+      <td>
+        <% if @user.errors.get(:email) %>
+        <%= @user.errors.get(:email).join(', ') %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :mobile_no, 'Mobile number' %>
+      </td>
+      <td>
+        <%= f.text_field :mobile_no %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit 'Submit' %></td>
+    </tr>
+  </table>
   </fieldset>
 <% end %>

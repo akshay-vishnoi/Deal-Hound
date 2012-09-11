@@ -6,63 +6,72 @@
       <h4>
     </th>
   </tr>
-  <% @commodities.each do |commodity| %>
-  <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
-    <td>
-      <%= commodity.title %><br>
-      <%= commodity.actual_price %>
-    </td>
-    <td>
-      <% unless commodity.commodity_skus.empty? %>
-        <table>
-          <tr>
-            <td>
-              Quantity
-            </td>
-            <td>
-              Size
-            </td>
-            <td>
-              Color
-            </td>
-          </tr>
-          <% commodity.commodity_skus.each do |sku| %>
-          <tr>
-            <td>
-              <% if sku.quantity %>
-                <%= sku.quantity %>
-              <% end %>
-            </td>
-            <td>
-              <% unless sku.size.empty? %>
-                <%= sku.size %>
-              <% end %>
-            </td>
-            <td>
-              <% unless sku.color.empty? %>
-                <%= sku.color %>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
-        </table>
-      <% end %>
-    </td>
-    <td>
-      <% commodity.images.each do |img| %>
-        <%= image_tag img.photo.url(:small) %>
-      <% end %>
-    </td>
-    <% if session[:admin] == 1 %>
+  <% unless @commodities.empty? %>
+    <% @commodities.each do |commodity| %>
+    <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
       <td>
-        <%= link_to 'Edit', edit_commodity_path(commodity) %>
-        <%= link_to 'Delete', commodity, method: :delete, data: { confirm: "Are you sure?"} %>
+        <%= image_tag commodity.images[0].photo.url(:small) %>
       </td>
+      <td>
+        <%= commodity.title %><br>
+        &#8377;<%= commodity.actual_price %><br>
+                <%= commodity.vendor %>
+      </td>
+      <td>
+        <% if session[:admin] == 1 %>
+        <% unless commodity.commodity_skus.empty? %>
+          <table>
+            <tr>
+              <td>
+                Quantity
+              </td>
+              <td>
+                Size
+              </td>
+              <td>
+                Color
+              </td>
+            </tr>
+            <% commodity.commodity_skus.each do |sku| %>
+            <tr>
+              <td>
+                <% if sku.quantity %>
+                  <%= sku.quantity %>
+                <% end %>
+              </td>
+              <td>
+                <% unless sku.size.empty? %>
+                  <%= sku.size %>
+                <% end %>
+              </td>
+              <td>
+                <% unless sku.color.empty? %>
+                  <%= sku.color %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </table>
+        <% end %>
+        <% end %>
+      </td>
+      <% if session[:admin] == 1 %>
+        <td>
+          <%= link_to 'Edit', edit_commodity_path(commodity) %>
+          <%= link_to 'Delete', commodity, :method => :delete, data: {confirm: "Are you sure?" } %>
+        </td>
+      <% end %>
+      <td id = "buy_column">
+        <%= link_to 'Show', commodity_url(commodity)%>
+        <%= link_to 'BUY' %>
+      </td>
+    <tr>
     <% end %>
-    <td id = "buy_column">
-      <%= link_to 'Show', commodity_url(commodity)%>
-      <%= link_to 'BUY' %>
-    </td>
-  <tr>
+  <% else %>
+    <tr>
+      <td id = "no_commodity">
+        Sorry, there is no Commodity in this category.
+      </td>  
+    </tr>
   <% end %>
 </table>

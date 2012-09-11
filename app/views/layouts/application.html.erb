@@ -5,8 +5,9 @@
 
   <title>DealHound</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <script type="text/javascript", src = "/assets/jquery-1.7.2"></script>
-  <script type="text/javascript" src = "/assets/commodity.js.coffee"></script>
+  <!-- <script type="text/javascript" src = "/assets/commodity.js.coffee"></script> -->
   <%= csrf_meta_tags %>
 
 </head>
@@ -27,24 +28,27 @@
       <% end %>
     </div>    
   </div>
-  <div id = "columns">
-    <div id = "left_div">
-      <div>
-        <%= render 'commodities/side_bar' %>
-      </div>
-      <div>
-        <% if session[:admin] == 1 %>
-          <%= render 'layouts/admin_layout' %>
-        <% end %>
-      </div>
-    </div>
-    <div id = "right_div">
-      <% flash.each do |key, value| %>
-        <%= content_tag :div, value, :id => key %>
-      <% end %>
-      <br> 
-      <%= yield %>
-    </div>
+  <div>
+  <table id = "main_table">
+    <tr id = "main_row">
+      <td id = "left_col">
+        <div>
+          <%= render 'commodities/side_bar' %>
+        </div>
+        <div>
+          <% if session[:admin] == 1 %>
+            <%= render 'layouts/admin_layout' %>
+          <% end %>
+        </div>
+      </td>
+      <td id = "right_col">
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, value, :id => key %>
+        <% end %> 
+        <%= yield %>
+      </td>
+    </tr>
+  </table>
   </div>
 </div>
 
