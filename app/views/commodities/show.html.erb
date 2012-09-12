@@ -15,21 +15,62 @@
       <tr>
         <td colspan = 2>
           <% @commodity.features.split("\n").each do |feature| %>
-          <%= feature %><br>
+          <%= feature %><br><br>
           <% end %>
         </td>
       </tr>
       <tr>
         <td>
 
-        </td>
-              
+        </td>              
       </tr>
     </table>
   </div>
-  <div id = "slideshow">
-    <% @commodity.images.each do |img| %>
-    <%= image_tag img.photo.url(:small) %>
-    <% end %>    
+  <div id = "side_show">
+    <div id = "slideshow">
+      <% @commodity.images.each do |img| %>
+      <%= image_tag img.photo.url(:small) %>
+      <% end %>
+    </div>
+    <br>
+    <br>
+  
+    *Select Quantity, and click Buy
+    <table id = "buy_at_show">
+    <% @commodity.commodity_skus.each do |sku| %>
+      <tr>
+        <%= form_tag line_items_path(commodity_sku_id: sku) do %>
+        <%= hidden_field_tag :commodity_sku_id, sku.id%>
+          <% if sku.quantity %>
+            <td>
+              <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
+            </td>
+          <% end %>
+          
+          <% unless sku.size.empty? %>
+            <td>
+              <%= sku.size %>
+            </td>
+          <% end %>
+          
+          <% unless sku.color.empty? %>
+            <td>
+              <%= sku.color %>
+            </td>
+          <% end %>
+          
+          <td>
+            <%= submit_tag 'BUY' %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+    <br>
+    <%= link_to 'Back', commodities_path %>
   </div>
 </div>
+
+
+
+

@@ -18,42 +18,7 @@
                 <%= commodity.vendor %>
       </td>
       <td>
-        <% if session[:admin] == 1 %>
-        <% unless commodity.commodity_skus.empty? %>
-          <table>
-            <tr>
-              <td>
-                Quantity
-              </td>
-              <td>
-                Size
-              </td>
-              <td>
-                Color
-              </td>
-            </tr>
-            <% commodity.commodity_skus.each do |sku| %>
-            <tr>
-              <td>
-                <% if sku.quantity %>
-                  <%= sku.quantity %>
-                <% end %>
-              </td>
-              <td>
-                <% unless sku.size.empty? %>
-                  <%= sku.size %>
-                <% end %>
-              </td>
-              <td>
-                <% unless sku.color.empty? %>
-                  <%= sku.color %>
-                <% end %>
-              </td>
-            </tr>
-            <% end %>
-          </table>
-        <% end %>
-        <% end %>
+        <%= truncate(commodity.features.gsub(/\n/, '<br />'), :length => 100).html_safe %>
       </td>
       <% if session[:admin] == 1 %>
         <td>
@@ -62,8 +27,7 @@
         </td>
       <% end %>
       <td id = "buy_column">
-        <%= link_to 'Show', commodity_url(commodity)%>
-        <%= link_to 'BUY' %>
+        <%= link_to 'Buy/Show', commodity_url(commodity)%>
       </td>
     <tr>
     <% end %>

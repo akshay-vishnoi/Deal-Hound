@@ -101,9 +101,9 @@
           <% if img_f.object.new_record? %>        
             <%= img_f.file_field :photo %>
           <% end %>
-          <% unless params[:edit_img] %>
-          <%= img_f.link_to_remove "Remove this image" %>
-          <% end %>
+            <% unless params[:edit_img] %>
+            <%= img_f.link_to_remove "Remove this image" %>
+            <% end %>
         <% end %>
         <%= f.link_to_add "Add a image", :images %>
     </fieldset><br>

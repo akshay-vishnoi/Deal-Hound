@@ -122,17 +122,25 @@ div{
   width:700px;
   color:black;
 }
-#slideshow{
+#side_show{
   float: right;
-  margin-top: 20px;
-  border: 2px solid black;
-  width: 120px;
-  height: 120px;
-  display:inline-block;
+  #slideshow{
+    margin-top: 20px;
+    border: 2px solid black;
+    width: 120px;
+    height: 120px;
+    display:inline-block;
+    img{
+      padding: 10px;
+      float: left;  
+    }
+  }
+  text-align:right;
 }
 #show_left{
   margin-left: 20px;
   float: left;
+  width:400px;
   margin-right: 100px;
 }
 #actual_price{
@@ -142,4 +150,59 @@ div{
 #selling_price{
   font-weight: bold;
   color:#ab2c26;
+}
+#buy_at_show, #buy_at_show th, #buy_at_show td {
+  border: 1px solid black;
+  padding: 6px;
+  border-collapse: collapse;
+  font-size: 20px;
+  input[type = submit]{
+    width : 50px;
+    height: 25px;
+    margin-left: 25px;
+    float: left;
+  }
+}
+#buy_at_show td:last-child{
+  width: 100px;
+}
+.hide_cart{
+  z-index: -1;
+  display: none;
+}
+.show_cart{
+  z-index: 999;
+  display: block;
+  position: fixed;
+  background-color:rgba(0,0,0,0.5);
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  filter:alpha(opacity =60);
+}
+#cart_link{
+  color: black;
+  font-size: 20px;
+  margin-left: 80px;
+  background-color: orange;
+  padding: 3px 20px;
+}
+.inner_cart{
+  clear:both;
+  min-height: 450px;
+  width: 700px;
+  height: auto;  
+  margin-top: 120px;
+  margin-left: 300px;
+  border: 3px solid black;
+  background-color:  #FFFDD0;
+  opacity: 1;
+}
+#close_cart{
+  float: right;
+  color: red;
+  background-color: #e1e2e3;
+  margin-top: 5px;
+  margin-right: 10px;
+  padding: 3px;
 }

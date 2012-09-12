@@ -10,7 +10,7 @@ class Commodity < ActiveRecord::Base
   belongs_to :category
   
   #CommoditySku Association
-  has_many :commodity_skus, :dependent => :destroy
+  has_many :commodity_skus, :dependent => :destroy, :inverse_of => :commodity
   accepts_nested_attributes_for :commodity_skus, :reject_if => lambda { |t| t['size'].empty? && t['color'].empty? && t['quantity'].empty? }
 
   #Images Association

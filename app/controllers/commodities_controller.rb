@@ -5,6 +5,7 @@ class CommoditiesController < ApplicationController
   
   def index
     @commodities = Commodity.all
+    @cart = Cart.find(3)
   end
 
   def new
