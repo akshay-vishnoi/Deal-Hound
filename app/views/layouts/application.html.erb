@@ -19,10 +19,11 @@
     <% @user = User.find(session[:user_id]) %> 
     <% @cart = @user.cart %>
     <% if @user && @cart %>
-    <div id = "cart" class = "show_cart">
+    <div id = "cart" class = "hide_cart">
       <div class = "inner_cart">
-        <%= link_to 'Close', "", :remote => true, :onclick => '$("#cart").removeClass("show_cart")', :id => "close_cart" %>
-        <%= render '/carts/show' %>
+          <div id = "render_cart" >
+          <%= render '/carts/show' %>
+        </div>
       </div>
     </div>
     <% end %>
@@ -45,10 +46,14 @@
     <table id = "main_table">
       <tr id = "main_row">
         <td id = "left_col">
-          <% if session[:user_id] && User.find(session[:user_id]) %>
-          <div>
-            <%= link_to 'MYCart', cart_path(Cart.find(3)), :remote => true, :id => "cart_link", :onclick => '$("#cart").addClass("show_cart")' %><br><br>
-          </div>
+          <% if session[:user_id] %>
+            <% @user = User.find(session[:user_id]) %> 
+            <% @cart = @user.cart %>
+            <% if @user && @cart %>
+              <div id = "mycart">
+                <%= render '/layouts/mycart' %>
+              </div>
+            <% end %>
           <% end %>
           <div>
             <%= render 'commodities/side_bar' %>

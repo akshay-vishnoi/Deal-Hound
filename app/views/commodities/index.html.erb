@@ -10,7 +10,9 @@
     <% @commodities.each do |commodity| %>
     <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
       <td>
-        <%= image_tag commodity.images[0].photo.url(:small) %>
+        <% if commodity.images[0] %>
+          <%= image_tag commodity.images[0].photo.url(:small) %>
+        <% end %>
       </td>
       <td>
         <%= commodity.title %><br>

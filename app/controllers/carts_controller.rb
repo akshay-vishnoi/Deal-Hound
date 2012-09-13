@@ -7,10 +7,12 @@ class CartsController < ApplicationController
       @cart = Cart.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to store_url, notice: "Invalid cart option"
+      redirect_to login_url, notice: "Invalid cart option"
     else
       respond_to do |format|
-        format.html
+        flash[:cart_flash] = true
+        format.html { redirect_to request.referrer}
+        format.js { render :action => :show, :layout => false}
       end
     end    
   end

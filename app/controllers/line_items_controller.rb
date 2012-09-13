@@ -15,7 +15,7 @@ class LineItemsController < ApplicationController
     @commodity_sku = CommoditySku.find(params[:commodity_sku_id])
     @line_item = @cart.add_item(@commodity_sku.id, @commodity_sku.commodity.selling_price, params[:quantity])
     if @line_item.save
-      redirect_to request.referrer
+      redirect_to cart_path(@cart)
     else
       flash[:error] = "The current item is not available"
       redirect_to commodities.url
@@ -25,6 +25,11 @@ class LineItemsController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    @line_item = LineItem.find(params[:id])
+    @line_item.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 end

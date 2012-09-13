@@ -6,13 +6,52 @@ h1{
   text-align: center;
 }
 #cart_table{
-  margin: 10px;
+  margin: 20px;
+  text-align: center;
   border-collapse: collapse;
   tr{
     td{
       padding: 5px;
       text-align: center;
       border: 1px solid black;
+      a{
+        background-image: url(/assets/cross_circle.png);
+        padding-left: 15px;
+        background-repeat: no-repeat;
+      }
     }
   }
+}
+#no_item_p{
+  margin-left: 50px;
+  background-color: #e1e2e3;
+  width: 600px;
+  text-align: center;
+}
+#pro_to_shop{
+  margin-right: 50px;
+  float: right;
+  background-color: #e34e34;
+  text-decoration: none;
+  color: white;
+}
+#scroll_cart{
+  height: 250px;
+  overflow:auto;
+  padding-left: 30px;
+  box-shadow:0px 3px 5px  #888888;
+}
+#cart_footer{
+  padding:10px;
+  a{
+    float: right;
+    margin-right: 150px;  
+    background-color: #e34e34;
+    text-decoration: none;
+    color: white;
+  }
+}
+#tot_price {
+  float: right;
+  margin-right: 20px;
 }

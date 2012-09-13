@@ -1,25 +1,47 @@
+<%= link_to '', "", :remote => true, :onclick => 'hide_cart()', :id => "close_cart" %>
+<% if flash[:cart_flash] %>
+  <script type="text/javascript">
+    $("#cart").addClass("show_cart");
+  </script>
+<% end %>
+<% @cart = User.find(session[:user_id]).cart %>
 <h1>My Cart(<%= @cart.line_items.count %>)</h1>
-<table id = "cart_table">
-  <tr>
-    <td></td>
-    <td>Item</td>
-    <td>Price</td>
-    <td>Quantity</td>
-    <td>Sub Total</td>
-    <td></td>
-  </tr>
-  <% @cart.line_items.each do |item| %>
+<% if @cart.line_items.any? %>
+<div id = "scroll_cart">
+  <table id = "cart_table">
     <tr>
-      <% commodity = item.commodity_sku.commodity %>
-      <% commodity_sku = item.commodity_sku %>
-      <td>
-        <%= image_tag item.commodity_sku.commodity.images[0].photo.url(:very_small) %>
-      </td>
-      <td><%= commodity.title.capitalize %> (<%= commodity_sku.size %> <%= commodity_sku.color %>)</td>
-      <td><%= number_to_currency(commodity.selling_price, :unit => '&#8377;') %></td>
-      <td><%= item.quantity %></td>
-      <td><%= number_to_currency(item.total_price, :unit => '&#8377; ') %></td>
+      <td></td>
+      <td>Item</td>
+      <td>Price</td>
+      <td>Quantity</td>
+      <td>Sub Total</td>
       <td></td>
     </tr>
-  <% end %>
-</table>
+    <% @cart.line_items.each do |item| %>
+      <tr>
+        <% commodity = item.commodity_sku.commodity %>
+        <% commodity_sku = item.commodity_sku %>
+        <td>
+          <% if commodity.images[0] %>
+            <%= image_tag commodity.images[0].photo.url(:very_small) %>
+          <% end %>
+        </td>
+        <td><%= commodity.title.capitalize %> (<%= commodity_sku.size %> <%= commodity_sku.color %>)</td>
+        <td><%= number_to_currency(commodity.selling_price, :unit => '&#8377;') %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.total_price, :unit => '&#8377; ') %></td>
+        <td><%= link_to '',item, :method => :delete, :remote => true, :class => 'delete_item' %></td>
+      </tr>
+    <% end %>
+    <tr>
+  </table>
+</div>
+<div id = "cart_footer">
+  <span id = "tot_price"> Total Price: <b><%= number_to_currency(@cart.total_price, :unit => '&#8377;') %></b></span><br><br>
+  <%= link_to 'Add more item(s) to cart', "", :remote => true, :onclick => 'hide_cart()' %>
+  <%= link_to 'Proceed to Payment', "", :remote => true, :onclick => 'hide_cart()' %>
+</div>
+<% else %>
+  <p id = "no_item_p"><br><%= image_tag '/assets/empty-cart.jpg' %><br>There is no item in Cart right now.<br><br></p>
+  <%= link_to 'Proceed to shopping', "", :remote => true, :onclick => 'hide_cart()', :id => "pro_to_shop" %>
+<% end %>

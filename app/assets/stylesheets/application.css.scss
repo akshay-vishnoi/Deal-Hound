@@ -97,6 +97,9 @@ div{
   background-color: #e1e2e3;
   text-align: center;
 }
+#cart_flash{
+  display:none;
+}
 #no_commodity{
   background-color: grey; 
 }
@@ -191,18 +194,19 @@ div{
   clear:both;
   min-height: 450px;
   width: 700px;
-  height: auto;  
-  margin-top: 120px;
-  margin-left: 300px;
+  height: 400px;  
+  margin-top: 100px;
+  margin-left: 250px;
   border: 3px solid black;
   background-color:  #FFFDD0;
   opacity: 1;
 }
 #close_cart{
-  float: right;
-  color: red;
-  background-color: #e1e2e3;
-  margin-top: 5px;
-  margin-right: 10px;
-  padding: 3px;
+  background-image: url(/assets/close_cart.jpg);
+  padding-left: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-repeat: no-repeat;
+  margin-left: 680px;
+  margin-top: 10px;
 }
