@@ -1,12 +1,17 @@
 <%= link_to '', "", :remote => true, :onclick => 'hide_cart()', :id => "close_cart" %>
-<% if flash[:cart_flash] %>
-  <script type="text/javascript">
-    $("#cart").addClass("show_cart");
-  </script>
-<% end %>
 <% @cart = User.find(session[:user_id]).cart %>
-<h1>My Cart(<%= @cart.line_items.count %>)</h1>
-<%= flash[:added_item] %>
+<h2>My Cart(<%= @cart.line_items.count %>)</h2>
+<% if flash[:item_info] %>
+<div id = "flash_message">
+  <% if flash[:item_info].to_s.last === "1" %>
+  <div class = "green_div">
+  <% else %>
+  <div class = "red_div">
+  <% end %>
+    <%= flash[:item_info].to_s.chop %>
+  </div>
+</div>
+<% end %>
 <% if @cart.line_items.any? %>
 <div id = "scroll_cart">
   <table id = "cart_table">
@@ -29,7 +34,12 @@
         </td>
         <td><%= commodity.title.capitalize %> (<%= commodity_sku.size %> <%= commodity_sku.color %>)</td>
         <td><%= number_to_currency(commodity.selling_price, :unit => '&#8377;') %></td>
-        <td><%= item.quantity %></td>
+        <td>
+          <%= form_tag line_items_path(commodity_sku_id: commodity_sku) do %>
+            <%= select_tag :quantity, options_for_select((1..commodity_sku.quantity).to_a, item.quantity), :onchange => 'quantity_changed(this)' %>
+            <%= submit_tag '', :class => "update_quantity_button" %>
+          <% end %>
+        </td>
         <td><%= number_to_currency(item.total_price, :unit => '&#8377; ') %></td>
         <td><%= link_to '',item, :method => :delete, :remote => true, :class => 'delete_item' %></td>
       </tr>
@@ -45,4 +55,7 @@
 <% else %>
   <p id = "no_item_p"><br><%= image_tag '/assets/empty-cart.jpg' %><br>There is no item in Cart right now.<br><br></p>
   <%= link_to 'Proceed to shopping', "", :remote => true, :onclick => 'hide_cart()', :id => "pro_to_shop" %>
+<% end %>
+<% if flash[:cart_flash] %>
+  <script type="text/javascript">show_cart()</script>
 <% end %>

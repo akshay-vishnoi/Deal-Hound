@@ -11,9 +11,8 @@ class CartsController < ApplicationController
     else
       respond_to do |format|
         flash[:cart_flash] = true
-        flash[:added_item] = flash[:item]
-        format.html { redirect_to request.referrer}
-        format.js { render :action => :show, :layout => false}
+        flash[:item_info] = flash[:item]
+        format.html { redirect_to request.referrer }
       end
     end    
   end

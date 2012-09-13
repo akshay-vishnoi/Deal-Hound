@@ -14,8 +14,15 @@
 //= require jquery_ujs
 //= require_tree .
 function show_cart() {
+  $('#flash_message').show()
   $("#cart").addClass("show_cart")
+  setTimeout(function() {
+    $('#flash_message').slideUp()
+  }, 4000);
 }
 function hide_cart() {
   $("#cart").removeClass("show_cart")
+}
+function quantity_changed(select) {
+  console.log($(select).next("input.update_quantity_button").click())  
 }

@@ -12,10 +12,8 @@ class LineItemsController < ApplicationController
 
   def create
     @cart = Cart.find_or_create_by_user_id(session[:user_id])
-    @commodity_sku = CommoditySku.find(params[:commodity_sku_id])
-    @line_item = @cart.add_item(@commodity_sku.id, @commodity_sku.commodity.selling_price, params[:quantity])
+    @line_item, flash[:item] = @cart.add_item(params[:commodity_sku_id], params[:quantity].to_i)
     if @line_item.save
-      flash[:item] = "#{params[:quantity]} #{@commodity_sku.commodity.title} (#{@commodity_sku.color} #{@commodity_sku.size}) has/have been added"
       redirect_to cart_path(@cart)
     else
       flash[:error] = "The current item is not available"
@@ -28,6 +26,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
+    flash[:item_info] = "#{@line_item.commodity_sku.quantity} #{@line_item.commodity_sku.commodity.title} had been deleted from your cart.0"
     @line_item.destroy
     respond_to do |format|
       format.js

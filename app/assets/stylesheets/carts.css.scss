@@ -2,13 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-h1{
+h2{
   text-align: center;
 }
 #cart_table{
   margin: 20px;
   text-align: center;
   border-collapse: collapse;
+  width: 90%;
   tr{
     td{
       padding: 5px;
@@ -54,4 +55,30 @@ h1{
 #tot_price {
   float: right;
   margin-right: 20px;
+}
+.green_div{
+  display: block;
+  width: 80%;
+  height: 20px;
+  padding: 10px 0px;
+  margin:auto;
+  text-align: center;
+  background-color: #C7EC9E;
+  border: 2px solid green;
+}
+.red_div{
+  display: block;
+  width: 80%;
+  height: 20px;
+  padding: 10px 0px;
+  margin:auto;
+  text-align: center;
+  background-color: #FFECEC;
+  border: 2px solid red;
+}
+#flash_message{
+  display: none;
+}
+input.update_quantity_button{
+  display: none;
 }
