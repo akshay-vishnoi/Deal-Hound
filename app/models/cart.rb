@@ -8,7 +8,7 @@ class Cart < ActiveRecord::Base
   def add_item(commodity_sku_id, price, quantity)
     current_item = line_items.find_by_commodity_sku_id(commodity_sku_id)
     if current_item
-      if (current_item.quantity + quantity) < current_item.commodity_sku.quantity
+      if (current_item.quantity + quantity.to_i) < current_item.commodity_sku.quantity
         current_item.quantity += quantity.to_i
       end
     else

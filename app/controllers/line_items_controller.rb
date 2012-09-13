@@ -15,6 +15,7 @@ class LineItemsController < ApplicationController
     @commodity_sku = CommoditySku.find(params[:commodity_sku_id])
     @line_item = @cart.add_item(@commodity_sku.id, @commodity_sku.commodity.selling_price, params[:quantity])
     if @line_item.save
+      flash[:item] = "#{params[:quantity]} #{@commodity_sku.commodity.title} (#{@commodity_sku.color} #{@commodity_sku.size}) has/have been added"
       redirect_to cart_path(@cart)
     else
       flash[:error] = "The current item is not available"

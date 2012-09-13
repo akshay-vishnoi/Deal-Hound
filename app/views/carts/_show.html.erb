@@ -6,6 +6,7 @@
 <% end %>
 <% @cart = User.find(session[:user_id]).cart %>
 <h1>My Cart(<%= @cart.line_items.count %>)</h1>
+<%= flash[:added_item] %>
 <% if @cart.line_items.any? %>
 <div id = "scroll_cart">
   <table id = "cart_table">
