@@ -4,8 +4,16 @@ class Commodity < ActiveRecord::Base
   TYPE = { "Product" => 0, "Service" => 1 }
 
   #Validation
-  validates :title, presence: true, uniqueness: true
+  validates :title, :presence => true, 
+                    :uniqueness => true
   
+  validates :actual_price, :allow_blank => true, 
+                           :numericality => true
+
+  validates :selling_price, :allow_blank => true, 
+                            :numericality => true
+
+  :before_save :price_setting
   #Category Association
   belongs_to :category
   

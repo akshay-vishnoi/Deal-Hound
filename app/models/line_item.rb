@@ -3,6 +3,7 @@ class LineItem < ActiveRecord::Base
 
   belongs_to :cart
   belongs_to :commodity_sku, :inverse_of => :line_items
+  belongs_to :order
 
   def total_price
     commodity_sku.commodity.selling_price * quantity

@@ -21,10 +21,11 @@
     <% if @user && @cart %>
     <div id = "cart" class = "hide_cart">
       <div class = "inner_cart">
-          <div id = "render_cart" >
+        <div id = "render_cart" >
           <%= render '/carts/show' %>
         </div>
       </div>
+      
     </div>
     <% end %>
   <% end %>

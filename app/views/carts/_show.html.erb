@@ -36,12 +36,12 @@
         <td><%= number_to_currency(commodity.selling_price, :unit => '&#8377;') %></td>
         <td>
           <%= form_tag line_items_path(commodity_sku_id: commodity_sku) do %>
-            <%= select_tag :quantity, options_for_select((1..commodity_sku.quantity).to_a, item.quantity), :onchange => 'quantity_changed(this)' %>
+            <%= select_tag :quantity, options_for_select((1..commodity_sku.quantity).to_a, item.quantity), :onchange => 'quantity_changed(this)', :remote => true %>
             <%= submit_tag '', :class => "update_quantity_button" %>
           <% end %>
         </td>
         <td><%= number_to_currency(item.total_price, :unit => '&#8377; ') %></td>
-        <td><%= link_to '',item, :method => :delete, :remote => true, :class => 'delete_item' %></td>
+        <td><%= link_to '', item, :method => :delete, :remote => true, :class => 'delete_item' %></td>
       </tr>
     <% end %>
     <tr>
@@ -49,13 +49,13 @@
 </div>
 <div id = "cart_footer">
   <span id = "tot_price"> Total Price: <b><%= number_to_currency(@cart.total_price, :unit => '&#8377;') %></b></span><br><br>
-  <%= link_to 'Add more item(s) to cart', "", :remote => true, :onclick => 'hide_cart()' %>
   <%= link_to 'Proceed to Payment', "", :remote => true, :onclick => 'hide_cart()' %>
+  <%= link_to 'Add more item(s) to cart', "", :remote => true, :onclick => 'hide_cart()' %>
 </div>
 <% else %>
   <p id = "no_item_p"><br><%= image_tag '/assets/empty-cart.jpg' %><br>There is no item in Cart right now.<br><br></p>
   <%= link_to 'Proceed to shopping', "", :remote => true, :onclick => 'hide_cart()', :id => "pro_to_shop" %>
 <% end %>
 <% if flash[:cart_flash] %>
-  <script type="text/javascript">show_cart()</script>
+  <script type="text/javascript">show_cart_with_flash()</script>
 <% end %>

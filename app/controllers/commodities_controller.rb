@@ -5,7 +5,7 @@ class CommoditiesController < ApplicationController
   
   def index
     @commodities = Commodity.all
-    @cart = Cart.find(3)
+    # @cart = Cart.find()
   end
 
   def new
@@ -13,27 +13,44 @@ class CommoditiesController < ApplicationController
     @categories = category_list
     @commodity = Commodity.new
     @commodity.images.build
-    @commodity.commodity_skus.build
+    @commodity_sku = @commodity.commodity_skus.build
   end
 
   def show
-    @commodity = Commodity.find_by_id(params[:id])
+    begin
+      @commodity = Commodity.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Invalid Commodity"
+      redirect_to commodities_url
+    end
   end
 
   def edit
-    @categories = category_list
-    @category = Category.new
-    @commodity = Commodity.find(params[:id])
-    params[:selected_category] = @commodity.category.name
-    params[:edit_img] = !(@commodity.images.empty?)
-    @commodity.images.build
-    @commodity.commodity_skus.build    
+    begin
+      @categories = category_list
+      @category = Category.new
+      @commodity = Commodity.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Invalid Commodity"
+      redirect_to commodities_url
+    else
+      params[:selected_category] = @commodity.category.name
+      params[:edit_img] = !(@commodity.images.empty?)
+      @commodity.images.build
+      @commodity_sku = @commodity.commodity_skus.build
+    end
   end
 
   def show_category
-    @category = Category.find(params["category_id"])
-    @commodities = @category.commodities
-    render 'commodities/index'
+    begin
+      @category = Category.find(params["category_id"])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Invalid Commodity"
+      redirect_to commodities_url
+    else
+      @commodities = @category.commodities
+      render 'commodities/index'
+    end
   end
 
   def update
@@ -41,8 +58,14 @@ class CommoditiesController < ApplicationController
     params[:commodity].delete_if { |k,v| k == "category" }
     @commodity = Commodity.find(params[:id])
     @commodity.category = @cat
-    if @commodity.update_attributes(params[:commodity])
-      redirect_to commodities_url, notice: "Update successful"
+    respond_to do |format|
+      if @commodity.update_attributes(params[:commodity])
+        format.html { redirect_to commodities_url, notice: "Update successful" }
+      else
+        @category = Category.new
+        @categories = category_list
+        format.html { render :edit }
+      end
     end
   end
 

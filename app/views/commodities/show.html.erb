@@ -6,8 +6,12 @@
         <td> (By <%= @commodity.vendor.capitalize %> )</td>
       </tr>
       <tr>
+        <% if @commodity.actual_price %>
         <td id = "actual_price">&#8377; <%= @commodity.actual_price %></td>
+        <% end %>
+        <% if @commodity.selling_price %>
         <td id = "selling_price">&#8377; <%= @commodity.selling_price %></td>
+        <% end %>
       </tr>
       <tr>
         <td><br>Features: </td>
@@ -34,38 +38,39 @@
     </div>
     <br>
     <br>
-  
-    *Select Quantity, and click Buy
-    <table id = "buy_at_show">
-    <% @commodity.commodity_skus.each do |sku| %>
-      <tr>
-        <%= form_tag line_items_path(commodity_sku_id: sku) do %>
-        <%= hidden_field_tag :commodity_sku_id, sku.id%>
-          <% if sku.quantity %>
+    <% if @commodity.selling_price %> 
+      *Select Quantity, and click Buy
+      <table id = "buy_at_show">
+      <% @commodity.commodity_skus.each do |sku| %>
+        <tr>
+          <%= form_tag line_items_path(commodity_sku_id: sku) do %>
+          <%= hidden_field_tag :commodity_sku_id, sku.id%>
+            <% if sku.quantity %>
+              <td>
+                <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
+              </td>
+            <% end %>
+            
+            <% unless sku.size.empty? %>
+              <td>
+                <%= sku.size %>
+              </td>
+            <% end %>
+            
+            <% unless sku.color.empty? %>
+              <td>
+                <%= sku.color %>
+              </td>
+            <% end %>
+            
             <td>
-              <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
+              <%= submit_tag 'BUY' %>
             </td>
           <% end %>
-          
-          <% unless sku.size.empty? %>
-            <td>
-              <%= sku.size %>
-            </td>
-          <% end %>
-          
-          <% unless sku.color.empty? %>
-            <td>
-              <%= sku.color %>
-            </td>
-          <% end %>
-          
-          <td>
-            <%= submit_tag 'BUY' %>
-          </td>
+        </tr>
         <% end %>
-      </tr>
+      </table>
     <% end %>
-  </table>
     <br>
     <%= link_to 'Back', commodities_path %>
   </div>

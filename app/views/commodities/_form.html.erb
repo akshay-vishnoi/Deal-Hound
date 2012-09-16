@@ -16,20 +16,14 @@
     <fieldset class = "sub_fieldset">
       <legend>Details:</legend>
       <table class = "commodity">
-        <% if @commodity.errors.get(:title) %>
-        <tr class = "error">
-        <% else %>
         <tr>
-        <% end %>
           <td>
             <%= f.label :title, 'Name' %>
           </td>
           <td>
             <%= f.text_field :title %>
-          </td>
-          <td>
             <% if @commodity.errors.get(:title) %>
-            <%= @commodity.errors.get(:title).join(', ') %>
+              <div class = "field_with_errors"><%= @commodity.errors.get(:title).first %></div>
             <% end %>
           </td>
         </tr>
@@ -63,6 +57,9 @@
           </td>
           <td>
             <%= f.text_field :actual_price %>
+            <% if @commodity.errors.get(:actual_price) %>
+              <div class = "field_with_errors"><%= @commodity.errors.get(:actual_price).first %></div>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -71,6 +68,9 @@
           </td>
           <td>
             <%= f.text_field :selling_price %>
+            <% if @commodity.errors.get(:selling_price) %>
+              <div class = "field_with_errors"><%= @commodity.errors.get(:selling_price).first %></div>
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -84,31 +84,30 @@
       </table>
     </fieldset>
     <br>
-    <% if params[:edit_img] %>
-      <fieldset class = "sub_fieldset">
-        <legend>Edit images</legend>
-        <% @commodity.images.each do |img_f| %>
-          <% unless img_f.id.nil? %>
-            <%= image_tag img_f.photo.url(:small) %>
-            <%= link_to 'Delete', delete_img_url( { :image_id => img_f.id } ) %>
-          <% end %>
-        <% end %>
-      </fieldset>
-    <% end %>
     <fieldset class = "sub_fieldset">
       <legend>Image Files</legend>
-        <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
-          <% if img_f.object.new_record? %>        
-            <%= img_f.file_field :photo %>
-          <% end %>
-            <% unless params[:edit_img] %>
-            <%= img_f.link_to_remove "Remove this image" %>
-            <% end %>
+        <% if @commodity.errors.messages[ :"images.photo_content_type"] %>
+          <div class = "field_with_errors"><%= @commodity.errors.messages[ :"images.photo_content_type"].first %></div>
+          <br><br>
         <% end %>
+        <%= f.fields_for :images, :html => { :multipart => true } do |img_f| %>
+          <% if img_f.object.new_record? %>
+            <%= img_f.file_field :photo %>
+            <%= img_f.link_to_remove "Remove this image" %>
+          <% else %>
+            <%= image_tag img_f.object.photo.url(:small) %>
+            <%= link_to "Remove this image", delete_img_url( { :image_id => img_f.object.id } ) %>
+          <% end %>
+          <br>
+        <% end %>
+        <br>
         <%= f.link_to_add "Add a image", :images %>
     </fieldset><br>
-    <%= f.fields_for :commodity_skus do |sku_f| %>
-      <fieldset class = "sub_fieldset">
+    <fieldset class = "sub_fieldset">
+      <% if @commodity.errors.messages[:"commodity_skus.quantity"] %>
+        <div class = "field_with_errors"><%= @commodity.errors.messages[:"commodity_skus.quantity"].first%></div><br>
+      <% end %>              
+      <%= f.fields_for :commodity_skus do |sku_f| %>      
         <legend>Type</legend>
         <table>
           <tr>
@@ -137,9 +136,9 @@
           </tr>
           <tr><td></td><td><%= sku_f.link_to_remove "Remove this type" %>
         </table>
-      </fieldset>
-      <br>
-     <% end %>
+      <% end %>
+    </fieldset>
+    <br>
      <%= f.link_to_add "Add a type", :commodity_skus %>
     <%= f.submit 'Submit' %>
   <% end %>

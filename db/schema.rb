@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912093958) do
+ActiveRecord::Schema.define(:version => 20120914112359) do
+
+  create_table "addresses", :force => true do |t|
+    t.text     "street"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "pincode"
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
@@ -74,6 +85,17 @@ ActiveRecord::Schema.define(:version => 20120912093958) do
     t.datetime "updated_at",                    :null => false
   end
 
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "mailing_email"
+    t.integer  "status"
+    t.integer  "payment_mode"
+    t.integer  "gift"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "full_name"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -83,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20120912093958) do
     t.datetime "updated_at",                                                   :null => false
     t.integer  "admin",                                         :default => 0
     t.decimal  "wallet",          :precision => 2, :scale => 0, :default => 0
+    t.string   "user_name"
   end
 
   create_table "vouchers", :force => true do |t|

@@ -7,17 +7,23 @@ class ApplicationController < ActionController::Base
     if (user && (user.admin == role)) || (session[:admin] == 1)
       true
     else
-      redirect_to login_url, notice: 'Please log in as a User'
+      flash[:error] = 'You are not authorize to access' 
+      redirect_to login_url
     end
   end
   
   private
-    def current_cart
-      Cart.find(session[:cart_id])
+  
+  def current_cart
+    begin
+      Cart.find_by_id(session[:cart_id])
     rescue  ActiveRecord::RecordNotFound
-
+      flash[:error] = "Invalid cart option"
+      redirect_to login_url
+    else
       cart = Cart.create
       session[:cart_id] = cart.id
       cart
     end
+  end
 end

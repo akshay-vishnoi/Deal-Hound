@@ -3,7 +3,8 @@ class Category < ActiveRecord::Base
   attr_accessible :name
 
   #Validation
-  validates :name, presence: true, uniqueness: true
+  validates :name, :presence => { :message => "Category can't be blank" }, 
+                   :uniqueness => { :message => "Category is already present" }
   
   #Commodity Association
   has_many :commodities, dependent: :destroy
