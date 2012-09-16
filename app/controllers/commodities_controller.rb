@@ -58,14 +58,12 @@ class CommoditiesController < ApplicationController
     params[:commodity].delete_if { |k,v| k == "category" }
     @commodity = Commodity.find(params[:id])
     @commodity.category = @cat
-    respond_to do |format|
-      if @commodity.update_attributes(params[:commodity])
-        format.html { redirect_to commodities_url, notice: "Update successful" }
-      else
-        @category = Category.new
-        @categories = category_list
-        format.html { render :edit }
-      end
+    if @commodity.update_attributes(params[:commodity])
+      redirect_to commodities_url, notice: "Update successful"
+    else
+      @category = Category.new
+      @categories = category_list
+      render :edit
     end
   end
 
@@ -85,14 +83,12 @@ class CommoditiesController < ApplicationController
     params[:commodity].delete_if { |k,v| k == "category" }
     @commodity = Commodity.new(params[:commodity])
     @commodity.category = @cat
-    respond_to do |format|
-      if @commodity.save
-        format.html { redirect_to @commodity }
-      else
-        @category = Category.new
-        @categories = category_list
-        format.html { render :new }
-      end
-    end 
+    if @commodity.save
+      redirect_to @commodity
+    else
+      @category = Category.new
+      @categories = category_list
+      render :new
+    end
   end
 end
