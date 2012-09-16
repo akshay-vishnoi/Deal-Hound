@@ -13,7 +13,6 @@ class Commodity < ActiveRecord::Base
   validates :selling_price, :allow_blank => true, 
                             :numericality => true
 
-  :before_save :price_setting
   #Category Association
   belongs_to :category
   

@@ -5,7 +5,6 @@ class CommoditiesController < ApplicationController
   
   def index
     @commodities = Commodity.all
-    # @cart = Cart.find()
   end
 
   def new
@@ -27,17 +26,16 @@ class CommoditiesController < ApplicationController
 
   def edit
     begin
-      @categories = category_list
-      @category = Category.new
       @commodity = Commodity.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "Invalid Commodity"
       redirect_to commodities_url
     else
+      @categories = category_list
+      @category = Category.new
       params[:selected_category] = @commodity.category.name
-      params[:edit_img] = !(@commodity.images.empty?)
       @commodity.images.build
-      @commodity_sku = @commodity.commodity_skus.build
+      @commodity.commodity_skus.build
     end
   end
 
