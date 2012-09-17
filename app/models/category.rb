@@ -10,6 +10,9 @@ class Category < ActiveRecord::Base
   has_many :commodities, dependent: :destroy
   accepts_nested_attributes_for :commodities
 
-  scope :delete_multiple, lambda { |categories| destroy(categories) }
+  scope :delete_multiple, lambda { |categories| destroy(categories) if(categories) }
 
+  def self.sort_cat
+    self.all.sort { |t1, t2| t1.name.downcase <=> t2.name.downcase }
+  end
 end
