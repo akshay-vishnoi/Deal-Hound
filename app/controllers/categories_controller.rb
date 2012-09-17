@@ -23,7 +23,9 @@ class CategoriesController < ApplicationController
   end
 
   def edit_delete
-    @rejected_categories = Category.update(params[:category_ids1].keys, params[:category_ids1].values).reject { |c| c.errors.empty? }
+    keys = params[:category_ids1].keys
+    values = params[:category_ids1].values
+    @rejected_categories = Category.update(keys, values).reject { |c| c.errors.empty? }
     Category.delete_multiple(params[:category_ids])
     if @rejected_categories.empty?
       flash[:notice] = "Categories updated"

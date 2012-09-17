@@ -4,7 +4,7 @@ class CommoditiesController < ApplicationController
   before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(1) }
   
   def index
-    @commodities = Commodity.all
+    @commodities = Commodity.paginate page: params[:page], order: 'created_at desc', per_page: 2
   end
 
   def new
@@ -46,7 +46,7 @@ class CommoditiesController < ApplicationController
       flash[:error] = "Invalid Commodity"
       redirect_to commodities_url
     else
-      @commodities = @category.commodities
+      @commodities = @category.commodities.paginate page: params[:page], order: 'created_at desc', per_page: 2
       render 'commodities/index'
     end
   end

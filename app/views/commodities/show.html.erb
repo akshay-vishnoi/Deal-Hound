@@ -2,8 +2,12 @@
   <div id ="show_left">
     <table id = "show_commodity">
       <tr>
-        <td><h2><%= @commodity.title %></h2></td>
-        <td> (By <%= @commodity.vendor.capitalize %> )</td>
+        <td colspan = 2>
+          <h2><%= @commodity.title %></h2>
+        </td>
+      </tr>
+      <tr>
+        <td> (By <%= @commodity.vendor.capitalize %>)</td>
       </tr>
       <tr>
         <% if @commodity.actual_price %>

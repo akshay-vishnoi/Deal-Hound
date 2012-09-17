@@ -2,7 +2,11 @@
   <tr>
     <th id = "store_header" colspan = 5>
       <h4>
-        Commodities
+        <% if params[:category_id] %>
+        <%= Category.find(params[:category_id]).name %>
+        <% else %>
+          Commodities
+        <%end %> 
       <h4>
     </th>
   </tr>
@@ -37,7 +41,8 @@
     <tr>
       <td id = "no_commodity">
         Sorry, there is no Commodity in this category.
-      </td>  
+      </td>
     </tr>
   <% end %>
 </table>
+<p><%= will_paginate @orders %></p>

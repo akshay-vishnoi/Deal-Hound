@@ -159,6 +159,16 @@ div{
   float: left;
   width:400px;
   margin-right: 100px;
+  table{
+    tr{
+      td{
+        width: 100%;
+        h2{
+          display: inline-block;
+        }
+      }
+    }
+  }
 }
 #actual_price{
  text-decoration: line-through;
