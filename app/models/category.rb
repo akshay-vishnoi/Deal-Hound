@@ -15,4 +15,8 @@ class Category < ActiveRecord::Base
   def self.sort_cat
     self.all.sort { |t1, t2| t1.name.downcase <=> t2.name.downcase }
   end
+
+  def all_errors
+    self.errors.messages[:name].join(', ')
+  end
 end

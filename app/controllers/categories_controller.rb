@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = "Categories updated"
       redirect_to categories_url
     else
-      errors = @rejected_categories.map { |rc| rc.errors.messages[:name].join(', ') }
+      errors = @rejected_categories.map { |rc| rc.all_errors }
       flash[:error] = errors.join(', ')
       @categories = Category.sort_cat
       render :action => :index
