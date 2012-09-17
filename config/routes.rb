@@ -13,6 +13,9 @@ DealHound::Application.routes.draw do
     post 'login' => :create
     get 'logout' => :delete
   end
+  controller :categories do
+    post 'edit_delete'
+  end
   resources :users
   resources :categories
   resources :carts

@@ -9,4 +9,7 @@ class Category < ActiveRecord::Base
   #Commodity Association
   has_many :commodities, dependent: :destroy
   accepts_nested_attributes_for :commodities
+
+  scope :delete_multiple, lambda { |categories| destroy(categories) }
+
 end

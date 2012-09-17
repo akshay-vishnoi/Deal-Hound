@@ -30,6 +30,20 @@
   background-color: #ab2c26;
   color:#e1e1e1;
  }
+ fieldset{
+  legend{
+    background-color: green;
+    color: white;
+  }
+  a{
+    color:yellow;
+  }
+  width:650px;
+  height:auto;
+  background-color: purple;
+  color:white;
+}
+
 body{
   margin: 0px;
 }
@@ -78,7 +92,7 @@ div{
   margin-top: 5px;
   margin-left:25%;
   width:50%;
-  height:15px;
+  height:auto;
   padding:15px;
   color:green;
   border: 2px solid green;

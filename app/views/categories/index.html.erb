@@ -1,0 +1,30 @@
+<fieldset id = "main">
+  <legend>Edit Categories</legend>
+  <% if @categories %>
+  <%= form_tag edit_delete_path, :controller => :categories do %>
+  <table>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>Delete</th>
+    </tr>
+    
+    <% @categories.each do |category| %>
+    <tr>
+      <td><%= text_field_tag "category_ids1[#{category.id}][name]", category.name %></td>
+      <td>
+        <%= check_box_tag "category_ids[]", category.id %>
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td></td>
+    </tr>
+  </table>
+    <%= submit_tag 'Edit/Delete' %>
+  <% end %>
+  <% else %>
+    <h3>There no available categories</h3>
+  <% end %>
+</fieldset>
