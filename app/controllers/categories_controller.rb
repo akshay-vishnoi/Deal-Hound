@@ -4,10 +4,6 @@ class CategoriesController < ApplicationController
     @category = Category.new
   end
 
-  def edit
-      
-  end
-
   def index
     @categories = Category.sort_cat
   end
