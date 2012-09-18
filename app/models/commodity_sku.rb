@@ -9,7 +9,7 @@ class CommoditySku < ActiveRecord::Base
   belongs_to :commodity, :inverse_of => :commodity_skus
 
   #LineItems association
-  has_many :line_items, :inverse_of => :commodity_sku
+  has_many :line_items, :as => :p_and_s
 
   #Cart association
   belongs_to :cart

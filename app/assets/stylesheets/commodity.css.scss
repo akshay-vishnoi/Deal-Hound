@@ -55,3 +55,14 @@ input[type = "submit"]{
 .field_with_errors{
   clear:both;
 }
+#commodity_description{
+  clear:both;
+  h4{
+    margin-left: 20px;
+  }
+  p{
+    margin-left: 30px;
+    width: 800px;
+    text-align: justify;
+  }
+}

@@ -3,16 +3,18 @@ class Cart < ActiveRecord::Base
 
   belongs_to :user
   has_many :commodity_skus
-  has_many :line_items, :dependent => :destroy
+  has_many :line_items, :as => :item, :dependent => :destroy
 
   def add_item(commodity_sku_id, quantity)
     @commodity_sku = CommoditySku.find(commodity_sku_id)
-    current_item = line_items.find_by_commodity_sku_id(commodity_sku_id)
+    current_item = self.line_items.select('id')
+    current_item = line_items.find_by_id(current_item)
     li_added_message =  "#{@commodity_sku.commodity.title} (#{@commodity_sku.color} #{@commodity_sku.size})"
     if current_item
         current_item.quantity = quantity
     else
-      current_item = line_items.build(commodity_sku_id: commodity_sku_id)
+      current_item = line_items.build()
+      current_item.p_and_s = @commodity_sku
       current_item.price = @commodity_sku.commodity.selling_price
       current_item.quantity = quantity
     end

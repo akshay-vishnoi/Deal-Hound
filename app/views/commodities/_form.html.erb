@@ -78,7 +78,7 @@
             <%= f.label :description, 'Description' %>
           </td>
           <td>
-            <%= f.text_field :description %>
+            <%= f.text_area :description %>
           </td>
         </tr>
       </table>
@@ -137,9 +137,10 @@
           <tr><td></td><td><%= sku_f.link_to_remove "Remove this type" %>
         </table>
       <% end %>
+      <br>
+      <%= f.link_to_add "Add a type", :commodity_skus %>
     </fieldset>
-    <br>
-     <%= f.link_to_add "Add a type", :commodity_skus %>
+    
     <%= f.submit 'Submit' %>
   <% end %>
 </fieldset>

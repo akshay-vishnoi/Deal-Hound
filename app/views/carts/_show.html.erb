@@ -25,8 +25,8 @@
     </tr>
     <% @cart.line_items.each do |item| %>
       <tr>
-        <% commodity = item.commodity_sku.commodity %>
-        <% commodity_sku = item.commodity_sku %>
+        <% commodity = item.p_and_s.commodity %>
+        <% commodity_sku = item.p_and_s %>
         <td>
           <% if commodity.images[0] %>
             <%= image_tag commodity.images[0].photo.url(:very_small) %>

@@ -16,7 +16,7 @@ module DealHound
     # -- all .rb files in that directory are automatically loaded.
 
     # require each file from lib directory
-    Dir.glob("./lib/*.{rb}").each { |file| require file} 
+    Dir.glob("./lib/*.rb").each { |file| require file } 
 
     
     # Custom directories with classes and modules you want to be autoloadable.
@@ -56,6 +56,9 @@ module DealHound
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
+
+    #Observer code
+    config.active_record.observers = :order_observer
 
     # Enable the asset pipeline
     config.assets.enabled = true

@@ -33,7 +33,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    flash[:item_info] = "#{@line_item.quantity} #{@line_item.commodity_sku.commodity.title} had been deleted from your cart.0"
+    flash[:item_info] = "#{@line_item.quantity} #{@line_item.p_and_s.commodity.title} had been deleted from your cart.0"
     @line_item.destroy
     respond_to do |format|
       format.js

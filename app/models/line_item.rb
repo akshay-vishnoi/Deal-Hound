@@ -1,11 +1,10 @@
 class LineItem < ActiveRecord::Base
   attr_accessible :cart_id, :commodity_sku_id, :order_id, :price, :quantity
 
-  belongs_to :cart
-  belongs_to :commodity_sku, :inverse_of => :line_items
-  belongs_to :order
+  belongs_to :item, :polymorphic => true
+  belongs_to :p_and_s, :polymorphic => true
 
   def total_price
-    commodity_sku.commodity.selling_price * quantity
+    p_and_s.commodity.selling_price * quantity
   end
 end

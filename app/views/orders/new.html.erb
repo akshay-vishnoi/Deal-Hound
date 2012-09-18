@@ -2,6 +2,42 @@
   <fieldset >
     <legend>Place your Order</legend>
     <table>
-      <tr></tr>
+      <tr>
+        <td>
+          <%= f.label :mailing_email, 'Email' %>
+        </td>
+        <td>
+          <%= f.email_field :mailing_email %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <%= f.check_box :gift %><%= f.label :gift, 'Gift' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :full_name, 'To:' %>
+        </td>
+        <td>
+          <%= f.text_field :full_name %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.label :payment_mode %>
+        </td>
+        <td>
+          <%= f.select :payment_mode, Order::PAYMENT_MODES %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= f.submit, "Place Order" %>
+        </td>
+      </tr>
     </table>
   </fieldset>
+<% end %>

@@ -20,6 +20,7 @@ DealHound::Application.routes.draw do
   resources :categories
   resources :carts
   resources :line_items
+  resources :orders
   # #resources :admins, :module => "admin"
   # scope "/admin" do
     

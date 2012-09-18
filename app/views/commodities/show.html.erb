@@ -79,3 +79,10 @@
     <%= link_to 'Back', commodities_path %>
   </div>
 </div>
+<% unless @commodity.description.blank? %>
+<div id = "commodity_description">
+  <hr>
+  <h4>Description:</h4>
+  <p><%= @commodity.description %></p>
+</div>
+<% end %>
