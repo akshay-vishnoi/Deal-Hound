@@ -37,4 +37,6 @@ class User < ActiveRecord::Base
 
   has_one :cart
   has_many :orders
+
+  scope :main_admin, where('user_name = "a" AND admin = 1')
 end

@@ -33,7 +33,11 @@
         </td>
       <% end %>
       <td id = "buy_column">
-        <%= link_to 'Buy/Show', commodity_url(commodity)%>
+        <% if User.find(session[:user_id]).admin == 1 %>
+          <%= link_to 'Show', commodity_url(commodity)%>
+        <% else %>
+          <%= link_to 'Buy/Show', commodity_url(commodity)%>
+        <% end %>
       </td>
     <tr>
     <% end %>

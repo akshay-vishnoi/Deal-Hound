@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s
+  attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s, :address_attributes
 
   PAYMENT_TYPES = ['Wallet', 'Credit Card']
   PAYMENT_MODES = {}
@@ -11,13 +11,15 @@ class Order < ActiveRecord::Base
                       message: "invalid email address"
                     }
   belongs_to :user
-  has_one :address
+  has_one :address, :dependent => :destroy
+  accepts_nested_attributes_for :address
   has_many :line_items, :as => :item, :dependent => :destroy
   before_save :check_status
   
   def check_status
-    print "hello"
-    self.status = 0
+    if status.nil?
+      self.status = 0
+    end
   end
 
   def status_to_s
@@ -36,11 +38,18 @@ class Order < ActiveRecord::Base
       status = 1
     end
   end
+  
   def payment_mode_to_s
     if payment_mode == 0
       PAYMENT_TYPES[0]
     else
       PAYMENT_TYPES[1]
+    end
+  end
+
+  def add_line_items_from_cart(cart)
+    cart.line_items.each do |li|
+      li.update_attribute(:item, self)
     end
   end
 end

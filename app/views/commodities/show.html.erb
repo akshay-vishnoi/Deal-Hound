@@ -66,16 +66,18 @@
                 <%= sku.color %>
               </td>
             <% end %>
-            
+            <% if User.find(session[:user_id]).admin == 0 %>
             <td>
               <%= submit_tag 'BUY' %>
             </td>
+            <% end %>
           <% end %>
         </tr>
         <% end %>
       </table>
     <% end %>
     <br>
+    <%= link_to 'Edit', edit_commodity_path(@commodity) %>
     <%= link_to 'Back', commodities_path %>
   </div>
 </div>

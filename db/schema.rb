@@ -11,17 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918104831) do
+ActiveRecord::Schema.define(:version => 20120919060300) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
     t.string   "city"
     t.string   "state"
     t.integer  "pincode"
-    t.integer  "addressable_id"
-    t.string   "addressable_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.integer  "order_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "carts", :force => true do |t|

@@ -2,16 +2,64 @@ class OrdersController < ApplicationController
   
   def new
     @user = User.find(session[:user_id])
-    @order = @user.orders.new
-    @order.mailing_email = @user.email
-    @order.full_name = @user.name
-    @payments = Order::PAYMENT_MODES
+    @cart = @user.cart
+    if @cart.line_items.any?
+      @order = @user.orders.new
+      @order.mailing_email = @user.email
+      @order.full_name = @user.name
+      @payments = Order::PAYMENT_MODES
+      @order.build_address if @user.cart.voucher
+    else
+      flash[:error] = "There is no item in cart"
+      redirect_to commodities_url
+    end
+  end
+
+  def index
+    params = params
+    redirect_to new_order_path
   end
 
   def create
     @user = User.find(session[:user_id])
     @order = @user.orders.new(params[:order])
-    @order.save
-    redirect_to request.referrer, notice: "#{params},, #{@order.mailing_email} #{@order.payment_mode}"
+    @cart = @user.cart
+    total_price = @cart.total_price
+    if @order.payment_mode == 0
+      wallet_processing @order, @user, total_price, @cart
+    else
+      credit_card_processing @order, @user, total_price, @cart
+    end
+  end
+
+  def wallet_processing(order, user, total_price, cart)
+    availability, items_not_available = cart.items_available
+    nxt_page = request.referrer
+    if user.wallet < total_price
+      flash[:error] = "Your wallet has insufficient money to pay."
+    elsif availability && @order.save
+      admin = User.main_admin[0]
+      user.update_attribute(:wallet, user.wallet - total_price)
+      admin.update_attribute(:wallet, admin.wallet + total_price)
+      @order.add_line_items_from_cart(cart)
+      flash[:notice] = "Your order has been placed"
+      nxt_page = commodities_url
+    elsif availability
+      render :action => :new
+      return true
+    else
+      flash[:item_info] = generate_error_no_items(items_not_available)
+      flash[:cart_flash] = true
+    end
+    redirect_to nxt_page
+  end
+
+  def credit_card_processing (order, user, total_price, cart)
+    
+  end
+
+  def generate_error_no_items(items)
+    str = items.join(', ')
+    "Required quantity of #{str} is not available." 
   end
 end

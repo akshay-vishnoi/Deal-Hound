@@ -49,7 +49,7 @@
 </div>
 <div id = "cart_footer">
   <span id = "tot_price"> Total Price: <b><%= number_to_currency(@cart.total_price, :unit => '&#8377;') %></b></span><br><br>
-  <%= link_to 'Proceed to Payment', "", :remote => true, :onclick => 'hide_cart()' %>
+  <%= link_to 'Proceed to Payment', new_order_url %>
   <%= link_to 'Add more item(s) to cart', "", :remote => true, :onclick => 'hide_cart()' %>
 </div>
 <% else %>
