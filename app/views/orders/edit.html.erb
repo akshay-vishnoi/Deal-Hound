@@ -1,0 +1,53 @@
+<%= form_for @order do |f| %>
+<table class = "general left_order">
+  <tr>
+    <td colspan = 4><h2>Order no.<%= @order.id %></h2></td>
+  </tr>
+  <tr>
+    <td>User Registration no.</td>
+    <td><%= @order.user.id %></td>
+  </tr>
+  <tr>
+    <td>Customer name</td>
+    <td><%= @order.user.name %></td>
+    <td>Current Status</td>
+    <td><%= @order.status_to_s %></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= @order.mailing_email %></td>
+    <td>Change Status</td>
+    <td><%= f.select :status, Order::STATUS %></td>
+  </tr>
+  <% if @order.gift == 1 %>
+  <tr>
+    <td>Gifted to </td>
+    <td><%= @order.full_name %></td>
+  </tr>
+  <% end %>
+  <% if @order.address %>
+  <tr>
+    <td>Address</td>
+    <td><%= @order.address.street + ", " + @order.address.city %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= @order.address.state + "-#{@order.address.pincode}" %></td>
+    <td></td>
+    <td><%= f.submit 'Save' %></td>
+  </tr>
+  <% end %>
+</table>
+<table class = "general left_order">
+  <tr>
+    <td colspan = 3><h2>Commodities</h2></td>
+  </tr>
+<% @order.line_items.each do |line_item| %>
+  <tr>
+    <td><%= line_item.quantity %>&times;</td>
+    <td><%= line_item.p_and_s.commodity.title %></td>
+    <td><%= number_to_currency(line_item.total_price) %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>

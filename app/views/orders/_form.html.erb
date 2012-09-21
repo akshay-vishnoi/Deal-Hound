@@ -1,0 +1,114 @@
+<fieldset >
+  <legend>Place your Order</legend>
+  <%= form_for(@order) do |f| %>  
+  <table>
+    <tr>
+      <td>
+        <%= f.label :mailing_email, 'Email*' %>
+      </td>
+      <td>
+        <%= f.email_field :mailing_email %>
+      </td>
+      <td>
+        <% if @order.errors.get(:mailing_email) %>
+          <div class = "field_with_errors"><%= @order.errors.get(:mailing_email).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <%= f.check_box :gift %><%= f.label :gift, 'Gift' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :full_name, 'To:' %>
+      </td>
+      <td>
+        <%= f.text_field :full_name %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :payment_mode %>
+      </td>
+      <td>
+        <%= f.select :payment_mode, Order::PAYMENT_MODES %>
+      </td>
+    </tr>
+    <%= f.fields_for :address do |add_f| %>
+    <tr>
+      <td>
+        <%= add_f.label :street, 'Street*' %>
+      </td>
+      <td>
+        <%= add_f.text_field :street %>
+      </td>
+      <td>
+        <% if @order.address.errors.get(:street) %>
+          <div class = "field_with_errors"><%= @order.address.errors.get(:street).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= add_f.label :city, 'City*' %>
+      </td>
+      <td>
+        <%= add_f.text_field :city %>
+      </td>
+      <td>
+        <% if @order.address.errors.get(:city) %>
+          <div class = "field_with_errors"><%= @order.address.errors.get(:city).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= add_f.label :state, 'State*' %>
+      </td>
+      <td>
+        <%= add_f.text_field :state %>
+      </td>
+      <td>
+        <% if @order.address.errors.get(:state) %>
+          <div class = "field_with_errors"><%= @order.address.errors.get(:state).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= add_f.label :pincode, 'Pincode*' %>
+      </td>
+      <td>
+        <%= add_f.text_field :pincode %>
+      </td>
+      <td>
+        <% if @order.address.errors.get(:pincode) %>
+          <div class = "field_with_errors"><%= @order.address.errors.get(:pincode).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+    <% if @order.new_record? %>
+    <tr>
+      <td>
+        <%= "Total Price" %>
+      </td>
+      <td>
+        <%= number_to_currency(@cart.total_price, :unit => '&#8377; ') %>
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td>
+        <%= f.submit 'Place Order', :data => {:confirm => "Are You sure?\nYou can check your order again"} %>
+      </td>
+    </tr>
+  </table>
+  <% end %>
+  <%= link_to 'Check Order again', "",:remote => true, :onclick => 'show_cart()' %>
+</fieldset>

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  
+
   def new
     @user = User.find(session[:user_id])
     @cart = @user.cart
@@ -15,9 +15,24 @@ class OrdersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(session[:user_id])
+    @order = Order.find(params[:id])
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    # redirect_to request.referrer, notice: params[:order][:status]
+    if @order.update_attribute(:status, params[:order][:status])
+      flash[:notice] = "Now Order no. #{@order.id} is #{@order.status_to_s}."
+    else
+      flash[:error] = "Error while saving order. Please check it again."
+    end
+    redirect_to orders_url
+  end
+
   def index
-    params = params
-    redirect_to new_order_path
+    @orders = Order.paginate page: params[:page], order: 'created_at desc', per_page: 10
   end
 
   def create

@@ -1,9 +1,9 @@
 class Order < ActiveRecord::Base
+
   attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s, :address_attributes
 
-  PAYMENT_TYPES = ['Wallet', 'Credit Card']
-  PAYMENT_MODES = {}
-  PAYMENT_TYPES.each_index{ |i| PAYMENT_MODES[PAYMENT_TYPES[i]] = i}
+  PAYMENT_MODES = {'Wallet' => 0, 'Credit Card' => 1}
+  STATUS = { 'Pending' => 0, 'Delivered' => 1 }
 
   validates :mailing_email, :presence => true, 
                     :format => {

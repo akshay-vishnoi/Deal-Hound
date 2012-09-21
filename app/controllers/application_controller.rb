@@ -4,10 +4,12 @@ class ApplicationController < ActionController::Base
 
   def authorize(role)
     user = User.find_by_id(session[:user_id])
-    if (user && (user.admin == role)) || (session[:admin] == 1)
-      true
+    if (user && (user.admin === role)) || (session[:admin] === true)
+      return true
+    elsif user && (user.id === role)
+      return true
     else
-      flash[:error] = 'You are not authorize to access' 
+      flash[:error] = "You are not authorized to access" 
       redirect_to login_url
     end
   end

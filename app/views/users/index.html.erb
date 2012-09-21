@@ -1,2 +1,26 @@
-<h1>User</h1>
-<%= button_to 'Logout', logout_url, method: :delete %>
+<table class = "general">
+  <tr>
+    <td colspan = 7><h2>Users</h2></td>
+  </tr>
+  <tr>
+    <th>Reg. no</th>
+    <th>Name</th>
+    <th>User name</th>
+    <th>Email</th>
+    <th>Mobile</th>
+    <th>Wallet</th>    
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.id %></td>
+    <td><%= user.name %></td>
+    <td><%=user.user_name %></td>
+    <td><%=user.email %></td>
+    <td><%=user.mobile_no %></td>
+    <td><%= number_to_currency(user.wallet, :unit => '&#8377; ') %></td>
+    <td>
+      <%= link_to 'Edit', edit_user_url(user) %>/<%= link_to 'Delete', user, :method => :delete, data: {confirm: "Are you sure?" } %>
+    </td>
+  </tr>
+  <% end %>
+</table>

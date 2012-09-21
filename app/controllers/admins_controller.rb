@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
   
-  before_filter { |conroller| conroller.authorize(1) }
+  before_filter { |conroller| conroller.authorize(true) }
 
   def index
     respond_to do |format|

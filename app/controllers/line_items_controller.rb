@@ -1,9 +1,8 @@
 class LineItemsController < ApplicationController
   
-  before_filter { |conroller| conroller.authorize(session[:admin]) }
+  before_filter { |controller| controller.authorize(session[:admin]) }
 
   def new
-
     redirect_to request.referrer, notice: params
   end
 

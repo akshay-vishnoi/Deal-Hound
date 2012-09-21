@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
 
+  before_filter { |conroller| conroller.authorize(true) }
   def new
     @category = Category.new
   end

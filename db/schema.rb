@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919060300) do
+ActiveRecord::Schema.define(:version => 20120920125856) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
@@ -101,10 +101,10 @@ ActiveRecord::Schema.define(:version => 20120919060300) do
     t.string   "email"
     t.string   "password_digest"
     t.integer  "mobile_no"
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
-    t.integer  "admin",                                         :default => 0
-    t.decimal  "wallet",          :precision => 2, :scale => 0, :default => 0
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.boolean  "admin",                        :default => false
+    t.integer  "wallet",          :limit => 2, :default => 0
     t.string   "user_name"
   end
 

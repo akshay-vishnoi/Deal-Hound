@@ -1,10 +1,10 @@
 class CommoditiesController < ApplicationController
   include CommodityHelper
 
-  before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(1) }
+  before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(true) }
   
   def index
-    @commodities = Commodity.paginate page: params[:page], order: 'created_at desc', per_page: 2
+    @commodities = Commodity.paginate page: params[:page], order: 'random()', per_page: 4
   end
 
   def new

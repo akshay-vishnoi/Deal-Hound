@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
                         }, 
                         :uniqueness => { :case_sensitive => false }
 
-  validates :email, :presence => true,
+  validates :email, :on => :create, 
+                    :presence => true,
                     :format => {
                       with: /(^[A-z0-9]+((.[A-z0-9]+)|(-[A-z0-9]+)|(_[A-z0-9]+)|([A-z0-9]+))*@[A-z0-9]{3,}.[A-z]{2,4}(.[A-z]{2})?)$/, 
                       message: "invalid email address"
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  has_one :cart
+  has_one :cart, :dependent => :destroy
   has_many :orders
 
   scope :main_admin, where('user_name = "a" AND admin = 1')

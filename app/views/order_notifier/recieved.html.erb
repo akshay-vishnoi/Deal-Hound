@@ -1,0 +1,28 @@
+<h3>DealHound Order no. <%= @order.id %></h3>
+
+Dear <%= @order.user.name %>,
+
+<p>
+We have recieved your order, with order number: <%= @order.id %>.
+</p>
+<p>
+You ordered the following items:
+<table>
+  <tr>
+    <th colspan="2">Qty</th><th>Description</th>
+  </tr>
+  <% @order.user.cart.line_items.each do |line_item| %>
+  <tr>
+    <td><%= line_item.quantity %>&times;</td>
+    <td><%= line_item.p_and_s.commodity.title.capitalize %> (<%= line_item.p_and_s.size %> <%= line_item.p_and_s.color %>)</td>
+    <td><%= number_to_currency(line_item.total_price) %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td>Total:</td>
+    <td><%= number_to_currency(@order.user.cart.total_price) %></td>
+  </tr>
+</table>
+</p>
+Note: Email will be sent when your order will be delivered.

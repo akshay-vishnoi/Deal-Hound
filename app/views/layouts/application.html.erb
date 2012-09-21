@@ -35,7 +35,8 @@
         <br>
         <% unless session[:user_id].nil? %>
           Welcome&nbsp;
-          <%= User.find_by_id(session[:user_id]).name %>&nbsp;&nbsp;&nbsp;
+          <%= @user.name %>&nbsp;&nbsp;&nbsp;
+          <%= link_to 'Edit Profile', edit_user_url(@user) %>
           <%= link_to 'Logout', logout_url %>
         <% else %>
           <%= link_to 'Login', login_url %>
@@ -56,7 +57,7 @@
             <% end %>
           <% end %>
           <div>
-            <% if session[:admin] == 1 %>
+            <% if session[:admin] %>
               <%= render 'layouts/admin_layout' %>
             <% end %>
           </div>

@@ -1,0 +1,21 @@
+<table class = "general left_order">
+  <tr>
+    <td colspan = 5><h2>Orders</h2></td>
+  </tr>
+  <tr>
+    <th>Order No.</th>
+    <th>User reg. no.</th>
+    <th>Name</th>
+    <th>Status</th>
+  </tr>
+  <% @orders.each do |order| %>
+  <tr>
+    <td><%= order.id %></td>
+    <td><%= order.user.id %></td>
+    <td><%= order.user.name %></td>
+    <td><%= order.status_to_s %></td>
+    <td><%= link_to 'Check/Edit', edit_order_url(order) %></td>
+  </tr>
+  <% end %>
+</table>
+<p><%= will_paginate @orders %></p>
