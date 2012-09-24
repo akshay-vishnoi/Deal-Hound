@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
     if @order.payment_mode == 0
       wallet_processing @order, @user, total_price, @cart
     else
-      credit_card_processing @order, @user, total_price, @cart
+      # credit_card_processing @order, @user, total_price, @cart
     end
   end
 
@@ -61,12 +61,9 @@ class OrdersController < ApplicationController
       flash[:error] = "Your wallet has insufficient money to pay."
     elsif availability
       if @order.save
-        admin = User.main_admin[0]
-        user.update_attribute(:wallet, user.wallet - total_price)
-        admin.update_attribute(:wallet, admin.wallet + total_price)
-        @order.add_line_items_from_cart(cart)
+        get_credit_transfer_lis(@order, user, cart, total_price)        
         flash[:notice] = "Your order has been placed"
-        nxt_page = commodities_url
+        nxt_page = commodities_url   
       else  
         render :action => :new
         return true
@@ -76,6 +73,13 @@ class OrdersController < ApplicationController
       flash[:cart_flash] = true
     end
     redirect_to nxt_page
+  end
+
+  def get_credit_transfer_lis(order, user, cart, total_price)
+    admin = User.main_admin[0]
+    user.update_attribute(:wallet, user.wallet - total_price)
+    admin.update_attribute(:wallet, admin.wallet + total_price)
+    order.add_line_items_from_cart(cart)
   end
 
   def generate_error_no_items(items)
