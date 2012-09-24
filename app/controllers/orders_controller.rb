@@ -70,6 +70,7 @@ class OrdersController < ApplicationController
       else  
         render :action => :new
         return true
+      end
     else
       flash[:item_info] = generate_error_no_items(items_not_available)
       flash[:cart_flash] = true
