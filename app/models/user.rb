@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
     self.email.strip!
   end
 
+  def self.search(search, user)
+    if search
+      search_pattern = "%#{search}%"
+      where('user_name != ? AND ((name LIKE ?) OR (id like ?) OR (email LIKE ?) OR (wallet > ?)) ', user.user_name, search_pattern, search_pattern, search_pattern, search)
+    else
+      scoped
+    end
+  end
+
+
   has_secure_password
 
   has_one :cart, :dependent => :destroy

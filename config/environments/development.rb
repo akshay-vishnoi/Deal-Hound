@@ -8,8 +8,8 @@ DealHound::Application.configure do
     port: 587, 
     domain: 'domain.of.sender.net', 
     authentication: 'plain', 
-    user_name: 'akshay.vishnoi@vinsol.com', 
-    password: 'sanjeeev', 
+    user_name: 'dealhound.mail@gmail.com', 
+    password: 'dealhound', 
     enable_starttls_auto: true
   }
   # In the development environment your application's code is reloaded on

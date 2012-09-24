@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
 
   #Validation
   validates :name, :presence => { :message => "Category can't be blank" }, 
-                   :uniqueness => { :message => "Category is already present" }
+                   :uniqueness => { :case_sensitive => false, :message => "Category is already present" }
   
   #Commodity Association
   has_many :commodities, dependent: :destroy

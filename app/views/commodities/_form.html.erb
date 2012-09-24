@@ -96,7 +96,7 @@
             <%= img_f.link_to_remove "Remove this image" %>
           <% else %>
             <%= image_tag img_f.object.photo.url(:small) %>
-            <%= link_to "Remove this image", delete_img_url( { :image_id => img_f.object.id } ) %>
+            <%= link_to "Remove this image", delete_img_commodity_url( { :image_id => img_f.object.id } ) %>
           <% end %>
           <br>
         <% end %>

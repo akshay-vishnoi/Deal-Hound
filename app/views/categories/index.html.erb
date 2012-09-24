@@ -22,7 +22,7 @@
       <td></td>
     </tr>
   </table>
-    <%= submit_tag 'Edit/Delete' %>
+    <%= submit_tag 'Edit/Delete', data: { :confirm => "Are you sure?"} %>
   <% end %>
   <% else %>
     <h3>There no available categories</h3>

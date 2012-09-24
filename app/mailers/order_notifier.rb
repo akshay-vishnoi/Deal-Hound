@@ -6,9 +6,9 @@ class OrderNotifier < ActionMailer::Base
   #
   #   en.order_notifier.recieved.subject
   #
-  def recieved(order)
+  def recieved(order, email)
     @order = order
-    mail to: @order.mailing_email, subject: "DealHound Order No. #{@order.id} Confirmation"
+    mail to: email, subject: "DealHound Order No. #{@order.id} Confirmation"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -16,8 +16,13 @@ class OrderNotifier < ActionMailer::Base
   #
   #   en.order_notifier.shipped.subject
   #
-  def shipped(order)
+  def shipped(order, email)
     @order = order
-    mail to: @order.mailing_email, subject: "DealHound Order No. #{@order.id} Shipped"
+    mail to: email, subject: "DealHound Order No. #{@order.id} Shipped"
+  end
+
+  def gift(order, email)
+    @order = order
+    mail to: email, subject: "Gift from #{@order.user.name}"
   end
 end

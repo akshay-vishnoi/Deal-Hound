@@ -1,0 +1,27 @@
+<h3>DealHound Order no. <%= @order.id %></h3>
+
+Dear <%= @order.user.name %>,
+
+<p>
+Your Order with order number: <%= @order.id %> has been shipped, it will reach shortly.
+</p>
+<p>
+You ordered the following items:
+<table>
+  <tr>
+    <th colspan="2">Qty</th><th>Description</th>
+  </tr>
+  <% @order.line_items.each do |line_item| %>
+  <tr>
+    <td><%= line_item.quantity %>&times;</td>
+    <td><%= line_item.p_and_s.commodity.title.capitalize %> (<%= line_item.p_and_s.size %> <%= line_item.p_and_s.color %>)</td>
+    <td><%= number_to_currency(line_item.total_price) %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td>Total:</td>
+    <td><%= number_to_currency(@order.total_price) %></td>
+  </tr>
+</table>
+</p>

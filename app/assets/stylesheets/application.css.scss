@@ -250,3 +250,32 @@ div{
   border: 1px solid white;
   border-collapse: collapse;
 }
+
+.current{
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center; 
+}
+.asc{
+  background-image: url(/assets/up_arrow.gif);
+}
+
+.desc{
+  background-image: url(/assets/down_arrow.gif);
+}
+.search_p{
+  background-color: orange;
+  margin: 0px; 
+  input[type='text']{
+    margin-top: 2px;
+    margin-left: 100px;
+    width:200px;
+  }
+  input[type='submit']{
+    float: none;
+    margin-right:200px;
+  }
+}
+.paginate_p{
+  clear:both;
+}

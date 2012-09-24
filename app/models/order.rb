@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s, :address_attributes
 
   PAYMENT_MODES = {'Wallet' => 0, 'Credit Card' => 1}
-  STATUS = { 'Pending' => 0, 'Delivered' => 1 }
+  STATUS = { 'Pending' => 0, 'Shipped' => 1 }
 
   validates :mailing_email, :presence => true, 
                     :format => {
@@ -24,7 +24,7 @@ class Order < ActiveRecord::Base
 
   def status_to_s
     if status == 1
-      return "Delivered"
+      return "Shipped"
     else
       return "Pending"
     end
@@ -50,6 +50,27 @@ class Order < ActiveRecord::Base
   def add_line_items_from_cart(cart)
     cart.line_items.each do |li|
       li.update_attribute(:item, self)
+    end
+  end
+
+  def self.search(search)
+    if search
+      search_pattern = "%#{search}%"
+      where('(user_id in (select id from users where name like ?)) OR id LIKE ?', search_pattern, search_pattern)
+    else
+      scoped
+    end
+  end
+  
+  def self.for_user(id)
+    where('user_id = ?', id)
+  end
+
+  def gift_to_s
+    if gift == 1
+      "Gifted"
+    else 
+      "Self"
     end
   end
 end

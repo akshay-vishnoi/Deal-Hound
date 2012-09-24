@@ -1,12 +1,12 @@
 DealHound::Application.routes.draw do
 
-  resources :commodities 
-  controller :commodities do
-    get 'delete_img' => :del_image
-    get 'category' => :show_category
+  resources :commodities do
+    member do
+      get 'category' => :show_category
+      get 'delete_img' => :del_image
+    end
   end
- 
-  #match '/commodity_sku_build' => 'commodity#commodity_sku_build', :via => 'post', :as => "commodity_sku_build"
+
   resources :admins
   controller :sessions do
     get 'login' => :new
@@ -16,7 +16,12 @@ DealHound::Application.routes.draw do
   controller :categories do
     post 'edit_delete'
   end
-  resources :users
+
+  resources :users do
+    member do
+      get :change_password
+    end
+  end
   resources :categories
   resources :carts
   resources :line_items
@@ -75,7 +80,7 @@ DealHound::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   #root :to => 'commodities#index'
+   root :to => 'commodities#index'
 
   # See how all your routes lay out with "rake routes"
 

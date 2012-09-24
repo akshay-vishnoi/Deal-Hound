@@ -1,0 +1,20 @@
+
+Dear <%= @order.full_name %>,
+
+<p>
+You have recieved a gift from <b><%= @order.user.name %></b>
+</p>
+<p>
+Following items:
+<table>
+  <tr>
+    <th colspan="2">Qty</th><th>Description</th>
+  </tr>
+  <% @order.line_items.each do |line_item| %>
+  <tr>
+    <td><%= line_item.quantity %>&times;</td>
+    <td><%= line_item.p_and_s.commodity.title.capitalize %> (<%= line_item.p_and_s.size %> <%= line_item.p_and_s.color %>)</td>
+  </tr>
+  <% end %>
+</table>
+</p>

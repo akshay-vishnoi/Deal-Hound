@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  before_filter() { |controller| controller.authorize(session[:admin])}
+  helper_method :sort_column, :sort_direction
   def new
     @user = User.find(session[:user_id])
     @cart = @user.cart
@@ -32,7 +34,12 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.paginate page: params[:page], order: 'created_at desc', per_page: 10
+    user = User.find_by_id(session[:user_id])
+    if user && user.admin
+      @orders = Order.search(params[:search]).order(sort_column + " " + sort_direction).paginate page: params[:page], per_page: 10
+    else
+      @orders = Order.for_user(session[:user_id]).order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def create
@@ -76,5 +83,13 @@ class OrdersController < ApplicationController
   def generate_error_no_items(items)
     str = items.join(', ')
     "Required quantity of #{str} is not available." 
+  end
+
+  def sort_column
+    Order.column_names.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

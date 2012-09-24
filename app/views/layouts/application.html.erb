@@ -36,6 +36,10 @@
         <% unless session[:user_id].nil? %>
           Welcome&nbsp;
           <%= @user.name %>&nbsp;&nbsp;&nbsp;
+          <% unless @user.admin %>
+            <%= link_to 'My orders', orders_path(:search => @user.user_name) %>
+          <% end %>
+          <%#= link_to 'Edit Password', change_password_user_url(@user) %>
           <%= link_to 'Edit Profile', edit_user_url(@user) %>
           <%= link_to 'Logout', logout_url %>
         <% else %>

@@ -1,53 +1,7 @@
-<table id = "show_products">
-  <tr>
-    <th id = "store_header" colspan = 5>
-      <h4>
-        <% if params[:category_id] %>
-        <%= Category.find(params[:category_id]).name %>
-        <% else %>
-          Store
-        <%end %> 
-      <h4>
-    </th>
-  </tr>
-  <% unless @commodities.empty? %>
-    <% @commodities.each do |commodity| %>
-    <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
-      <td>
-        <% if commodity.images[0] %>
-          <%= image_tag commodity.images[0].photo.url(:small) %>
-        <% end %>
-      </td>
-      <td>
-        <%= commodity.title %><br>
-        &#8377;<%= commodity.actual_price %><br>
-                <%= commodity.vendor %>
-      </td>
-      <td>
-        <%= truncate(commodity.features.gsub(/\n/, '<br />'), :length => 100).html_safe %>
-      </td>
-      <% if session[:admin] == 1 %>
-        <td>
-          <%= link_to 'Edit', edit_commodity_path(commodity) %>
-          <%= link_to 'Delete', commodity, :method => :delete, data: {confirm: "Are you sure?" } %>
-        </td>
-      <% end %>
-      <td id = "buy_column">
-        <% user = User.find_by_id(session[:user_id]) %>
-        <% if user && user.admin == true %>
-          <%= link_to 'Show', commodity_url(commodity)%>
-        <% else %>
-          <%= link_to 'Buy/Show', commodity_url(commodity)%>
-        <% end %>
-      </td>
-    <tr>
-    <% end %>
-  <% else %>
-    <tr>
-      <td id = "no_commodity">
-        Sorry, there is no Commodity in this category.
-      </td>
-    </tr>
-  <% end %>
-</table>
-<p><%= will_paginate @commodities %></p>
+<%= form_tag commodities_path, :method => :get, :class => "search_ajax" do %>
+  <p class = "search_p">
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <div class = "sort_paginate_ajax"><%= render 'commodities' %></div>
+<% end %>

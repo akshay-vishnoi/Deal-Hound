@@ -1,0 +1,31 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class = "general left_order">
+  <tr>
+    <td colspan = 6><h2>Orders</h2></td>
+  </tr>
+  <tr>
+    <th><%= sortable "id", 'Order No.' %></th>
+    <th><%= sortable "user_id", 'User Reg. no.' %></th>
+    <th>Name</th>
+    <th><%= sortable "status" %></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @orders.each do |order| %>
+  <tr>
+    <td><%= order.id %></td>
+    <td><%= order.user.id %></td>
+    <td><%= order.user.name %></td>
+    <td><%= order.status_to_s %></td>
+    <td><%= order.gift_to_s %></td>
+    <% if find_user && find_user.admin %>
+      <%= link_name = 'Check/Edit' %>
+    <% else %>
+      <%= link_name = 'View' %>
+    <% end %>
+    <td><%= link_to link_name, edit_order_url(order) %></td>
+  </tr>
+  <% end %>
+</table>
+<p class = "paginate_p"><%= will_paginate @orders %></p>

@@ -1,10 +1,15 @@
 class CommoditiesController < ApplicationController
+  
   include CommodityHelper
-
   before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(true) }
   
   def index
-    @commodities = Commodity.paginate page: params[:page], order: 'random()', per_page: 4
+    @category = Category.find_by_id(params[:category_id])
+    if @category
+      @commodities = @category.commodities.search(params[:search]).paginate page: params[:page], order: 'random()', per_page: 3
+    else
+      @commodities = Commodity.search(params[:search]).paginate page: params[:page], order: 'random()', per_page: 3
+    end
   end
 
   def new
@@ -36,18 +41,6 @@ class CommoditiesController < ApplicationController
       params[:selected_category] = @commodity.category.name
       @commodity.images.build
       @commodity.commodity_skus.build
-    end
-  end
-
-  def show_category
-    begin
-      @category = Category.find(params["category_id"])
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Invalid Commodity"
-      redirect_to commodities_url
-    else
-      @commodities = @category.commodities.paginate page: params[:page], order: 'created_at desc', per_page: 2
-      render 'commodities/index'
     end
   end
 

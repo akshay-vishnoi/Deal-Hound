@@ -1,0 +1,29 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class = "general">
+  <tr>
+    <td colspan = 7><h2>Users</h2></td>
+  </tr>
+  <tr>
+    <th><%= sortable "id", 'Reg. no.' %></th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "user_name" %></th>
+    <th>Email</th>
+    <th>Mobile</th>
+    <th><%= sortable "wallet" %></th>    
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.id %></td>
+    <td><%= user.name %></td>
+    <td><%=user.user_name %></td>
+    <td><%=user.email %></td>
+    <td><%=user.mobile_no %></td>
+    <td><%= number_to_currency(user.wallet, :unit => '&#8377; ') %></td>
+    <td>
+      <%= link_to 'Edit', edit_user_url(user) %>/<%= link_to 'Delete', user, :method => :delete, data: {confirm: "Are you sure?" } %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<p class = "paginate_p"><%= will_paginate @orders %></p>

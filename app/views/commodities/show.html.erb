@@ -1,3 +1,4 @@
+<% user = find_user %>
 <div>
   <div id ="show_left">
     <table id = "show_commodity">
@@ -66,7 +67,7 @@
                 <%= sku.color %>
               </td>
             <% end %>
-            <% if User.find(session[:user_id]).admin == false %>
+            <% unless user && user.admin %>
             <td>
               <%= submit_tag 'BUY' %>
             </td>
@@ -77,7 +78,10 @@
       </table>
     <% end %>
     <br>
-    <%= link_to 'Edit', edit_commodity_path(@commodity) %>
+    <% if user && user.admin %>
+      <%= link_to 'Edit', edit_commodity_path(@commodity) %>
+      <%= link_to 'Delete', @commodity, :method => :delete, data: {confirm: "Are you sure?" } %>
+    <% end %>
     <%= link_to 'Back', commodities_path %>
   </div>
 </div>
