@@ -73,4 +73,8 @@ class Order < ActiveRecord::Base
       "Self"
     end
   end
+
+  def self.sort_paginate(sort_column, sort_direction, page)
+    order(sort_column + " " + sort_direction).paginate page: page, per_page: 10
+  end
 end
