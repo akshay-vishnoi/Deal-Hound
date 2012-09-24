@@ -59,25 +59,22 @@ class OrdersController < ApplicationController
     nxt_page = request.referrer
     if user.wallet < total_price
       flash[:error] = "Your wallet has insufficient money to pay."
-    elsif availability && @order.save
-      admin = User.main_admin[0]
-      user.update_attribute(:wallet, user.wallet - total_price)
-      admin.update_attribute(:wallet, admin.wallet + total_price)
-      @order.add_line_items_from_cart(cart)
-      flash[:notice] = "Your order has been placed"
-      nxt_page = commodities_url
     elsif availability
-      render :action => :new
-      return true
+      if @order.save
+        admin = User.main_admin[0]
+        user.update_attribute(:wallet, user.wallet - total_price)
+        admin.update_attribute(:wallet, admin.wallet + total_price)
+        @order.add_line_items_from_cart(cart)
+        flash[:notice] = "Your order has been placed"
+        nxt_page = commodities_url
+      else  
+        render :action => :new
+        return true
     else
       flash[:item_info] = generate_error_no_items(items_not_available)
       flash[:cart_flash] = true
     end
     redirect_to nxt_page
-  end
-
-  def credit_card_processing (order, user, total_price, cart)
-    
   end
 
   def generate_error_no_items(items)
