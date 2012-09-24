@@ -36,10 +36,11 @@ class OrdersController < ApplicationController
   def index
     user = User.find_by_id(session[:user_id])
     if user && user.admin
-      @orders = Order.search(params[:search]).sort_paginate(sort_column, sort_direction, params[:page])
+      find_by_attr = params[:search]
     else
-      @orders = Order.for_user(session[:user_id]).sort_paginate(sort_column, sort_direction, params[:page])
+      find_by_attr = session[:user_id]
     end
+    @orders = Order.search(find_by_attr, sort_column, sort_direction, params[:page], user.admin)
   end
 
   def create

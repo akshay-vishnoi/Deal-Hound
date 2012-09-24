@@ -53,17 +53,17 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.search(search)
-    if search
+  def self.search(search, sort_column, sort_direction, page, admin)
+    if admin
       search_pattern = "%#{search}%"
-      where('(user_id in (select id from users where name like ?)) OR id LIKE ?', search_pattern, search_pattern)
+      where('(user_id in (select id from users where name like ?)) OR id LIKE ?', search_pattern, search_pattern).sort_paginate(sort_column, sort_direction, page)
     else
-      scoped
+      where('user_id = ?', search).sort_paginate(sort_column, sort_direction, page)  
     end
   end
   
   def self.for_user(id)
-    where('user_id = ?', id)
+    
   end
 
   def gift_to_s
