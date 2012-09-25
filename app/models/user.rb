@@ -48,6 +48,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_password(params)
+    update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation], :authenticate_link => nil)
+  end
 
   has_secure_password
 

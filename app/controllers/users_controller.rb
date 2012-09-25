@@ -29,8 +29,8 @@ class UsersController < ApplicationController
   end
 
   def save_password
-    @user = User.find session[:user_id]
-    if @user && @user.authenticate(params[:old_password]) && @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
+    @user = User.find_by_id session[:user_id]
+    if @user && @user.authenticate(params[:old_password]) && @user.update_password(params)
         redirect_to commodities_url, notice: "#{@user.name}, your password has been updated."
     else
       flash[:error] = "Invalid Current Password" unless @user.errors.any?
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def save_after_forget
     @user = User.find(params[:id])
-    if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation], :authenticate_link => nil)
+    if @user.update_password(params)
       create_session(@user)
       redirect_to commodities_url, notice: "Password changed"
     else
@@ -99,13 +99,11 @@ class UsersController < ApplicationController
   def create
     params[:user][:wallet] = 0
     @user = User.new(params[:user])
-    respond_to do |format|
-      if @user.save
-        create_session(@user)
-        format.html { redirect_to commodities_url, notice: "Welcome #{params[:name]}" }
-      else
-        format.html { render :new }
-      end
+    if @user.save
+      create_session(@user)
+      redirect_to commodities_url, notice: "Welcome #{params[:name]}"
+    else
+      render :new
     end
   end
 
