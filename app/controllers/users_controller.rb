@@ -15,16 +15,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-  begin
-    @user = User.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
+    @user = User.find_by_id(params[:id])
+    if @user.nil?
       flash[:error] = "Invalid user"
       redirect_to users_url
-  else
-    if authorize @user.id
+    elsif authorize @user.id
       true
     end
-  end
   end
 
   def edit_password
