@@ -6,9 +6,9 @@ class CommoditiesController < ApplicationController
   def index
     @category = Category.find_by_id(params[:category_id])
     if @category
-      @commodities = @category.commodities.search(params[:search]).paginate page: params[:page], order: 'random()', per_page: 3
+      @commodities = @category.commodities.search(params)
     else
-      @commodities = Commodity.search(params[:search]).paginate page: params[:page], order: 'random()', per_page: 3
+      @commodities = Commodity.new_launches(params)
     end
   end
 

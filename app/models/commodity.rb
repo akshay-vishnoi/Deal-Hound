@@ -26,11 +26,19 @@ class Commodity < ActiveRecord::Base
   has_many :images, :as => :snapshot, :dependent => :destroy
   accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['photo'].nil?}
 
-  def self.search(search)
-    if search
-      where('title LIKE ?', "%#{search}%")
+  def self.search(params)
+    if params[:search]
+      where('title LIKE ?', "%#{params[:search]}%").paginate_commodity(params[:page])
     else
-      scoped
+      scoped.paginate_commodity(params[:page])
     end
+  end
+
+  def self.new_launches(params)
+    where(:created_at => (2.days.ago.to_time)..(Time.now)).paginate_commodity(params[:page])
+  end
+
+  def self.paginate_commodity(page)
+    paginate page: page, per_page: 3
   end
 end

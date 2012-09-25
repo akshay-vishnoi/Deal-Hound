@@ -3,6 +3,7 @@ class VouchersController < ApplicationController
   end
 
   def new
+    @voucher = Voucher.new
   end
 
   def edit

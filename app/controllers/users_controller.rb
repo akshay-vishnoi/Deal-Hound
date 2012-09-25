@@ -41,7 +41,6 @@ class UsersController < ApplicationController
   def change_password
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate_link == params[:authenticate_link]
-      # @user.update_attribute(:authenticate_link, nil)
       flash[:notice] = "Please enter new password"
     else
       flash[:error] = "Invalid request"

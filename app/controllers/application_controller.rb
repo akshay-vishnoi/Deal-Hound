@@ -33,5 +33,4 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     session[:admin] = user.admin    
   end
-  
 end
