@@ -2,7 +2,6 @@ DealHound::Application.routes.draw do
 
   resources :commodities do
     member do
-      get 'category' => :show_category
       get 'delete_img' => :del_image
     end
   end
@@ -15,14 +14,26 @@ DealHound::Application.routes.draw do
   end
   controller :categories do
     post 'edit_delete'
+    get 'forget_password'
   end
 
   resources :users do
     member do
+      get :edit_password
+      put :save_password
+      put :save_after_forget
+    end
+    collection do
+      post :forget_password
       get :change_password
     end
   end
-  resources :categories
+  resources :categories do
+    resources :commodities do
+    end
+  end
+
+  resources :vouchers
   resources :carts
   resources :line_items
   resources :orders

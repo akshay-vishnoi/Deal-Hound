@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :email, :mobile_no, :name, :wallet, :admin, :password, :password_confirmation, :user_name
+  attr_accessible :email, :mobile_no, :name, :wallet, :admin, :password, :password_confirmation, :user_name, :authenticate_link
 
   #Validation
   validates :user_name, :presence => true, 
@@ -18,13 +18,18 @@ class User < ActiveRecord::Base
                     }, 
                     :uniqueness => true
 
-  validates :mobile_no, :numericality => true, 
+  validates :mobile_no, :numericality => { greater_than_or_equal_to: 0, 
+                                           :only_integer => true, 
+                                           message: 'must be a valid mobile'}, 
                         :allow_blank => true
 
-  validates :password, :presence => true, 
+  validates :password, :if => :password, 
+                       :presence => true, 
                        :length => { :within => 8..20},
-                       :confirmation => { :message => "Password does not match" }, 
-                       :if => :password
+                       :confirmation => { :message => "Password does not match" }
+  validates :wallet, :allow_blank => true, 
+                     :numericality => { greater_than_or_equal_to: 0, 
+                                        message: 'must be a valid price'}
 
   before_validation :strip_whitespace!, :only => [:name, :email, :user_name]
 

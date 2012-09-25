@@ -20,9 +20,9 @@
     <td><%= order.status_to_s %></td>
     <td><%= order.gift_to_s %></td>
     <% if find_user && find_user.admin %>
-      <%= link_name = 'Check/Edit' %>
+      <% link_name = 'Check/Edit' %>
     <% else %>
-      <%= link_name = 'View' %>
+      <% link_name = 'View' %>
     <% end %>
     <td><%= link_to link_name, edit_order_url(order) %></td>
   </tr>

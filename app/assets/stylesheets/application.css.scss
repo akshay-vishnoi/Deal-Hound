@@ -104,14 +104,14 @@ div{
   margin-top: 5px;
   margin-left:25%;
   width:50%;
-  height:15px;
+  height:auto;
   padding:15px;
   color:red;
   border: 2px solid red;
   background-color: #e1e2e3;
   text-align: center;
 }
-#item_info, #cart_flash, #item, #order_errors{
+#item_info, #cart_flash, #item, #order_errors, #forget_password{
   display: none;
 }
 #no_commodity{
@@ -134,7 +134,7 @@ div{
   }
   color: red;
 }
-#signup{
+#signup, #change_password{
   background-color: #e1e2e3;
   width:700px;
   color:black;

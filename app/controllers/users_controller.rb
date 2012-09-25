@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
   
-  before_filter(:except => [:new, :create]) { |conroller| conroller.authorize(false) }
+  before_filter(:except => [:new, :create, :forget_password, :change_password, :save_after_forget]) { |conroller| conroller.authorize(false) }
   before_filter(:only => [:index, :destroy]) { |conroller| conroller.authorize(true) }
 
   def index
@@ -27,8 +27,57 @@ class UsersController < ApplicationController
   end
   end
 
-  def change_password
+  def edit_password
     @user = User.find params[:id]
+  end
+
+  def save_password
+    @user = User.find session[:user_id]
+    if @user && @user.authenticate(params[:old_password]) && @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
+        redirect_to commodities_url, notice: "#{@user.name}, your password has been updated."
+    else
+      flash[:error] = "Invalid Current Password" unless @user.errors.any?
+      render :edit_password
+    end
+  end
+
+  def change_password
+    @user = User.find_by_email(params[:email])
+    if @user && @user.authenticate_link == params[:authenticate_link]
+      # @user.update_attribute(:authenticate_link, nil)
+      flash[:notice] = "Please enter new password"
+    else
+      flash[:error] = "Invalid request"
+      redirect_to login_url
+    end
+  end
+
+  def save_after_forget
+    @user = User.find(params[:id])
+    if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation], :authenticate_link => nil)
+      session[:user_id] = @user.id
+      session[:admin] = @user.admin
+      redirect_to commodities_url, notice: "Password changed"
+    else
+      render :change_password
+    end
+  end
+
+  def forget_password
+    @user = User.find_by_email(params[:email])
+    if @user
+      authenticate_link = BCrypt::Password.create("tutu")
+      @user.update_attribute(:authenticate_link, authenticate_link)
+      authentication_path = change_password_users_url + "?email=#{@user.email}&authenticate_link=" + authenticate_link
+      PasswordNotifier.reset_password(@user, authentication_path).deliver
+      flash.now[:forget_password] = "Authentication link has been sent to your email. Please check it."
+    else
+      flash.now[:forget_password] = "Email is not registered."
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update

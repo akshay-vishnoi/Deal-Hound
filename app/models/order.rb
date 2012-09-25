@@ -62,10 +62,6 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def self.for_user(id)
-    
-  end
-
   def gift_to_s
     if gift == 1
       "Gifted"
