@@ -7,8 +7,10 @@ class CommoditiesController < ApplicationController
     @category = Category.find_by_id(params[:category_id])
     if @category
       @commodities = @category.commodities.search(params)
-    else
+    elsif params[:new_launch]
       @commodities = Commodity.new_launches(params)
+    else
+      @commodities = Commodity.search(params)
     end
   end
 
