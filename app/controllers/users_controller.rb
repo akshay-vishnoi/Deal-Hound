@@ -52,8 +52,7 @@ class UsersController < ApplicationController
   def save_after_forget
     @user = User.find(params[:id])
     if @user.update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation], :authenticate_link => nil)
-      session[:user_id] = @user.id
-      session[:admin] = @user.admin
+      create_session(@user)
       redirect_to commodities_url, notice: "Password changed"
     else
       render :change_password
@@ -98,14 +97,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    unless params[:user][:wallet].nil?
-      params[:user][:wallet] = 0
-    end
+    params[:user][:wallet] = 0
     @user = User.new(params[:user])
     respond_to do |format|
       if @user.save
-        session[:user_id] = @user.id
-        session[:admin] = @user.admin
+        create_session(@user)
         format.html { redirect_to commodities_url, notice: "Welcome #{params[:name]}" }
       else
         format.html { render :new }

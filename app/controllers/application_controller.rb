@@ -28,4 +28,9 @@ class ApplicationController < ActionController::Base
       cart
     end
   end
+
+  def create_session(user)
+    session[:user_id] = user.id
+    session[:admin] = user.admin    
+  end
 end
