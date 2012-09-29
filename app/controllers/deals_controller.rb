@@ -14,12 +14,13 @@ class DealsController < ApplicationController
       @commodity = CommoditySku.find(params[:products])
     end
     @deal = Deal.new
-    @deal.p_and_s = @commodity 
-    flash.now[:error] = @deal.p_and_s.commodity.title
+    @deal.p_and_s = @commodity
+    flash.now[:notice] = "You have selected #{@deal.p_and_s.commodity.title}."
   end
 
   def create
     @deal = Deal.new(params[:deal])
+    @deal.remaining_quantity = @deal.max_quantity
     if @deal.save
       redirect_to show_commodities_deals_url, notice: "Deal created successfully."
     else
@@ -48,6 +49,7 @@ class DealsController < ApplicationController
 
   def update
     @deal = Deal.find(params[:id])
+    params[:deal][:max_quantity] = @deal.max_quantity + params[:deal][:remaining_quantity].to_i - @deal.remaining_quantity
     if @deal.update_attributes(params[:deal])
       redirect_to deals_url, notice: "Deal updated successfully."
     else

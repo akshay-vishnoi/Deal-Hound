@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929061657) do
+ActiveRecord::Schema.define(:version => 20120929203753) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
@@ -68,11 +68,12 @@ ActiveRecord::Schema.define(:version => 20120929061657) do
     t.string   "p_and_s_type"
     t.date     "start_date"
     t.date     "end_date"
-    t.decimal  "discount",     :precision => 5, :scale => 2, :default => 0.0
-    t.integer  "max_users"
+    t.decimal  "discount",           :precision => 5, :scale => 2, :default => 0.0
+    t.integer  "max_quantity"
     t.boolean  "visible"
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.integer  "remaining_quantity"
   end
 
   create_table "images", :force => true do |t|
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20120929061657) do
     t.datetime "updated_at",                                  :null => false
     t.string   "p_and_s_type"
     t.decimal  "price",        :precision => 20, :scale => 2
+    t.integer  "deal_id"
   end
 
   create_table "orders", :force => true do |t|

@@ -12,9 +12,16 @@ You ordered the following items:
     <th colspan="2">Qty</th><th>Description</th>
   </tr>
   <% @order.line_items.each do |line_item| %>
+  <% p_and_s = line_item.p_and_s %>
   <tr>
     <td><%= line_item.quantity %>&times;</td>
-    <td><%= line_item.p_and_s.commodity.title.capitalize %> (<%= line_item.p_and_s.size %> <%= line_item.p_and_s.color %>)</td>
+    <td><%= p_and_s.commodity.title.capitalize %>(
+      <% if p_and_s.class.to_s == "Voucher" %>
+        <%= p_and_s.title %>
+      <% elsif p_and_s.class.to_s == "CommoditySku" %>
+        <%= p_and_s.size %> <%= p_and_s.color %>
+      <% end %>
+    )</td>
     <td><%= number_to_currency(line_item.total_price) %></td>
   </tr>
   <% end %>

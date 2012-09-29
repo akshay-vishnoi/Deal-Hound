@@ -21,16 +21,17 @@
             <tr>
               <%= form_tag line_items_path( :p_and_s => { id: sku, type: "CommoditySku" }) do %>
                 <td class = "deal_column">
-                  <% if sku.deal %>   
+                  <% deal = sku.deals.where('visible = ?', true).first %>
+                  <% if deal %>  
                     Time left:
-                      <% time = Time.at(sku.deal.end_date.to_time - Time.now).gmtime%>
+                      <% time = Time.at(deal.end_date.to_time - Time.now).gmtime%>
                       <span id = "timer_d"><%= time.strftime("%d") %></span>D
                       <span id = "timer_h"><%= time.strftime("%H") %></span>H
                       <span id = "timer_m"><%= time.strftime("%M") %></span>M
                       <span id = "timer_s"><%= time.strftime("%S") %></span>S<br>
                     Price: &#8377; <%= selling_price = sku.selling_price %><br>
-                    <b>Discount: <%= sku.deal.discount %>%<br>
-                    New Price: &#8377; <%= (1-(sku.deal.discount/100)) * selling_price %></b>
+                    <b>Discount: <%= deal.discount %>%<br>
+                    New Price: &#8377; <%= (1-(deal.discount/100)) * selling_price %></b>
                   <% end %>
                 </td>            
                 <% if sku.quantity %>
@@ -70,16 +71,17 @@
             <tr>
               <%= form_tag line_items_path(:p_and_s => { id: voucher, type: "Voucher" }) do %>
                 <td class = "deal_column">
-                  <% if voucher.deal %>
+                  <% deal = voucher.deals.where('visible = ?', true).first %>
+                  <% if deal %>
                     Time left:
-                      <% time = Time.at(voucher.deal.end_date.to_time - Time.now).gmtime%>
+                      <% time = Time.at(deal.end_date.to_time - Time.now).gmtime%>
                       <span id = "timer_d"><%= time.strftime("%d") %></span>D
                       <span id = "timer_h"><%= time.strftime("%H") %></span>H
                       <span id = "timer_m"><%= time.strftime("%M") %></span>M
                       <span id = "timer_s"><%= time.strftime("%S") %></span>S<br>
                     Price: &#8377; <%= selling_price = voucher.selling_price %><br>
-                    <b>Discount: <%= voucher.deal.discount %>%<br>
-                    New Price: &#8377; <%= (1-(voucher.deal.discount/100)) * selling_price %></b>
+                    <b>Discount: <%= deal.discount %>%<br>
+                    New Price: &#8377; <%= (1-(deal.discount/100)) * selling_price %></b>
                   <% end %>
                 </td>
                 <% if voucher.quantity %>
@@ -92,10 +94,12 @@
                 <span id = "selling_price">&#8377; <%= voucher.selling_price %></span>
                 <% end %>
                 </td>
-                <% unless user && user.admin && !voucher.selling_price %> 
-                <td>
-                  <%= submit_tag 'BUY' %>
-                </td>
+                <% unless user && user.admin %> 
+                <% if voucher.selling_price %>
+                    <td>
+                      <%= submit_tag 'BUY' %>
+                    </td>
+                  <% end %>
                 <% end %>
               <% end %>
             </tr>

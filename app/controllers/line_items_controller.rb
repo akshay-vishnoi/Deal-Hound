@@ -7,20 +7,20 @@ class LineItemsController < ApplicationController
   end
 
   def create
-    begin
-      @cart = Cart.find_or_create_by_user_id(session[:user_id])
-    rescue
-      logger.error "Attempt to access invalid cart #{params[:id]}"
-      flash[:error] = "Invalid cart"
-      redirect_to commodities_url
+    @cart = Cart.find_or_create_by_user_id(session[:user_id])
+    a = []
+    a = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
+    @line_item = a[0]
+    @line_item_with_deal = a[1]
+    if @line_item && @line_item_with_deal && @line_item.save && @line_item_with_deal.save
+      redirect_to cart_path(@cart)
+    elsif @line_item && @line_item.save 
+      redirect_to cart_path(@cart)
+    elsif @line_item_with_deal && @line_item_with_deal.save
+      redirect_to cart_path(@cart)
     else
-      @line_item, flash[:item] = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
-      if @line_item.save
-        redirect_to cart_path(@cart)
-      else
-        flash[:error] = "The current item is not available, #{params}"
-        redirect_to commodities_url
-      end
+      flash[:error] = "The current item is not available, #{params}"
+      redirect_to commodities_url
     end
   end
 

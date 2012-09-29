@@ -1,63 +1,82 @@
-<%= form_for @deal do |f| %>
-<table>
-  <tr>
-    <%= f.hidden_field :p_and_s_id %>
-    <%= f.hidden_field :p_and_s_type %>
-  </tr>
-  <tr>
-    <td>
-      Start Date
-    </td>
-    <td>
-      <%= f.text_field :start_date, :readonly => true %>
-      <% if @deal.errors.get(:start_date) %>
-        <div class = "field_with_errors"><%= @deal.errors.get(:start_date).first %></div>
+<fieldset>
+  <legend>New deal</legend>
+  <%= form_for @deal do |f| %>
+  <table>
+    <tr>
+      <%= f.hidden_field :p_and_s_id %>
+      <%= f.hidden_field :p_and_s_type %>
+    </tr>
+    <tr>
+      <td>
+        Start Date
+      </td>
+      <td>
+        <%= f.text_field :start_date, :readonly => true %>
+        <% if @deal.errors.get(:start_date) %>
+          <div class = "field_with_errors"><%= @deal.errors.get(:start_date).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        End Date
+      </td>
+      <td>
+        <%= f.text_field :end_date, :readonly => true %>
+        <% if @deal.errors.get(:end_date) %>
+          <div class = "field_with_errors"><%= @deal.errors.get(:end_date).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Discount
+      </td>
+      <td>
+        <%= f.text_field :discount %>%
+        <% if @deal.errors.get(:discount) %>
+          <div class = "field_with_errors"><%= @deal.errors.get(:discount).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Max Quantity
+      </td>
+      <td>
+        <% unless @deal.remaining_quantity %>
+          <%= f.number_field :max_quantity %>
+          <% if @deal.errors.get(:max_quantity) %>
+            <div class = "field_with_errors"><%= @deal.errors.get(:max_quantity).first %></div>
+          <% end %>
+        <% else %>
+          <%= f.label @deal.max_quantity %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <% if @deal.remaining_quantity %>
+      <td>
+        Remaining quantity
+      </td>
+      <td>
+        <%= f.number_field :remaining_quantity %>
+        <% if @deal.errors.get(:remaining_quantity) %>
+          <div class = "field_with_errors"><%= @deal.errors.get(:remaining_quantity).first %></div>
+        <% end %>
+      </td>
       <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      End Date
-    </td>
-    <td>
-      <%= f.text_field :end_date, :readonly => true %>
-      <% if @deal.errors.get(:end_date) %>
-        <div class = "field_with_errors"><%= @deal.errors.get(:end_date).first %></div>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Discount
-    </td>
-    <td>
-      <%= f.text_field :discount %>%
-      <% if @deal.errors.get(:discount) %>
-        <div class = "field_with_errors"><%= @deal.errors.get(:discount).first %></div>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Max Users
-    </td>
-    <td>
-      <%= f.number_field :max_users %>
-      <% if @deal.errors.get(:max_users) %>
-        <div class = "field_with_errors"><%= @deal.errors.get(:max_users).first %></div>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-    </td>
-    <td>
-      <%= f.submit %>
-    </td>
-  </tr>
-</table>
-<% end %>
-
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <%= f.submit %>
+      </td>
+    </tr>
+  </table>
+  <% end %>
+</fieldset>
 
 
 <link type="text/css" href="/assets/jquery-ui-1.8.23.custom.css" rel="stylesheet" />

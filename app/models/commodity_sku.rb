@@ -21,7 +21,7 @@ class CommoditySku < ActiveRecord::Base
   #LineItems association
   has_many :line_items, :as => :p_and_s
 
-  has_one :deal, :as => :p_and_s
+  has_many :deals, :as => :p_and_s
   
   #Cart association
   belongs_to :cart

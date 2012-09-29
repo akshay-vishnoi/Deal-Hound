@@ -39,7 +39,11 @@
           <% elsif p_and_s.class.to_s == "CommoditySku" %>
           <%= p_and_s.size %> <%= p_and_s.color %>
           <% end %>
-          )</td>
+          )
+          <% if item.deal_id %>
+          -with Deal
+          <% end %>
+        </td>
         <td><%= number_to_currency(item.price, :unit => '&#8377;') %></td>
         <td>
           <%= form_tag line_items_path(:p_and_s => { :id => p_and_s.id, :type => p_and_s.class.to_s}) do %>
