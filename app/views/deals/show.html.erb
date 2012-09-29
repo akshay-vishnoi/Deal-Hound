@@ -1,0 +1,5 @@
+<fieldset>
+  <legend><h2 id = "show_page"><%= @deal.p_and_s.commodity.title %></h2> - <%= @deal.p_and_s.class.to_s %></legend>
+  <% @commodity = @deal.p_and_s.commodity %> 
+  <%= render :template => '/commodities/show' %>
+</fieldset>

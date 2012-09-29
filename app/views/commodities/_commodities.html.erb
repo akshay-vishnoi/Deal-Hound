@@ -22,8 +22,7 @@
       </td>
       <td>
         <%= commodity.title %><br>
-        &#8377;<%= commodity.actual_price %><br>
-                <%= commodity.vendor %>
+        <%= commodity.vendor %>
       </td>
       <td>
         <%= truncate(commodity.features.gsub(/\n/, '<br />'), :length => 100).html_safe %>

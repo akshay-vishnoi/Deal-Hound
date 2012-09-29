@@ -1,0 +1,52 @@
+<% user = find_user %>
+<fieldset>
+  <legend>All deals</legend>
+  <table>
+    <tr>
+      <th>Deal id</th>
+      <th></th>
+      <th>Category</th>
+      <th>Discount</th>
+      <th>Duration</th>
+    </tr>
+    <% @deals.each do |deal| %>
+    <tr>
+      <td>
+        <%= deal.id %>
+      </td>
+      <td>
+    <div>
+      <%= image_tag deal.p_and_s.commodity.images[0].photo.url(:small) %>
+    </div>
+
+      </td>
+      <td>
+        <%= deal.p_and_s.commodity.category.name %><br>
+        <%= deal.p_and_s.commodity.title %><br>
+        <%= deal.p_and_s.class.to_s %>
+      </td>
+      <td>
+        Price: &#8377;<%= price = deal.p_and_s.selling_price %><br>
+        <b>Discount: <%= deal.discount %>%<br>
+           New Price: &#8377; <%= (1-(deal.discount/100)) * price %>
+         </b>
+      </td>
+      <td>
+        <%= deal.start_date.day %>/<%= deal.start_date.month %>/<%= deal.start_date.year %> - 
+        <%= deal.end_date.day %>/<%= deal.end_date.month %>//<%= deal.end_date.year %>
+      </td>
+      <td>
+        
+      </td>
+      <td>
+        <% if user && user.admin %>
+          <%= link_to 'Edit', edit_deal_url(deal) %>
+          <%= link_to 'Delete', deal, :method => :delete, data: {confirm: "Are you sure?" } %>
+        <% end %>
+      </td>
+      <td><%= link_to 'Show', deal_url(deal) %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</fieldset>

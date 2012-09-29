@@ -30,6 +30,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem "paperclip", '~> 3.0.0'
 gem 'rails-erd'
 gem 'will_paginate', '~> 3.0'
+gem "rufus-scheduler", ">= 2.0.1"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

@@ -26,17 +26,24 @@
     <% @cart.line_items.each do |item| %>
       <tr>
         <% commodity = item.p_and_s.commodity %>
-        <% commodity_sku = item.p_and_s %>
+        <% p_and_s = item.p_and_s %>
         <td>
           <% if commodity.images[0] %>
             <%= image_tag commodity.images[0].photo.url(:very_small) %>
           <% end %>
         </td>
-        <td><%= commodity.title.capitalize %> (<%= commodity_sku.size %> <%= commodity_sku.color %>)</td>
-        <td><%= number_to_currency(commodity.selling_price, :unit => '&#8377;') %></td>
         <td>
-          <%= form_tag line_items_path(commodity_sku_id: commodity_sku) do %>
-            <%= select_tag :quantity, options_for_select((1..commodity_sku.quantity).to_a, item.quantity), :onchange => 'quantity_changed(this)', :remote => true %>
+          <%= commodity.title.capitalize %> (
+          <% if p_and_s.class.to_s == "Voucher" %>
+          <%= p_and_s.title %>
+          <% elsif p_and_s.class.to_s == "CommoditySku" %>
+          <%= p_and_s.size %> <%= p_and_s.color %>
+          <% end %>
+          )</td>
+        <td><%= number_to_currency(item.price, :unit => '&#8377;') %></td>
+        <td>
+          <%= form_tag line_items_path(:p_and_s => { :id => p_and_s.id, :type => p_and_s.class.to_s}) do %>
+            <%= select_tag :quantity, options_for_select((1..p_and_s.quantity).to_a, item.quantity), :onchange => 'quantity_changed(this)', :remote => true %>
             <%= submit_tag '', :class => "update_quantity_button" %>
           <% end %>
         </td>

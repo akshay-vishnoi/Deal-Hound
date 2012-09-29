@@ -5,6 +5,6 @@ class LineItem < ActiveRecord::Base
   belongs_to :p_and_s, :polymorphic => true
 
   def total_price
-    p_and_s.commodity.selling_price * quantity
+    price * quantity
   end
 end

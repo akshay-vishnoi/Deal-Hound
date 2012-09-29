@@ -52,4 +52,46 @@ $(function() {
     $.get($('.search_ajax').attr("action"), $('.search_ajax').serialize(), null, "script");
     return false;
   });
+  setInterval('secondsToTime()', 1000)
 });
+
+function secondsToTime() {
+  days = $('#timer_d').text()
+  hours = $('#timer_h').text()
+  minutes = $('#timer_m').text()
+  seconds = $('#timer_s').text()
+
+  if (hours == 0 && days == 0 && minutes == 0 && seconds == 0) {
+    return true
+  }
+  if (seconds > 0) {
+    seconds = seconds - 1
+    seconds = pad(seconds)
+  } else {
+    seconds = 59
+    if (minutes > 0) {
+      minutes = pad(minutes - 1)
+    } else {
+      minutes = 59
+      if (hours > 0) {
+        hours = pad(hours - 1)
+      } else {
+        hours = 23
+        days = pad(days - 1)
+      }
+    } 
+  }
+  $('#timer_d').text(days)
+  $('#timer_h').text(hours)
+  $('#timer_m').text(minutes)
+  $('#timer_s').text(seconds)
+}
+function pad(n) {
+    return (n > 9 ? "" : "0") + n
+}
+
+function show_commodity(select) {
+  selected_div = $('#' + $(select).find('option:selected').text())
+  selected_div.show().siblings('div').hide()
+  console.log(selected_div.children().find('input').first().attr('checked', 'true'))
+}

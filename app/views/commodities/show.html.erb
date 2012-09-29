@@ -3,7 +3,7 @@
   <div id ="show_left">
     <table id = "show_commodity">
       <tr>
-        <td colspan = 2>
+        <td>
           <h2><%= @commodity.title %></h2>
         </td>
       </tr>
@@ -11,15 +11,100 @@
         <td> (By <%= @commodity.vendor.capitalize %>)</td>
       </tr>
       <tr>
-        <% if @commodity.actual_price %>
-        <td id = "actual_price">&#8377; <%= @commodity.actual_price %></td>
-        <% end %>
-        <% if @commodity.selling_price %>
-        <td id = "selling_price">&#8377; <%= @commodity.selling_price %></td>
-        <% end %>
+        <td>
+          <table id = "buy_at_show">
+            <tr>
+              <th>Deals</th>
+              <td colspan = 5><span class = "buy_details">*Select Quantity, and click Buy</span></td>
+            </tr>
+            <% @commodity.commodity_skus.each do |sku| %>
+            <tr>
+              <%= form_tag line_items_path( :p_and_s => { id: sku, type: "CommoditySku" }) do %>
+                <td class = "deal_column">
+                  <% if sku.deal %>   
+                    Time left:
+                      <% time = Time.at(sku.deal.end_date.to_time - Time.now).gmtime%>
+                      <span id = "timer_d"><%= time.strftime("%d") %></span>D
+                      <span id = "timer_h"><%= time.strftime("%H") %></span>H
+                      <span id = "timer_m"><%= time.strftime("%M") %></span>M
+                      <span id = "timer_s"><%= time.strftime("%S") %></span>S<br>
+                    Price: &#8377; <%= selling_price = sku.selling_price %><br>
+                    <b>Discount: <%= sku.deal.discount %>%<br>
+                    New Price: &#8377; <%= (1-(sku.deal.discount/100)) * selling_price %></b>
+                  <% end %>
+                </td>            
+                <% if sku.quantity %>
+                  <td>
+                    <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
+                  </td>
+                <% end %>            
+                <% unless sku.size.empty? %>
+                  <td>
+                    <%= sku.size %>
+                  </td>
+                <% end %>
+                <td>
+                <% if sku.actual_price %>
+                <span id = "actual_price">&#8377; <%= sku.actual_price %></span>
+                <% end %>
+                <% if sku.selling_price %><br>
+                <span id = "selling_price">&#8377; <%= sku.selling_price %></span>
+                <% end %>
+                </td>
+                <% unless sku.color.empty? %>
+                  <td>
+                    <%= sku.color %>
+                  </td>
+                <% end %>
+                <% unless user && user.admin %>
+                  <% if sku.selling_price %>
+                    <td>
+                      <%= submit_tag 'BUY' %>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+            <% end %>
+            <% @commodity.vouchers.each do |voucher| %>
+            <tr>
+              <%= form_tag line_items_path(:p_and_s => { id: voucher, type: "Voucher" }) do %>
+                <td class = "deal_column">
+                  <% if voucher.deal %>
+                    Time left:
+                      <% time = Time.at(voucher.deal.end_date.to_time - Time.now).gmtime%>
+                      <span id = "timer_d"><%= time.strftime("%d") %></span>D
+                      <span id = "timer_h"><%= time.strftime("%H") %></span>H
+                      <span id = "timer_m"><%= time.strftime("%M") %></span>M
+                      <span id = "timer_s"><%= time.strftime("%S") %></span>S<br>
+                    Price: &#8377; <%= selling_price = voucher.selling_price %><br>
+                    <b>Discount: <%= voucher.deal.discount %>%<br>
+                    New Price: &#8377; <%= (1-(voucher.deal.discount/100)) * selling_price %></b>
+                  <% end %>
+                </td>
+                <% if voucher.quantity %>
+                  <td>
+                    <%= select_tag :quantity, options_for_select((1..voucher.quantity).to_a) %>
+                  </td>
+                <% end %>
+                <td>
+                <% if voucher.selling_price %><br>
+                <span id = "selling_price">&#8377; <%= voucher.selling_price %></span>
+                <% end %>
+                </td>
+                <% unless user && user.admin && !voucher.selling_price %> 
+                <td>
+                  <%= submit_tag 'BUY' %>
+                </td>
+                <% end %>
+              <% end %>
+            </tr>
+            <% end %>
+          </table>
+        </td>
       </tr>
       <tr>
-        <td><br>Features: </td>
+        <td><br><b>Features:</b> </td>
       </tr>
       <tr>
         <td colspan = 2>
@@ -43,40 +128,6 @@
     </div>
     <br>
     <br>
-    <% if @commodity.selling_price %> 
-      *Select Quantity, and click Buy
-      <table id = "buy_at_show">
-      <% @commodity.commodity_skus.each do |sku| %>
-        <tr>
-          <%= form_tag line_items_path(commodity_sku_id: sku) do %>
-          <%= hidden_field_tag :commodity_sku_id, sku.id%>
-            <% if sku.quantity %>
-              <td>
-                <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
-              </td>
-            <% end %>
-            
-            <% unless sku.size.empty? %>
-              <td>
-                <%= sku.size %>
-              </td>
-            <% end %>
-            
-            <% unless sku.color.empty? %>
-              <td>
-                <%= sku.color %>
-              </td>
-            <% end %>
-            <% unless user && user.admin %>
-            <td>
-              <%= submit_tag 'BUY' %>
-            </td>
-            <% end %>
-          <% end %>
-        </tr>
-        <% end %>
-      </table>
-    <% end %>
     <br>
     <% if user && user.admin %>
       <%= link_to 'Edit', edit_commodity_path(@commodity) %>

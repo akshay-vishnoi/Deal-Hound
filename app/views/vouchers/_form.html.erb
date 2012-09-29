@@ -1,0 +1,87 @@
+<%= form_for @voucher do |f| %>  
+<fieldset class = "sub_fieldset">
+  <legend>Voucher Details:</legend>
+  <table>
+    <tr>
+      <td>
+        <%= f.label :commodity, 'Select Commodity' %>
+      </td>
+      <td>
+        <%= f.select :commodity, services_list %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :title %>
+      </td>
+      <td>
+        <%= f.text_field :title %>
+        <% if @voucher.errors.get(:title) %>
+          <div class = "field_with_errors"><%= @voucher.errors.get(:title).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :redeem_within %>
+      </td>
+      <td>
+        <%= f.text_field :redeem_within %>
+        <% if @voucher.errors.get(:redeem_within) %>
+          <div class = "field_with_errors"><%= @voucher.errors.get(:redeem_within).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :discount %>
+      </td>
+      <td>
+        <%= f.text_field :discount %>
+        <% if @voucher.errors.get(:discount) %>
+          <div class = "field_with_errors"><%= @voucher.errors.get(:discount).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :selling_price %>
+      </td>
+      <td>
+        <%= f.text_field :selling_price %>
+        <% if @voucher.errors.get(:selling_price) %>
+          <div class = "field_with_errors"><%= @voucher.errors.get(:selling_price).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :quantity %>
+      </td>
+      <td>
+        <%= f.text_field :quantity %>
+        <% if @voucher.errors.get(:quantity) %>
+          <div class = "field_with_errors"><%= @voucher.errors.get(:quantity).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :redeem_procedure %>
+      </td>
+      <td>
+        <%= f.text_area :redeem_procedure %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.label :description %>
+      </td>
+      <td>
+        <%= f.text_area :description %>
+      </td>
+    </tr>
+  </table>
+  <%= f.submit %>
+</fieldset>
+<% end %>

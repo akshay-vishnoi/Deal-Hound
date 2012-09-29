@@ -53,28 +53,6 @@
         </tr>
         <tr>
           <td>
-            <%= f.label :actual_price, 'Actual Price' %>
-          </td>
-          <td>
-            <%= f.text_field :actual_price %>
-            <% if @commodity.errors.get(:actual_price) %>
-              <div class = "field_with_errors"><%= @commodity.errors.get(:actual_price).first %></div>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= f.label :selling_price, 'Selling Price' %>
-          </td>
-          <td>
-            <%= f.text_field :selling_price %>
-            <% if @commodity.errors.get(:selling_price) %>
-              <div class = "field_with_errors"><%= @commodity.errors.get(:selling_price).first %></div>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td>
             <%= f.label :description, 'Description' %>
           </td>
           <td>
@@ -104,9 +82,24 @@
         <%= f.link_to_add "Add a image", :images %>
     </fieldset><br>
     <fieldset class = "sub_fieldset">
+      <div>
       <% if @commodity.errors.messages[:"commodity_skus.quantity"] %>
-        <div class = "field_with_errors"><%= @commodity.errors.messages[:"commodity_skus.quantity"].first%></div><br>
+        <div class = "field_with_errors">
+          <%= @commodity.errors.messages[:"commodity_skus.quantity"].first%>
+        </div>
       <% end %>              
+      <% if @commodity.errors.messages[:"commodity_skus.actual_price"] %>
+        <div class = "field_with_errors">
+          <%= @commodity.errors.messages[:"commodity_skus.actual_price"].first %>
+        </div>
+      <% end %>
+      <% if @commodity.errors.messages[:"commodity_skus.selling_price"] %>
+        <div class = "field_with_errors">
+          <%= @commodity.errors.messages[:"commodity_skus.selling_price"].first %>
+        </div>
+      <% end %>
+      <div>
+      <br><br>
       <%= f.fields_for :commodity_skus do |sku_f| %>      
         <legend>Type</legend>
         <table>
@@ -134,6 +127,22 @@
               <%= sku_f.text_field :quantity %>
             </td>
           </tr>
+          <tr>
+          <td>
+            <%= sku_f.label :actual_price, 'Actual Price' %>
+          </td>
+          <td>
+            <%= sku_f.text_field :actual_price %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= sku_f.label :selling_price, 'Selling Price' %>
+          </td>
+          <td>
+            <%= sku_f.text_field :selling_price %>
+          </td>
+        </tr>
           <tr><td></td><td><%= sku_f.link_to_remove "Remove this type" %>
         </table>
       <% end %>

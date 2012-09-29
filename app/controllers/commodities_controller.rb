@@ -23,11 +23,15 @@ class CommoditiesController < ApplicationController
   end
 
   def show
-    begin
-      @commodity = Commodity.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Invalid Commodity"
-      redirect_to commodities_url
+    @commodity = Commodity.find(params[:id])
+    respond_to do |format|
+      if @commodity
+        format.js
+        format.html
+      else
+        flash[:error] = "Invalid Commodity"
+        format.html { redirect_to commodities_url }
+      end
     end
   end
 
@@ -73,7 +77,7 @@ class CommoditiesController < ApplicationController
   
   def create
     @cat = Category.find_by_name(params[:commodity]["category"])
-    params[:commodity].delete_if { |k,v| k == "category" }
+    params[:commodity].delete "category"
     @commodity = Commodity.new(params[:commodity])
     @commodity.category = @cat
     if @commodity.save

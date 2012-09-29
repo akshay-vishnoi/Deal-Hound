@@ -6,9 +6,6 @@ class LineItemsController < ApplicationController
     redirect_to request.referrer, notice: params
   end
 
-  def index
-  end
-
   def create
     begin
       @cart = Cart.find_or_create_by_user_id(session[:user_id])
@@ -17,17 +14,14 @@ class LineItemsController < ApplicationController
       flash[:error] = "Invalid cart"
       redirect_to commodities_url
     else
-      @line_item, flash[:item] = @cart.add_item(params[:commodity_sku_id], params[:quantity].to_i)
+      @line_item, flash[:item] = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
       if @line_item.save
         redirect_to cart_path(@cart)
       else
-        flash[:error] = "The current item is not available"
-        redirect_to commodities.url
+        flash[:error] = "The current item is not available, #{params}"
+        redirect_to commodities_url
       end
     end
-  end
-
-  def update
   end
 
   def destroy

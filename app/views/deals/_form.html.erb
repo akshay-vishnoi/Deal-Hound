@@ -1,0 +1,70 @@
+<%= form_for @deal do |f| %>
+<table>
+  <tr>
+    <%= f.hidden_field :p_and_s_id %>
+    <%= f.hidden_field :p_and_s_type %>
+  </tr>
+  <tr>
+    <td>
+      Start Date
+    </td>
+    <td>
+      <%= f.text_field :start_date, :readonly => true %>
+      <% if @deal.errors.get(:start_date) %>
+        <div class = "field_with_errors"><%= @deal.errors.get(:start_date).first %></div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      End Date
+    </td>
+    <td>
+      <%= f.text_field :end_date, :readonly => true %>
+      <% if @deal.errors.get(:end_date) %>
+        <div class = "field_with_errors"><%= @deal.errors.get(:end_date).first %></div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Discount
+    </td>
+    <td>
+      <%= f.text_field :discount %>%
+      <% if @deal.errors.get(:discount) %>
+        <div class = "field_with_errors"><%= @deal.errors.get(:discount).first %></div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Max Users
+    </td>
+    <td>
+      <%= f.number_field :max_users %>
+      <% if @deal.errors.get(:max_users) %>
+        <div class = "field_with_errors"><%= @deal.errors.get(:max_users).first %></div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      <%= f.submit %>
+    </td>
+  </tr>
+</table>
+<% end %>
+
+
+
+<link type="text/css" href="/assets/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/assets/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript">
+$("#deal_start_date").datepicker({dateFormat : 'dd/mm/yy', minDate: 0, numberOfMonths: 1, changeMonth: true, changeYear: true});
+$("#deal_end_date").datepicker({dateFormat : 'dd/mm/yy', minDate: 0, numberOfMonths: 1, changeMonth: true, changeYear: true});
+$("#product_tentative_selling_on").datepicker({dateFormat : 'dd/mm/yy', minDate: 0, numberOfMonths: 1, changeMonth: true, changeYear: true});
+</script>

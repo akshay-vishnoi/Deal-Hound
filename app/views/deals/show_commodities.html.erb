@@ -1,0 +1,71 @@
+<%= form_tag new_deal_url, :method => :get do %>
+<fieldset>
+  <legend>Select a product/service</legend>
+<%= select_tag :voucher, options_for_select({ "Products" => "0", "Services" => "1"}), :onchange => "show_commodity(this)" %>
+<%= submit_tag 'Go to Deal Details' %>
+<br>
+<br>
+<div id = "Products">
+  <table>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Color</th>
+      <th>Quantity</th>
+      <th>Selling Price</th>
+      <th></th>
+    </tr>
+    <% @products.each do |product| %>
+    <tr>
+      <td>
+        <%= radio_button_tag :products, product.id, true %>
+      </td>
+      <td>
+        <%= product.id %>
+        <%= product.commodity.title %>
+      </td>
+      <td>
+        <%= product.size %>
+      </td>
+      <td>
+        <%= product.color %>
+      </td>
+      <td>
+        <%= product.quantity %>
+      </td>
+      <td>
+        <%= product.selling_price %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+<div id = "Services">
+  <table>
+    <tr>
+      <th></th>
+      <th>Service</th>
+      <th>Price</th>
+      <th>Discount</th>
+    </tr>
+    <% @vouchers.each do |voucher| %>
+    <tr>
+      <td>
+        <%= radio_button_tag :vouchers, voucher.id, true %>
+      </td>
+      <td>
+        <%= voucher.commodity.title %>
+      </td>
+      <td>
+        <%= voucher.selling_price %>
+      </td>
+      <td>
+        <%= voucher.discount %>%
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+</fieldset>
+<% end %>

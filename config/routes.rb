@@ -1,11 +1,20 @@
 DealHound::Application.routes.draw do
 
+  controller :application do
+    post 'subscription'
+    get 'unsubscribe'
+  end
   resources :commodities do
     member do
       get 'delete_img' => :del_image
     end
   end
 
+  resources :deals do
+    collection do
+      get 'show_commodities'
+    end
+  end
   resources :admins
   controller :sessions do
     get 'login' => :new

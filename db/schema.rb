@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925102503) do
+ActiveRecord::Schema.define(:version => 20120929061657) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
@@ -46,12 +46,10 @@ ActiveRecord::Schema.define(:version => 20120925102503) do
     t.string   "title"
     t.text     "features"
     t.text     "description"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "vendor"
     t.integer  "voucher"
-    t.integer  "actual_price",  :limit => 2
-    t.integer  "selling_price", :limit => 2
   end
 
   create_table "commodity_skus", :force => true do |t|
@@ -59,8 +57,22 @@ ActiveRecord::Schema.define(:version => 20120925102503) do
     t.string   "color"
     t.string   "size"
     t.integer  "commodity_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.decimal  "selling_price", :precision => 20, :scale => 2
+    t.decimal  "actual_price",  :precision => 20, :scale => 2
+  end
+
+  create_table "deals", :force => true do |t|
+    t.integer  "p_and_s_id"
+    t.string   "p_and_s_type"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.decimal  "discount",     :precision => 5, :scale => 2, :default => 0.0
+    t.integer  "max_users"
+    t.boolean  "visible"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
   end
 
   create_table "images", :force => true do |t|
@@ -79,10 +91,10 @@ ActiveRecord::Schema.define(:version => 20120925102503) do
     t.string   "item_type"
     t.integer  "quantity"
     t.integer  "p_and_s_id"
-    t.integer  "price",        :limit => 2
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "p_and_s_type"
+    t.decimal  "price",        :precision => 20, :scale => 2
   end
 
   create_table "orders", :force => true do |t|
@@ -96,15 +108,21 @@ ActiveRecord::Schema.define(:version => 20120925102503) do
     t.string   "full_name"
   end
 
+  create_table "subscribes", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
     t.integer  "mobile_no"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
-    t.boolean  "admin",                          :default => false
-    t.integer  "wallet",            :limit => 2, :default => 0
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+    t.boolean  "admin",                                            :default => false
+    t.decimal  "wallet",            :precision => 30, :scale => 2, :default => 0.0
     t.string   "user_name"
     t.string   "authenticate_link"
   end
@@ -113,11 +131,13 @@ ActiveRecord::Schema.define(:version => 20120925102503) do
     t.string   "title"
     t.text     "description"
     t.text     "redeem_procedure"
-    t.date     "redeem_within"
+    t.integer  "redeem_within"
     t.integer  "commodity_id"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
-    t.decimal  "discount",         :precision => 2, :scale => 0, :default => 0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.decimal  "discount",         :precision => 5,  :scale => 2, :default => 0.0
+    t.decimal  "selling_price",    :precision => 20, :scale => 2, :default => 0.0
+    t.integer  "quantity"
   end
 
 end

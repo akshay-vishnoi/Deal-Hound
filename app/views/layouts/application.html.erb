@@ -31,10 +31,19 @@
   <div>
     <div class = "header">
       <h1>DealHound.com</h1>
+      <span id ="subscription_error" >
+        <%= flash[:subscription] %>
+      </span>
       <div>
-        <br>
+
+        <span>
+          <%= form_tag subscription_path do %> 
+          <%= email_field_tag :email,"", :placeholder => "enter your email" %>
+          <%= submit_tag "get daily alerts" %>
+          <% end %>
+        </span>
         <% unless session[:user_id].nil? %>
-          Welcome&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;
           <%= @user.name %>&nbsp;&nbsp;&nbsp;
           Wallet: &#8377; <%= @user.wallet %>
           <% unless @user.admin %>

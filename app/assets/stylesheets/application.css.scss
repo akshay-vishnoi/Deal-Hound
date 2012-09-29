@@ -13,13 +13,22 @@
  */
 .header{
     h1{
-      padding-left: 10px;
+      padding-left: 15px;
       display: inline;
       vertical-align: center;
     }
+    #subscription_error{
+      margin-left: 90px;
+      color: yellow;
+    }
     div{
+      span{
+        float: left;
+        margin-top:-5px;
+      }
       float: right;
       width:auto;
+      margin-top:20px;
       margin-right:10px;
       a{
         color:white;
@@ -111,7 +120,7 @@ div{
   background-color: #e1e2e3;
   text-align: center;
 }
-#item_info, #cart_flash, #item, #order_errors, #forget_password{
+#item_info, #cart_flash, #item, #order_errors, #forget_password, #subscription, #Services{
   display: none;
 }
 #no_commodity{
@@ -155,13 +164,19 @@ div{
   text-align:right;
 }
 #show_left{
-  margin-left: 20px;
+  
   float: left;
-  width:400px;
-  margin-right: 100px;
+  width:600px;
   table{
     tr{
       td{
+        table{
+          tr{
+            td{
+              width: auto;
+            }
+          }
+        }
         width: 100%;
         h2{
           display: inline-block;
@@ -186,12 +201,15 @@ div{
   input[type = submit]{
     width : 50px;
     height: 25px;
-    margin-left: 25px;
+    margin-left: 5px;
     float: left;
   }
 }
+.buy_details{
+  font-size: 16px;
+}
 #buy_at_show td:last-child{
-  width: 100px;
+  width: 50px;
 }
 .hide_cart{
   z-index: -1;

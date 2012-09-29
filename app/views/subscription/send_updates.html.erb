@@ -1,0 +1,24 @@
+<% @commodities = Commodity.all %>
+
+<h2>DealHound.com</h2>
+
+Hey Checkout our new products:<br>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Vendor</th>
+  </tr>
+<% @commodities.each do |commodity| %>
+  <tr>
+    <td><%= commodity.title %>&nbsp;&nbsp;</td>
+    </td><%= commodity.vendor %></td>
+  </tr>
+<% end %>
+</table>
+
+Just click on the link below:
+<a href = "http://localhost:3000/commodities">Click here</a><br>
+
+Note: Kindly login before buying.
+<br><br>
+In case you want to <a href = "http://localhost:3000/unsubscribe?email=<%= "#{@email}" %>">unsubscribe</a>
