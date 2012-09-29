@@ -8,10 +8,7 @@ class LineItemsController < ApplicationController
 
   def create
     @cart = Cart.find_or_create_by_user_id(session[:user_id])
-    a = []
-    a = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
-    @line_item = a[0]
-    @line_item_with_deal = a[1]
+    @line_item, @line_item_with_deal, flash[:item] = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
     if (@line_item && @line_item_with_deal && @line_item.save && @line_item_with_deal.save) || (@line_item && @line_item.save) || (@line_item_with_deal && @line_item_with_deal.save)
       redirect_to cart_path(@cart)
     else
