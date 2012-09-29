@@ -12,11 +12,7 @@ class LineItemsController < ApplicationController
     a = @cart.add_item(params[:p_and_s], params[:quantity].to_i)
     @line_item = a[0]
     @line_item_with_deal = a[1]
-    if @line_item && @line_item_with_deal && @line_item.save && @line_item_with_deal.save
-      redirect_to cart_path(@cart)
-    elsif @line_item && @line_item.save 
-      redirect_to cart_path(@cart)
-    elsif @line_item_with_deal && @line_item_with_deal.save
+    if (@line_item && @line_item_with_deal && @line_item.save && @line_item_with_deal.save) || (@line_item && @line_item.save) || (@line_item_with_deal && @line_item_with_deal.save)
       redirect_to cart_path(@cart)
     else
       flash[:error] = "The current item is not available, #{params}"
