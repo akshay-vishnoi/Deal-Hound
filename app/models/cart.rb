@@ -28,14 +28,13 @@ class Cart < ActiveRecord::Base
         if without_deal_quantity > 0 
           if current_item
             current_item.quantity = without_deal_quantity
-            li_with_deal.quantity = deal.remaining_quantity
           else
             current_item = line_items.build()
             current_item.p_and_s = @p_and_s
             current_item.price = @p_and_s.selling_price
             current_item.quantity = without_deal_quantity
-            li_with_deal.quantity = deal.remaining_quantity
           end
+          li_with_deal.quantity = deal.remaining_quantity
         else
           li_with_deal.quantity = quantity
         end
@@ -50,14 +49,13 @@ class Cart < ActiveRecord::Base
         if without_deal_quantity > 0 
           if current_item
             current_item.quantity = without_deal_quantity
-            li_with_deal.quantity = deal.remaining_quantity
           else 
             current_item = line_items.build()
             current_item.p_and_s = @p_and_s
             current_item.price = @p_and_s.selling_price
             current_item.quantity = without_deal_quantity
-            li_with_deal.quantity = deal.remaining_quantity
-          end          
+          end
+          li_with_deal.quantity = deal.remaining_quantity
         else
           li_with_deal.quantity = quantity
         end
