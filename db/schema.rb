@@ -11,14 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929203753) do
+ActiveRecord::Schema.define(:version => 20121006082558) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
     t.string   "city"
     t.string   "state"
     t.integer  "pincode"
-    t.integer  "order_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -71,9 +70,10 @@ ActiveRecord::Schema.define(:version => 20120929203753) do
     t.decimal  "discount",           :precision => 5, :scale => 2, :default => 0.0
     t.integer  "max_quantity"
     t.boolean  "visible"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
     t.integer  "remaining_quantity"
+    t.string   "city",                                             :default => "Delhi"
   end
 
   create_table "images", :force => true do |t|
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20120929203753) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "full_name"
+    t.integer  "address_id"
   end
 
   create_table "subscribes", :force => true do |t|
@@ -127,6 +128,13 @@ ActiveRecord::Schema.define(:version => 20120929203753) do
     t.decimal  "wallet",            :precision => 30, :scale => 2, :default => 0.0
     t.string   "user_name"
     t.string   "authenticate_link"
+  end
+
+  create_table "voucher_skus", :force => true do |t|
+    t.string   "code"
+    t.integer  "voucher_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "vouchers", :force => true do |t|

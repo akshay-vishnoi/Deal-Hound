@@ -20,6 +20,8 @@ class Voucher < ActiveRecord::Base
 
   has_many :line_items, :as => :p_and_s
 
+  has_many :voucher_skus, :dependent => :destroy
+
   has_many :deals, :as => :p_and_s
   #Commodity Association
   belongs_to :commodity

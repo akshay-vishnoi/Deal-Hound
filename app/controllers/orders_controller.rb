@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
       @order.mailing_email = @user.email
       @order.full_name = @user.name
       @payments = Order::PAYMENT_MODES
-      @order.build_address if @user.cart.voucher
+      @order.address = Address.new if @user.cart.voucher
     else
       flash[:error] = "There is no item in cart"
       redirect_to commodities_url
@@ -46,6 +46,7 @@ class OrdersController < ApplicationController
   def create
     @user = User.find(session[:user_id])
     @order = @user.orders.new(params[:order])
+    @order.address = Order.find_or_init_address(params[:order][:address_attributes])
     @cart = @user.cart
     total_price = @cart.total_price
     if @order.payment_mode == 0
@@ -64,12 +65,15 @@ class OrdersController < ApplicationController
       if @order.save
         get_credit_transfer_lis(@order, user, cart, total_price)        
         flash[:notice] = "Your order has been placed"
-        nxt_page = commodities_url   
-      else  
+        nxt_page = commodities_url
+      else
         render :action => :new
         return true
       end
     else
+
+      logger.info "sfas0"
+      adsfaf
       flash[:item_info] = generate_error_no_items(items_not_available)
       flash[:cart_flash] = true
     end

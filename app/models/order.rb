@@ -10,16 +10,24 @@ class Order < ActiveRecord::Base
                       with: /(^[A-z0-9]+((.[A-z0-9]+)|(-[A-z0-9]+)|(_[A-z0-9]+)|([A-z0-9]+))*@[A-z0-9]{3,}.[A-z]{2,4}(.[A-z]{2})?)$/, 
                       message: "invalid email address"
                     }
+  
   belongs_to :user
-  has_one :address, :dependent => :destroy
+  
+  belongs_to :address
   accepts_nested_attributes_for :address
+  
   has_many :line_items, :as => :item, :dependent => :destroy
+  
   before_save :check_status
   
   def check_status
     if status.nil?
       self.status = 0
     end
+  end
+
+  def self.find_or_init_address(params)
+    Address.find_or_initialize_by_street_and_city_and_state_and_pincode(params)
   end
 
   def status_to_s
@@ -50,6 +58,10 @@ class Order < ActiveRecord::Base
   def add_line_items_from_cart(cart)
     cart.line_items.each do |li|
       li.update_attribute(:item, self)
+      if li.deal
+        li.deal.update_attribute(:remaining_quantity, li.deal.remaining_quantity - li.quantity)
+      end
+      li.p_and_s.update_attribute(:quantity, li.p_and_s.quantity - li.quantity)
     end
   end
 

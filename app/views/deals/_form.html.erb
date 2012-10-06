@@ -8,6 +8,17 @@
     </tr>
     <tr>
       <td>
+        City*
+      </td>
+      <td>
+        <%= f.text_field :city %>
+        <% if @deal.errors.get(:city) %>
+          <div class = "field_with_errors"><%= @deal.errors.get(:city).first %></div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
         Start Date
       </td>
       <td>

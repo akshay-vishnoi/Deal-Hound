@@ -25,4 +25,11 @@ class OrderNotifier < ActionMailer::Base
     @order = order
     mail to: email, subject: "Gift from #{@order.user.name}"
   end
+
+  def send_vouchers(order, vouchers_codes, voucher, email)
+    @vouchers_codes = vouchers_codes
+    @voucher = voucher
+    @order = order
+    mail to: email, subject: "Gift from"
+  end
 end

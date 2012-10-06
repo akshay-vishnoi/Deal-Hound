@@ -1,11 +1,13 @@
 class Commodity < ActiveRecord::Base
 
-  attr_accessible :title, :features, :description, :delivery_type, :vendor, :voucher, :images_attributes, :commodity_skus_attributes
+  attr_accessible :title, :features, :description, :vendor, :voucher, 
+                  :images_attributes, :commodity_skus_attributes
+
   TYPE = { "Product" => 0, "Service" => 1 }
 
   #Validation
-  validates :title, :presence => true, 
-                    :uniqueness => true
+  validates :title, :presence => true
+  validates :title, :uniqueness => true, :unless => proc { |commodity| commodity.title.blank? }
   
   #Category Association
   belongs_to :category
@@ -19,7 +21,9 @@ class Commodity < ActiveRecord::Base
 
   #Images Association
   has_many :images, :as => :snapshot, :dependent => :destroy
-  accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['photo'].nil?}
+  accepts_nested_attributes_for :images, :reject_if => lambda { |t| t['photo'].blank?}
+
+  #Class Methods
 
   def self.search(params)
     if params[:search]

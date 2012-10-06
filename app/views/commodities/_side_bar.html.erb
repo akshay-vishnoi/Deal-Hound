@@ -11,6 +11,10 @@
     <%= link_to 'New Launches', commodities_url(new_launch: true) %>
   </li>
   <li>
-      <%= link_to 'Deals', deals_url %>
+    <%= form_tag deals_url do %>
+    City: <%= select_tag :city, options_for_select(Deal.select('Distinct city').order('city').map { |d| d.city}, session[:city]) %>
+    <%= submit_tag 'Deals'%>
+    <% end %>
   </li>
+
 </ul>

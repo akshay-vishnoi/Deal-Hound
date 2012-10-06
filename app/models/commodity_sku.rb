@@ -15,14 +15,25 @@ class CommoditySku < ActiveRecord::Base
                             numericality: { greater_than_or_equal_to: 0.01, 
                                             message: 'Enter valid selling price'}
 
-  #Commodity association
+  validates :size, :uniqueness => { :scope => [:color, :commodity_id], 
+                                    :message => "Size and Color already present." }
+  
+  # Commodity association
   belongs_to :commodity, :inverse_of => :commodity_skus
 
-  #LineItems association
+  # LineItems association
   has_many :line_items, :as => :p_and_s
 
+  # Deals association
   has_many :deals, :as => :p_and_s
   
   #Cart association
   belongs_to :cart
+
+  private
+
+  def check_valid?
+    # size.empty? && color.empty? && quantity.empty? && selling_price.empty? && actual_price.empty?
+    errors.add(:base, "hello")
+  end
 end

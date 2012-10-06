@@ -1,0 +1,6 @@
+<h3>DealHound Presents Voucher</h3>
+
+Hi <%= @order.full_name %>,<br>
+Please get voucher codes of <%= @voucher.title %> here:
+
+  <%= link_to "#{@voucher.title}: Vouchers", voucher_url(:id => @voucher.id, :voucher_codes => @vouchers_codes, :format => "pdf") %>

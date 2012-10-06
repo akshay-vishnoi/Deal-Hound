@@ -34,7 +34,7 @@
                     New Price: &#8377; <%= (1-(deal.discount/100)) * selling_price %></b>
                   <% end %>
                 </td>            
-                <% if sku.quantity %>
+                <% if sku.quantity > 0 %>
                   <td>
                     <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
                   </td>
@@ -58,9 +58,13 @@
                   </td>
                 <% end %>
                 <% unless user && user.admin %>
-                  <% if sku.selling_price %>
+                  <% if sku.selling_price && sku.quantity > 0 %>
                     <td>
                       <%= submit_tag 'BUY' %>
+                    </td>
+                  <% else %>
+                    <td>
+                      Sold Out
                     </td>
                   <% end %>
                 <% end %>
@@ -84,13 +88,13 @@
                     New Price: &#8377; <%= (1-(deal.discount/100)) * selling_price %></b>
                   <% end %>
                 </td>
-                <% if voucher.quantity %>
+                <% if voucher.quantity > 0 %>
                   <td>
                     <%= select_tag :quantity, options_for_select((1..voucher.quantity).to_a) %>
                   </td>
                 <% end %>
                 <td>
-                <% if voucher.selling_price %><br>
+                <% if voucher.selling_price && voucher.quantity > 0 %><br>
                 <span id = "selling_price">&#8377; <%= voucher.selling_price %></span>
                 <% end %>
                 </td>

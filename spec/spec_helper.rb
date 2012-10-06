@@ -1,3 +1,6 @@
+# require 'simplecov'
+#  SimpleCov.start
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -35,4 +38,38 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+end
+
+class Hash
+
+  ##
+  # Filter keys out of a Hash.
+  #
+  #   { :a => 1, :b => 2, :c => 3 }.except(:a)
+  #   => { :b => 2, :c => 3 }
+
+  def except(*keys)
+    self.reject { |k,v| keys.include?(k || k.to_sym) }
+  end
+
+  ##
+  # Override some keys.
+  #
+  #   { :a => 1, :b => 2, :c => 3 }.with(:a => 4)
+  #   => { :a => 4, :b => 2, :c => 3 }
+  
+  def with(overrides = {})
+    self.merge overrides
+  end
+
+  ##
+  # Returns a Hash with only the pairs identified by +keys+.
+  #
+  #   { :a => 1, :b => 2, :c => 3 }.only(:a)
+  #   => { :a => 1 }
+  
+  def only(*keys)
+    self.reject { |k,v| !keys.include?(k || k.to_sym) }
+  end
+
 end

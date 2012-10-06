@@ -33,4 +33,18 @@ class VouchersController < ApplicationController
       render :edit
     end
   end
+
+  def show
+    @voucher = Voucher.find_by_id(params[:id])
+    respond_to do |format|
+      format.pdf do
+        @pdf =  Prawn::Document.new
+        @pdf.text("DealHound.com\n\n#{@voucher.title.to_s} at #{@voucher.commodity.title}\n 
+                   Voucher Codes are:\n
+                   #{params[:voucher_codes].join("\n")}")
+        send_data @pdf.render, filename: "hello.pdf",
+                               type: "application/pdf"
+      end
+    end
+  end
 end

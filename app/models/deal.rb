@@ -10,7 +10,7 @@ class Deal < ActiveRecord::Base
                         :numericality => { :only_integer => true }                       
   validates :start_date, :presence => { :message => "Start date cant be blank."}
   validates :end_date, :presence => { :message => "End date cant be blank."}
-  validate :date_validation#, :validate_date_with_others
+  validate :date_validation, :validate_date_with_others
   before_save :check_visibility
 
 
@@ -24,10 +24,15 @@ class Deal < ActiveRecord::Base
   def validate_date_with_others
     p_and_s = self.p_and_s
     other_deals = p_and_s.deals
+    other_deals.where('id != ?', self.id) if self.id
     other_deals.each do |deal|
-      if (self.start_date <= deal.start_date && self.end_date  >= deal.start_date) || (deal.start_date <= self.start_date && deal.end_date >= self.start_date)
+      if ((self.start_date <= deal.start_date && self.end_date  >= deal.start_date) || (deal.start_date <= self.start_date && deal.end_date >= self.start_date)) && deal != self
         self.errors.add(:start_date, "There has been already a deal in this duration. #{deal.start_date} - #{deal.end_date}")
       end
     end
+  end
+
+  def self.search(search)
+      where('city = ?',search)
   end
 end

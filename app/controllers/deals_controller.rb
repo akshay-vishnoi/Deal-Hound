@@ -29,7 +29,8 @@ class DealsController < ApplicationController
   end
 
   def index
-    @deals = Deal.all
+    @deals = Deal.search(params[:city])
+    session[:city] = params[:city]
   end
 
   def show
@@ -51,7 +52,7 @@ class DealsController < ApplicationController
     @deal = Deal.find(params[:id])
     params[:deal][:max_quantity] = @deal.max_quantity + params[:deal][:remaining_quantity].to_i - @deal.remaining_quantity
     if @deal.update_attributes(params[:deal])
-      redirect_to deals_url, notice: "Deal updated successfully."
+      redirect_to deals_url(:city => @deal.city), notice: "Deal updated successfully."
     else
       render :edit
     end
