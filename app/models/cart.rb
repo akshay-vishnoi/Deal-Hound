@@ -47,14 +47,14 @@ class Cart < ActiveRecord::Base
     [current_item, li_with_deal, li_added_message]
   end
 
-  def utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal)
+  def utility(without_deal_quantity, current_item, line_items, p_and_s, li_with_deal)
     if without_deal_quantity > 0 
       if current_item
         current_item.quantity = without_deal_quantity
       else
         current_item = line_items.build()
-        current_item.p_and_s = @p_and_s
-        current_item.price = @p_and_s.selling_price
+        current_item.p_and_s = p_and_s
+        current_item.price = p_and_s.selling_price
         current_item.quantity = without_deal_quantity
       end
       li_with_deal.quantity = deal.remaining_quantity
