@@ -25,7 +25,19 @@ class Cart < ActiveRecord::Base
       deal = @p_and_s.deals.where('visible = ?', true).first
       if deal
         without_deal_quantity = quantity - deal.remaining_quantity
-        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal)        
+        if without_deal_quantity > 0 
+          if current_item
+            current_item.quantity = without_deal_quantity
+          else
+            current_item = line_items.build()
+            current_item.p_and_s = @p_and_s
+            current_item.price = @p_and_s.selling_price
+            current_item.quantity = without_deal_quantity
+          end
+          li_with_deal.quantity = deal.remaining_quantity
+        else
+          li_with_deal.quantity = quantity
+        end
       end
     else
       deal = @p_and_s.deals.where('visible = ?', true).first
@@ -34,7 +46,19 @@ class Cart < ActiveRecord::Base
         li_with_deal = @p_and_s.line_items.build()
         li_with_deal.item = self
         li_with_deal.deal = deal
-        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal)
+        if without_deal_quantity > 0 
+          if current_item
+            current_item.quantity = without_deal_quantity
+          else 
+            current_item = line_items.build()
+            current_item.p_and_s = @p_and_s
+            current_item.price = @p_and_s.selling_price
+            current_item.quantity = without_deal_quantity
+          end
+          li_with_deal.quantity = deal.remaining_quantity
+        else
+          li_with_deal.quantity = quantity
+        end
         li_with_deal.price = (1-(deal.discount/100)) * @p_and_s.selling_price
       else
         current_item = line_items.build()
@@ -45,23 +69,6 @@ class Cart < ActiveRecord::Base
     end
     li_added_message = "#{quantity} item(s) 0f " + li_added_message + " has/have been added.1"
     [current_item, li_with_deal, li_added_message]
-  end
-
-  def utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal)
-    if without_deal_quantity > 0 
-      if current_item
-        current_item.quantity = without_deal_quantity
-      else
-        current_item = line_items.build()
-        current_item.p_and_s = @p_and_s
-        current_item.price = @p_and_s.selling_price
-        current_item.quantity = without_deal_quantity
-      end
-      li_with_deal.quantity = deal.remaining_quantity
-    else
-      li_with_deal.quantity = quantity
-    end
-    return [current_item, li_with_deal]
   end
 
   def items_available
