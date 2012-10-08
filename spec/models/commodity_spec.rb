@@ -111,13 +111,13 @@ describe Commodity do
       end
 
       it "should return commodity_skus" do
-        # @commodity.vouchers.should eq(CommoditySku.where('commodity_id = ?', @commodity.id))
+        @commodity.vouchers.should eq(Voucher.where('commodity_id = ?', @commodity.id))
       end
 
       it "should destroy vouchers" do
-        # vouchers = @commodity.vouchers
-        # @commodity.destroy
-        # Voucher.all.should_not include(vouchers)
+        vouchers = @commodity.vouchers
+        @commodity.destroy
+        Voucher.all.should_not include(vouchers)
       end
     end
     # it { should have_many(:commodity_skus) }

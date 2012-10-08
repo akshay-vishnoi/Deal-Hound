@@ -56,7 +56,10 @@ describe Address do
   describe "associations" do
 
     before do
-      @order = mock_model(Order)
+      # @order = mock_model(Order)
+
+      # @order1 = mock_model(Order)
+
     end
     
     it "should respond to order" do
@@ -64,8 +67,9 @@ describe Address do
       @address.should have(0).error_on(:orders)
     end
 
-    it "should belong to order" do
-      # @order.address = @address
+    it "should have many orders" do
+      # @address.orders = [@order, @order1]
+      # @address.orders = @order1
       # @address.order.should eq(@order)
     end
   end

@@ -26,9 +26,6 @@ class CommoditySku < ActiveRecord::Base
 
   # Deals association
   has_many :deals, :as => :p_and_s
-  
-  #Cart association
-  belongs_to :cart
 
   private
 

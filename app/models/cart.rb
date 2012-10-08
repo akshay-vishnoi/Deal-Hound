@@ -2,7 +2,6 @@ class Cart < ActiveRecord::Base
   attr_accessible :user_id
 
   belongs_to :user
-  has_many :commodity_skus
   has_many :line_items, :as => :item, :dependent => :destroy
 
   def add_item(p_and_s, quantity = 1)
@@ -14,27 +13,22 @@ class Cart < ActiveRecord::Base
       @p_and_s = CommoditySku.find(p_and_s[:id])
       li_added_message =  " (#{@p_and_s.color} #{@p_and_s.size})"
     end
-    li_added_message =  "#{@p_and_s.commodity.title}" + li_added_message
+    li_added_message = "#{@p_and_s.commodity.title}" + li_added_message
     cart_lis = line_items.select('id')
     current_item = @p_and_s.line_items.where('deal_id is null').find_by_id(cart_lis)
     li_with_deal = @p_and_s.line_items.where('deal_id is not null').find_by_id(cart_lis)
     deal = @p_and_s.deals.where('visible = ?', true).first
+    without_deal_quantity = quantity - deal.remaining_quantity
     if current_item && !deal
       current_item.quantity = quantity
     elsif li_with_deal && deal
-      deal = @p_and_s.deals.where('visible = ?', true).first
-      if deal
-        without_deal_quantity = quantity - deal.remaining_quantity
-        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, p_and_s, li_with_deal, quantity, deal)
-      end
+        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal, quantity, deal)
     else
-      deal = @p_and_s.deals.where('visible = ?', true).first
       if deal
-        without_deal_quantity = quantity - deal.remaining_quantity
         li_with_deal = @p_and_s.line_items.build()
         li_with_deal.item = self
         li_with_deal.deal = deal
-        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, p_and_s, li_with_deal, quantity, deal)
+        current_item, li_with_deal = utility(without_deal_quantity, current_item, line_items, @p_and_s, li_with_deal, quantity, deal)
         li_with_deal.price = (1-(deal.discount/100)) * @p_and_s.selling_price
       else
         current_item = line_items.build()
