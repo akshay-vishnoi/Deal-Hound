@@ -33,6 +33,6 @@ class Deal < ActiveRecord::Base
   end
 
   def self.search(search)
-      where('city = ?',search)
+      where('city = ? AND visible = "true"',search)
   end
 end

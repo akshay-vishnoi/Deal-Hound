@@ -67,7 +67,38 @@ describe "Commodity" do
 
     context "delete_multiple" do
 
-      it
+      before do
+        @category1 = Category.create(:name => "Health and care")
+        @category2 = Category.create(:name => "Spa")
+      end
+
+      it "should delete selected categories" do
+        Category.delete_multiple([@category1, @category2])
+        Category.all.should_not include(@category1, @category2  )
+      end
+    end
+  end
+
+  describe "Class Methods" do
+
+    before do
+      @category1 = Category.create(:name => "Health and care")
+      @category2 = Category.create(:name => "Spa")
+    end
+
+    context "sort_cat" do
+      it "should return sorted categories" do 
+        Category.sort_cat.should eq([@category1, @category, @category2])
+      end
+    end
+
+    context "all_errors" do
+
+      it "should return errors on categories" do
+        @category.name = "Health and care"
+        @category.save
+        @category.all_errors.should eq("Category is already present")
+      end
     end
   end
 end

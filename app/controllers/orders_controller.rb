@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
   def create
     @user = User.find(session[:user_id])
     @order = @user.orders.new(params[:order])
-    @order.address = Order.find_or_init_address(params[:order][:address_attributes])
+    @order.address = Order.find_or_init_address(params[:order][:address_attributes]) if @user.cart.voucher
     @cart = @user.cart
     total_price = @cart.total_price
     if @order.payment_mode == 0
@@ -71,9 +71,6 @@ class OrdersController < ApplicationController
         return true
       end
     else
-
-      logger.info "sfas0"
-      adsfaf
       flash[:item_info] = generate_error_no_items(items_not_available)
       flash[:cart_flash] = true
     end
