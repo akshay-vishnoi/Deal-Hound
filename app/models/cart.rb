@@ -60,12 +60,10 @@ class Cart < ActiveRecord::Base
     availability = true
     items_not_available = []
     line_items.each do |li|
-      if li.deal 
-        if (!(li.deal.visible) || li.deal.remaining_quantity < li.quantity)
-          availability = false
-          li.destroy
-          items_not_available << "#{li.p_and_s.commodity.title.to_s}(with -deal)"
-        end
+      if li.deal && (!(li.deal.visible) || li.deal.remaining_quantity < li.quantity)
+        availability = false
+        li.destroy
+        items_not_available << "#{li.p_and_s.commodity.title.to_s}(with -deal)"
       elsif li.quantity > li.p_and_s.quantity
         availability = false
         li.update_attribute(:quantity, li.p_and_s.quantity)
