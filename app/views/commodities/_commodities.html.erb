@@ -1,54 +1,36 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
-<table id = "show_products">
-  <tr>
-    <th id = "store_header" colspan = 5>
-      <h4>
-        <% if @category %>
-        <%= Category.find_by_id(params[:category_id]).name %>
-        <% else %>
-          Store
-        <%end %> 
-      <h4>
-    </th>
-  </tr>
-  <% unless @commodities.empty? %>
+  
+  <h2 class="blue_white align_message"><%= @category ? @category.try(:name) : "STORE" %></h2>
+  
+  <ul class="thumbnails" style = "margin-top:10px">
+
     <% @commodities.each do |commodity| %>
-    <tr class = "<%= cycle('commodity_odd', 'commodity_even') %>">
-      <td>
-        <% if commodity.images[0] %>
-          <%= image_tag commodity.images[0].photo.url(:small) %>
-        <% end %>
-      </td>
-      <td>
-        <%= commodity.title %><br>
-        <%= commodity.vendor %>
-      </td>
-      <td>
-        <%= truncate(commodity.features.gsub(/\n/, '<br />'), :length => 100).html_safe %>
-      </td>
-      <% if session[:admin] %>
-        <td>
-          <%= link_to 'Edit', edit_commodity_path(commodity) %>
-          <%= link_to 'Delete', commodity, :method => :delete, data: {confirm: "Are you sure?" } %>
-        </td>
-      <% end %>
-      <td id = "buy_column">
-        <% user = User.find_by_id(session[:user_id]) %>
-        <% if user && user.admin == true %>
-          <%= link_to 'Show', commodity_url(commodity)%>
-        <% else %>
-          <%= link_to 'Buy/Show', commodity_url(commodity)%>
-        <% end %>
-      </td>
-    <tr>
+      <li class="span4 product_highlight" style ="margin-left:10px">
+        <div class="thumbnail" style ="width:300px;height:360px">
+          <% if commodity.images[0] %>
+            <%= image_tag commodity.images[0].photo.url(:small) %>
+          <% else %>
+            <img src="/assets/calender/no_image.png" style ="width:100px;height:100px"></img>
+          <% end %>
+          <h3 style="min-height:80px;"><%= commodity.title.truncate(20) %><br>
+          <%= commodity.vendor %></h3>
+          <p style ="min-height:100px"><%= truncate(commodity.features.gsub(/\n/, '<br />'), :length => 100).html_safe %></p>
+          <p style="text-align:center">
+            <% if session[:admin] %>    
+              <%= link_to(edit_commodity_path(commodity), :class => "btn") do %>
+                <i class="icon-pencil"></i>  Edit
+              <% end %>
+              <%= link_to(commodity, :method => :delete, data: {confirm: "Are you sure?" }, :class => "btn btn-danger") do %>
+                <i class="icon-remove"></i>   Delete
+              <% end %>
+            <% end %>
+            <%= link_to(commodity_url(commodity), :class => "btn btn-info buy_btn") do%>
+              <i class="icon-ok"></i>  <%= find_user && find_user.admin ? "Show" : "Buy/Show" %>
+            <% end %>
+          </p>
+        </div>
+      </li>
     <% end %>
-  <% else %>
-    <tr>
-      <td id = "no_commodity">
-        Sorry, there is no Commodity in this category.
-      </td>
-    </tr>
-  <% end %>
-</table>
-<p class = "paginate_p"><%= will_paginate @commodities %></p>
+    </ul>
+<p class = "paginate_p"><%= will_paginate @commodities, :class => "pagination apple_pagination zero_margin" %></p>

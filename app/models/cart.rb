@@ -18,7 +18,7 @@ class Cart < ActiveRecord::Base
     current_item = @p_and_s.line_items.where('deal_id is null').find_by_id(cart_lis)
     li_with_deal = @p_and_s.line_items.where('deal_id is not null').find_by_id(cart_lis)
     deal = @p_and_s.deals.where('visible = ?', true).first
-    without_deal_quantity = quantity - deal.remaining_quantity
+    without_deal_quantity = quantity - deal.remaining_quantity if deal
     if current_item && !deal
       current_item.quantity = quantity
     elsif li_with_deal && deal

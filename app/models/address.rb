@@ -3,10 +3,8 @@ class Address < ActiveRecord::Base
   attr_accessible :city, :pincode, :state, :street
 
   # Validations
-  validates :pincode, :numericality => true
-  validates :city, :presence => true
-  validates :state, :presence => true
-  validates :street, :presence => true
+  validates :city, :state, :street, :pincode, :presence => true
+  validates :pincode, :allow_blank => true, :numericality => true
 
   # Order Association
   has_many :orders

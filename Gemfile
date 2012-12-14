@@ -9,6 +9,7 @@ gem 'sqlite3'
 group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
+  gem "ruby-prof", "~> 0.11.2"
 end
 
 # Gems used only for assets and not required
@@ -32,7 +33,11 @@ gem 'rails-erd'
 gem 'will_paginate', '~> 3.0'
 gem "rufus-scheduler", ">= 2.0.1"
 gem "prawn_rails"
- gem 'simplecov', :git => 'https://github.com/colszowka/simplecov'
+gem 'simplecov', :git => 'https://github.com/colszowka/simplecov'
+gem 'date_validator'
+gem 'selenium-webdriver'
+gem 'nokogiri'
+# gem 'twitter-bootstrap-rails', "~> 2.1.5"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -44,4 +49,6 @@ gem "prawn_rails"
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
+gem 'less-rails'
+gem 'ar-octopus', :git => "git://github.com/tchandy/octopus.git", :require => 'octopus'

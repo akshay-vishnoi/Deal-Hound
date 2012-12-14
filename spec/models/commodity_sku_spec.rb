@@ -120,4 +120,82 @@ describe CommoditySku do
       end
     end
   end
+
+  describe "Relationships" do
+
+    context "Commodity" do
+
+      before do
+        @commodity = Commodity.create(valid_commodity_attributes)
+        @commodity_sku.commodity = @commodity
+      end
+
+      it "should respond_to commodity" do
+        @commodity_sku.should respond_to(:commodity)
+        @commodity_sku.should have(0).error_on(:commodity)
+      end
+
+      it "belongs to one commodity" do
+        @commodity_sku.commodity.should eq(@commodity)
+      end
+    end
+
+    context "Line Items" do
+
+      before do
+        line_item1 = LineItem.create
+        line_item1.p_and_s = @commodity_sku
+        line_item2 = LineItem.create
+        line_item2.p_and_s = @commodity_sku
+      end
+
+      it "should respond to line items" do
+        @commodity_sku.should respond_to(:line_items)
+        @commodity_sku.should have(0).errors_on(:line_items)
+      end
+
+      it "should have more than one line item" do
+        @commodity_sku.should have(0).errors_on(:line_items)
+      end
+
+      it "should return line items" do
+        @commodity_sku.line_items.should eq(LineItem.where('p_and_s_id = ? AND p_and_s_type = "CommoditySku"', @commodity_sku.id))
+      end
+
+      it "should destroy line items" do
+        @commodity_sku.destroy
+        LineItem.where('p_and_s_id = ? AND p_and_s_type = "CommoditySku"', @commodity_sku.id).should eq([])
+      end
+    end
+
+    context "Deals" do
+
+      before do
+        Deal.any_instance.stub(:validate_date_with_others).and_return(true)
+        Deal.any_instance.stub(:date_validation).and_return(true)
+        deal1 = Deal.create
+        deal1.p_and_s = @commodity_sku
+        deal2 = Deal.create
+        deal2.p_and_s = @commodity_sku
+      end
+
+      it "should respond to deals" do
+        @commodity_sku.should respond_to(:deals)
+        @commodity_sku.should have(0).errors_on(:deals)
+      end
+
+      it "should have more than one deals" do
+        @commodity_sku.should have(0).errors_on(:deals)
+      end
+
+      it "should return deals" do
+        @commodity_sku.deals.should eq(Deal.where('p_and_s_id = ? AND p_and_s_type = "CommoditySku"', @commodity_sku.id))
+      end
+
+      it "should destroy deals" do
+        @commodity_sku.destroy
+        Deal.where('p_and_s_id = ? AND p_and_s_type = "CommoditySku"', @commodity_sku.id).should eq([])
+      end
+    end
+  end
 end

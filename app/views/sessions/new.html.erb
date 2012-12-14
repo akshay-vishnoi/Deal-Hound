@@ -21,21 +21,20 @@
     <tr>
       <td>
       </td>
-      <td>
-        <%= button_tag 'Login'%>
+      <td style ="float:left;">
+        <%= button_tag 'Login', :class => "btn" %>
+        <%= link_to 'forget password?',{} ,:remote => true, :onclick => "$('#forget_password_tr').css('display', 'block')"%>
       </td>
     </tr>
   <% end %>
   <tr>
     <td>
-      <%= link_to 'forget password?',{} ,:remote => true, :onclick => "$('#forget_password_tr').css('display', 'block')"%>
+      
     </td>
     <td></td>
   </tr>
   </table>
-  <div id = "forget_password_tr">
+  <div id = "forget_password_tr" class = "span6">
     <%= render 'forget_password' %>
   </div>  
-  
-  <%= button_to 'Sign up', new_user_path, :method => :get %>
 </fieldset>

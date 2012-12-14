@@ -55,8 +55,9 @@ describe Cart do
       end
 
       it "should destroy vouchers" do
+        cart_id = @cart.id
         @cart.destroy
-        LineItem.where('item_id = ? AND item_type = "Cart"', @cart.id).should eq([])
+        LineItem.where('item_id = ? AND item_type = "Cart"', cart_id).should eq([])
       end
     end
   end

@@ -1,17 +1,21 @@
 class CommoditiesController < ApplicationController
-  
+  Rails.logger.info "in commodity_controller start"
   include CommodityHelper
   before_filter(:only => [:new, :create, :delete, :edit]) { |controller| controller.authorize(true) }
+  Rails.logger.info "in commodity_controller after before_filter"
   
   def index
+    Rails.logger.info "entering index action"
+    # debugger
     @category = Category.find_by_id(params[:category_id])
     if @category
       @commodities = @category.commodities.search(params)
     elsif params[:new_launch]
-      @commodities = Commodity.new_launches(params)
+      @commodities = Commodity.new_launches(params[:page])
     else
       @commodities = Commodity.search(params)
     end
+    Rails.logger.info "exiting index action"
   end
 
   def new

@@ -26,11 +26,4 @@ class CommoditySku < ActiveRecord::Base
 
   # Deals association
   has_many :deals, :as => :p_and_s
-
-  private
-
-  def check_valid?
-    # size.empty? && color.empty? && quantity.empty? && selling_price.empty? && actual_price.empty?
-    errors.add(:base, "hello")
-  end
 end

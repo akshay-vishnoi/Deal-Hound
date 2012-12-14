@@ -39,7 +39,7 @@
                     <%= select_tag :quantity, options_for_select((1..sku.quantity).to_a) %>
                   </td>
                 <% end %>            
-                <% unless sku.size.empty? %>
+                <% unless sku.size.blank? %>
                   <td>
                     <%= sku.size %>
                   </td>
@@ -52,7 +52,7 @@
                 <span id = "selling_price">&#8377; <%= sku.selling_price %></span>
                 <% end %>
                 </td>
-                <% unless sku.color.empty? %>
+                <% unless sku.color.blank? %>
                   <td>
                     <%= sku.color %>
                   </td>

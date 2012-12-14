@@ -17,7 +17,7 @@ module DealHound
 
     # require each file from lib directory
     Dir.glob("./lib/*.rb").each { |file| require file } 
-
+    # config.autoload_paths += %W(#{config.root}/extras)
     
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)

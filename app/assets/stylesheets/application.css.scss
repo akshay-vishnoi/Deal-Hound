@@ -11,34 +11,26 @@
  *= require_self
  *= require_tree .
  */
+
 .header{
-    h1{
-      padding-left: 15px;
-      display: inline;
-      vertical-align: center;
+  h1{
+    a, a:hover{
+      text-decoration:none;
+      color: #e1e1e1;
     }
-    #subscription_error{
-      margin-left: 90px;
-      color: yellow;
-    }
-    div{
-      span{
-        float: left;
-        margin-top:-5px;
-      }
-      float: right;
-      width:auto;
-      margin-top:20px;
-      margin-right:10px;
-      a{
-        color:white;
-        background-color: black;
-      }
-    }
-  height: 40px;
+    padding-left: 15px;
+  }
+  .margin_set{
+    padding:8px 0px;
+  }
+    /*.user_details{
+
+    */
+  height: 50px;
   background-color: #ab2c26;
   color:#e1e1e1;
  }
+
  fieldset{
   legend{
     background-color: green;
@@ -59,19 +51,32 @@ body{
 div{
   margin: 0px;
 }
+
+#footer{
+  padding: 20px;
+  height: 40px;
+  background-color: #ab2c26;
+  color:#e1e1e1;
+}
+html,body{
+  height:100%;
+}
 #main_table{
   margin: 0px;
   border-collapse: collapse;
 }
+
 #main_row{
-  background-color: green;
+  /*background-color: green;*/
   margin: 0px;
   #left_col{
-    float:left;
-    padding: 1em 2em;
-    width: 250px;
+    /*padding: 1em 2em;*/
+    /*width: 250px;*/
     background-color: green;
-    margin: 0;
+    padding: 20px 0px 0px 20px;
+    a{
+      color:#e1e2e3;
+    }
     div#admin_links{
       ul{
         margin: 0px;
@@ -81,8 +86,9 @@ div{
     }
   }
   #right_col{    
-    border: 1px solid white;
+    margin: 0px;
     background-color: white;
+    /*width: 100%;*/
     h1{
       margin:0px;
     }
@@ -97,29 +103,19 @@ div{
   }
 }
 
-#notice{
-  margin-top: 5px;
-  margin-left:25%;
-  width:50%;
-  height:auto;
-  padding:15px;
-  color:green;
-  border: 2px solid green;
-  background-color: #e1e2e3;
-  text-align: center;
+.align_message{
+  margin: 0 0 4px 0;
+  text-align: center;  
 }
 
-#error{
-  margin-top: 5px;
-  margin-left:25%;
-  width:50%;
-  height:auto;
-  padding:15px;
-  color:red;
-  border: 2px solid red;
-  background-color: #e1e2e3;
-  text-align: center;
+.notice{
+  margin: 5px auto 5px auto;
+  width:99.5%;
+  color:green;
+  border: 1px solid #1fdf00;
+  background-color: #bbffb6;
 }
+
 #item_info, #cart_flash, #item, #order_errors, #forget_password, #subscription, #Services{
   display: none;
 }
@@ -229,8 +225,7 @@ div{
   text-decoration: none;
   color: black;
   font-size: 20px;
-  margin-left: 80px;
-  background-color: orange;
+  background-color: #bb1212;
   padding: 3px 20px;
 }
 .inner_cart{
@@ -285,7 +280,7 @@ div{
   background-color: orange;
   margin: 0px; 
   input[type='text']{
-    margin-top: 2px;
+    margin-top: 5px;
     margin-left: 100px;
     width:200px;
   }
@@ -296,4 +291,40 @@ div{
 }
 .paginate_p{
   clear:both;
+}
+
+.validation-error{
+  color: red;
+}
+
+.remove_padding{
+  padding: 0px !important;
+}
+
+.zero_margin{
+  margin: 0px !important;
+}
+
+.product_highlight:hover > div {
+  /*border: 1px solid red;*/
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted 9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.buy_btn:hover{
+ border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted 9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.blue_white{
+  color:white;
+  background-color:blue;
 }

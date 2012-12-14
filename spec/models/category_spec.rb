@@ -57,8 +57,9 @@ describe "Commodity" do
       end
 
       it "should destroy commodities" do
+        category_id = @category.id
         @category.destroy
-        Commodity.where('category_id = ?', @category.id).should eq([])
+        Commodity.where('category_id = ?', category_id).should eq([])
       end
     end
   end
@@ -74,7 +75,7 @@ describe "Commodity" do
 
       it "should delete selected categories" do
         Category.delete_multiple([@category1, @category2])
-        Category.all.should_not include(@category1, @category2  )
+        Category.find_all_by_id([@category1.id, @category2.id]).should eq([])
       end
     end
   end

@@ -14,7 +14,7 @@ def total_price
 end
 
 def check_visibility(time = Time.now)
-  if(self.end_date.to_time < time || self.start_date.to_time > time || self.remaining_quantity < 1 )
+  if (!self.start_date.blank? && !self.end_date.blank?) && (self.end_date < time.to_date || self.start_date > time.to_date || self.remaining_quantity < 1 )
     self.visible = false
     true
   else

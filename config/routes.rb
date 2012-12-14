@@ -1,7 +1,7 @@
 DealHound::Application.routes.draw do
 
   root :to => 'commodities#index'
-  controller :application do
+  controller :subscriptions do
     post 'subscription'
     get 'unsubscribe'
   end
@@ -25,7 +25,6 @@ DealHound::Application.routes.draw do
   end
   controller :categories do
     post 'edit_delete'
-    get 'forget_password'
   end
 
   resources :users do
@@ -59,9 +58,9 @@ DealHound::Application.routes.draw do
 
 
   # Nested Resource should be only 1 level deep
-    # resources :magazines do
+    # resources :magazines, :shallow => true do
     #   resources :ads do
-    #     resources :pages
+    #     # resources :pages
     #   end
     # end
 
@@ -204,7 +203,7 @@ DealHound::Application.routes.draw do
   # namespace :admin do
   #   resources :posts,  :only => [:index, :show]
   # end
-  # get 'login' => :new, :on => collection || member
+  # get 'login' => :new, :controller => :posts#,:on => :collection# || :member
 
   #/:account_id/projects, rather than /accounts/:account_id/projects
   # scope :path => ":account_id", :as => "account" do
@@ -226,7 +225,7 @@ DealHound::Application.routes.draw do
   #   resources :posts,  :only => [:index, :show]
   # end
 
-  # #resources :admins, :module => "admin"
+  # resources :posts, :module => "admin"
   # scope "/admin" do
     
   # end  
@@ -235,27 +234,28 @@ DealHound::Application.routes.draw do
   # first created -> highest priority.
 
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+    # match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+    # match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
   # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+    # resources :products do
+    #   get 'pp'
+    #   member do
+    #     get 'short'
+    #     post 'toggle'
+    #   end
+  
+    #   collection do
+    #     get 'sold'
+    #   end
+    # end
 
   # Sample resource route with sub-resources:
   #   resources :products do

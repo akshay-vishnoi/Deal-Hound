@@ -12,7 +12,7 @@ scheduler.cron '00 00 10 * * *' do
   end
 end
 
-# scheduler.every '10s' do
+# scheduler.every '30s' do
 #   @emails = Subscribe.select('email').map{ |s| s.email}
 #   @emails.each do |email|
 #     Subscription.send_updates(email).deliver

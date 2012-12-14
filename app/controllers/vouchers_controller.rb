@@ -43,7 +43,7 @@ class VouchersController < ApplicationController
                    Voucher Codes are:\n
                    #{params[:voucher_codes].join("\n")}")
         send_data @pdf.render, filename: "hello.pdf",
-                               type: "application/pdf"
+                               type: "application/pdf", :disposition => "inline"
       end
     end
   end

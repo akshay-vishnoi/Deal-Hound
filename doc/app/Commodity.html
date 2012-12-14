@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Commodity - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/commodity.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new_launches">::new_launches</a>
+    
+    <li><a href="#method-c-paginate_commodity">::paginate_commodity</a>
+    
+    <li><a href="#method-c-search">::search</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Address.html">Address</a>
+  
+    <li><a href="./AdminsController.html">AdminsController</a>
+  
+    <li><a href="./AdminsHelper.html">AdminsHelper</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Cart.html">Cart</a>
+  
+    <li><a href="./CartsController.html">CartsController</a>
+  
+    <li><a href="./CartsHelper.html">CartsHelper</a>
+  
+    <li><a href="./CategoriesController.html">CategoriesController</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CategoryHelper.html">CategoryHelper</a>
+  
+    <li><a href="./City.html">City</a>
+  
+    <li><a href="./CommoditiesController.html">CommoditiesController</a>
+  
+    <li><a href="./Commodity.html">Commodity</a>
+  
+    <li><a href="./CommodityHelper.html">CommodityHelper</a>
+  
+    <li><a href="./CommoditySku.html">CommoditySku</a>
+  
+    <li><a href="./Deal.html">Deal</a>
+  
+    <li><a href="./DealsController.html">DealsController</a>
+  
+    <li><a href="./DealsHelper.html">DealsHelper</a>
+  
+    <li><a href="./Image.html">Image</a>
+  
+    <li><a href="./LineItem.html">LineItem</a>
+  
+    <li><a href="./LineItemsController.html">LineItemsController</a>
+  
+    <li><a href="./LineItemsHelper.html">LineItemsHelper</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./Order.html">Order</a>
+  
+    <li><a href="./OrderNotifier.html">OrderNotifier</a>
+  
+    <li><a href="./OrderObserver.html">OrderObserver</a>
+  
+    <li><a href="./OrdersController.html">OrdersController</a>
+  
+    <li><a href="./OrdersHelper.html">OrdersHelper</a>
+  
+    <li><a href="./PasswordNotifier.html">PasswordNotifier</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SessionsHelper.html">SessionsHelper</a>
+  
+    <li><a href="./Subscribe.html">Subscribe</a>
+  
+    <li><a href="./Subscription.html">Subscription</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+    <li><a href="./Voucher.html">Voucher</a>
+  
+    <li><a href="./VoucherSku.html">VoucherSku</a>
+  
+    <li><a href="./VouchersController.html">VouchersController</a>
+  
+    <li><a href="./VouchersHelper.html">VouchersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Commodity</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="TYPE">TYPE
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new_launches" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_launches</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_launches-source">
+            <pre><span class="ruby-comment"># File app/models/commodity.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_launches</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">where</span>(<span class="ruby-value">:created_at</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-value">1</span>.<span class="ruby-identifier">days</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">to_time</span>)<span class="ruby-operator">..</span>(<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>)).<span class="ruby-identifier">paginate_commodity</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new_launches-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new_launches-method -->
+
+    
+      <div id="method-c-paginate_commodity" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">paginate_commodity</span><span
+            class="method-args">(page)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="paginate_commodity-source">
+            <pre><span class="ruby-comment"># File app/models/commodity.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">paginate_commodity</span>(<span class="ruby-identifier">page</span>)
+  <span class="ruby-identifier">paginate</span> <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">page</span>, <span class="ruby-identifier">per_page</span><span class="ruby-operator">:</span> <span class="ruby-value">3</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- paginate_commodity-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- paginate_commodity-method -->
+
+    
+      <div id="method-c-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Class Methods</p>
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/models/commodity.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>]
+    <span class="ruby-identifier">where</span>(<span class="ruby-string">'title LIKE ?'</span>, <span class="ruby-node">&quot;%#{params[:search]}%&quot;</span>).<span class="ruby-identifier">paginate_commodity</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">scoped</span>.<span class="ruby-identifier">paginate_commodity</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

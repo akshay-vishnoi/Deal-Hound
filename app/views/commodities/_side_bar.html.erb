@@ -11,9 +11,14 @@
     <%= link_to 'New Launches', commodities_url(new_launch: true) %>
   </li>
   <li>
-    <%= form_tag deals_url do %>
-    City: <%= select_tag :city, options_for_select(Deal.select('Distinct city').order('city').map { |d| d.city}, session[:city]) %>
-    <%= submit_tag 'Deals'%>
+    <%= form_tag deals_url, :class => "form-horizontal" do %>
+    <div class = "control-group">
+      City:
+      <div class="controls zero_margin">
+         <%= select_tag :city, options_for_select(Deal.select('Distinct city').order('city').map { |d| d.city}, session[:city]) %><br/>
+        <%= submit_tag 'Deals', :class => "btn" %>
+      </div>
+    </div>
     <% end %>
   </li>
 

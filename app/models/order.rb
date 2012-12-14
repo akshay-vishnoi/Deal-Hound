@@ -1,7 +1,8 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s, :address_attributes
-
+  o = Order.first
+  o.update_attributes(:gift => 1, :payment_mode => 1)
   PAYMENT_MODES = {'Wallet' => 0, 'Credit Card' => 1}
   STATUS = { 'Pending' => 0, 'Shipped' => 1 }
 
@@ -19,6 +20,8 @@ class Order < ActiveRecord::Base
   has_many :line_items, :as => :item, :dependent => :destroy
   
   before_save :check_status
+
+  scope :shipped, where('status = ?', STATUS['Shipped'])
   
   def check_status
     if status.nil?
@@ -36,6 +39,7 @@ class Order < ActiveRecord::Base
     else
       return "Pending"
     end
+    # status == 1 ? "Shipped" : "Pending"
   end
 
   def payment_mode_to_s=(payment)
@@ -78,8 +82,9 @@ class Order < ActiveRecord::Base
     if gift == 1
       "Gifted"
     else 
-      "Self"
+      "Self"  
     end
+    # gift == 1 ? "Gifted" : "Self"
   end
 
   def self.sort_paginate(sort_column, sort_direction, page)

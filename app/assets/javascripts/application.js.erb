@@ -13,6 +13,20 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function() {
+  $('.dropdown-toggle').dropdown()
+  $(".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a").live("click", function(){
+    $.getScript(this.href);
+    return false;
+  });
+  $(".search_ajax input").keyup(function() {
+    $.get($('.search_ajax').attr("action"), $('.search_ajax').serialize(), null, "script");
+    return false;
+  });
+  setInterval('secondsToTime()', 1000)
+});
+
 function show_cart_with_flash() {
   $('#flash_message').show()
   show_cart()
@@ -42,18 +56,6 @@ function manage_cat(type) {
     $("#edit_category").css("display", "block")
   }
 }
-
-$(function() {
-  $(".sort_paginate_ajax th a, .sort_paginate_ajax .pagination a").live("click", function(){
-    $.getScript(this.href);
-    return false;
-  });
-  $(".search_ajax input").keyup(function() {
-    $.get($('.search_ajax').attr("action"), $('.search_ajax').serialize(), null, "script");
-    return false;
-  });
-  setInterval('secondsToTime()', 1000)
-});
 
 function secondsToTime() {
   days = $('#timer_d').text()

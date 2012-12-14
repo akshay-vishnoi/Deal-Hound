@@ -32,15 +32,15 @@
     <td>Address</td>
     <td><%= @order.address.street + ", " + @order.address.city %></td>
   </tr>
+  <% end %>
   <tr>
     <td></td>
-    <td><%= @order.address.state + "-#{@order.address.pincode}" %></td>
+    <td><%= @order.address.state + "-#{@order.address.pincode}" if @order.address %></td>
     <% if session[:admin] %>
     <td></td>    
     <td><%= f.submit 'Save', data: { :confirm => "Are you sure?"} %></td>
     <% end %>  
   </tr>
-  <% end %>
 </table>
 <table class = "general left_order">
   <tr>

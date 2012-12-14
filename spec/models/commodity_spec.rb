@@ -88,9 +88,8 @@ describe Commodity do
       end
 
       it "should destroy vouchers" do
-        vouchers = @commodity.vouchers
         @commodity.destroy
-        Voucher.all.should_not include(vouchers)
+        Voucher.where('commodity_id', @commodity.id).should eq([])
       end
     end
     
@@ -110,22 +109,61 @@ describe Commodity do
         @commodity.should have(0).errors_on(:commodity_skus)
       end
 
-      it "should return commodity_skus" do
-        @commodity.vouchers.should eq(Voucher.where('commodity_id = ?', @commodity.id))
+      it "should return commodity skus" do
+        @commodity.commodity_skus.should eq(CommoditySku.where('commodity_id = ?', @commodity.id))
       end
 
-      it "should destroy vouchers" do
-        vouchers = @commodity.vouchers
+      it "should destroy commodity skus" do
         @commodity.destroy
-        Voucher.all.should_not include(vouchers)
+        CommoditySku.where('commodity_id', @commodity.id).should eq([])
       end
     end
-    # it { should have_many(:commodity_skus) }
-    # it { should have_many(:images) }
-    # it { should belongs_to(:category) }
+
+    context "Images" do
+      
+      before do
+        image1 = Image.create
+        image1.snapshot = @commodity
+        image2 = Image.create
+        image2.snapshot = @commodity
+      end
+
+      it "should respond to images" do
+        @commodity.should respond_to(:images)
+        @commodity.should have(0).errors_on(:images)
+      end
+
+      it "should have more than one image" do
+        @commodity.should have(0).errors_on(:commodity_skus)
+      end
+
+      it "should return images" do
+        @commodity.images.should eq(Image.where('snapshot_id = ? AND snapshot_type = "Commodity"', @commodity.id))
+      end
+
+      it "should destroy commodity skus" do
+        @commodity.destroy
+        Image.where('snapshot_id = ? AND snapshot_type = "Commodity"', @commodity.id).should eq([])
+      end
+    end
+
+    context "Category" do
+
+      it "should respond_to category" do
+        @commodity.should respond_to(:category)
+        @commodity.should have(0).error_on(:category)
+      end
+
+      it "belongs to one category" do
+        @commodity.category.should eq(@category)
+      end
+    end
   end
 
-  describe "#new_launches" do
+  describe "Class methods" do
 
+    context "new_launches" do
+      
+    end
   end
 end

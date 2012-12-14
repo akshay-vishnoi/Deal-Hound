@@ -2,28 +2,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  def subscription
-    @subscribe = Subscribe.new(:email => params[:email])
-    if @subscribe.save
-      flash[:notice] = "#{params[:email]} has been subscribed."
-    else
-      flash[:subscription] = @subscribe.errors.get(:email).first
-    end
-    redirect_to request.referrer
-  end
-
-  def unsubscribe
-    @subscribe = Subscribe.find_by_email(params[:email])
-    if @subscribe
-      @subscribe.delete 
-      flash[:notice] = "Successfully unsubscribed."
-    else
-      flash[:error] = "Invalid Request"
-    end
-    redirect_to commodities_url
-  end
-
   def authorize(role)
+    puts "in authorize"
     user = User.find_by_id(session[:user_id])
     if (user && (user.admin === role)) || (session[:admin] === true)
       return true
@@ -33,6 +13,8 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You are not authorized to access" 
       redirect_to login_url
     end
+    puts "out authorize"
+
   end
   
   private

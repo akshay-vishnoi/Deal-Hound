@@ -16,8 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def delete
-    session[:user_id] = nil
-    session[:admin] = nil
+    reset_session
     redirect_to login_url
   end
 end

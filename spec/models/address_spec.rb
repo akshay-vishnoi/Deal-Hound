@@ -18,6 +18,7 @@ describe Address do
   before do
     @address = Address.create(valid_address_attributes)
   end
+
   it "can be instantiated" do
     @address.should be_an_instance_of(Address)
   end
@@ -56,10 +57,8 @@ describe Address do
   describe "associations" do
 
     before do
-      # @order = mock_model(Order)
-
-      # @order1 = mock_model(Order)
-
+      @order1 = @address.orders.create(:mailing_email => "akshay.vishnoi@yahoo.com")
+      @order = @address.orders.create(:mailing_email => "akshay.vishmoi@yahoo.com")
     end
     
     it "should respond to order" do
@@ -67,10 +66,18 @@ describe Address do
       @address.should have(0).error_on(:orders)
     end
 
-    it "should have many orders" do
-      # @address.orders = [@order, @order1]
-      # @address.orders = @order1
-      # @address.order.should eq(@order)
+    it "should have more than one order" do
+        @address.should have(0).errors_on(:orders)
+      end
+
+    it "should return orders" do
+      @address.orders.should eq(Order.where('address_id = ?', @address.id))
+    end
+
+    it "should destroy orders" do
+      address_id = @address.id
+      @address.destroy
+      Order.where('address_id = ?', @address_id).should eq([])
     end
   end
 end

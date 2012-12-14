@@ -7,7 +7,7 @@ class Commodity < ActiveRecord::Base
 
   #Validation
   validates :title, :presence => true
-  validates :title, :uniqueness => true, :unless => proc { |commodity| commodity.title.blank? }
+  validates :title, :allow_blank => true, :uniqueness => true
   
   #Category Association
   belongs_to :category
@@ -33,11 +33,12 @@ class Commodity < ActiveRecord::Base
     end
   end
 
-  def self.new_launches(params)
-    where(:created_at => (1.days.ago.to_time)..(Time.now)).paginate_commodity(params[:page])
+  def self.new_launches(page_num)
+    where('created_at >= ?', 3.days.ago.to_time).paginate_commodity(page_num)
   end
 
-  def self.paginate_commodity(page)
-    paginate page: page, per_page: 3
+private
+  def self.paginate_commodity(page_num)
+    paginate page: page_num, per_page: 6
   end
 end

@@ -1,1 +1,1 @@
-<%= link_to "MYCart(#{@cart.line_items.count})", cart_path(@cart), :remote => true, :id => "cart_link", :onclick => 'show_cart()' %><br><br>
+<%= link_to "MYCart(#{@cart.line_items.count})", cart_path(@cart), :remote => true, :id => "cart_link", :onclick => 'show_cart()', "data-original-title" => "haaa" %><br><br>
