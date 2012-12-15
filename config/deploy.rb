@@ -34,7 +34,7 @@ server domain, :app, :web, :db, :primary => true
 
 # If you are using Passenger mod_rails uncomment this:
 
-before 'deploy:restart', :copy_yml_files#, 'assets:precompile'
+before 'deploy:restart', :copy_yml_files, 'assets:precompile'
 after 'deploy:restart', 'unicorn:restart'
 
 task :copy_yml_files do
