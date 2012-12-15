@@ -1,8 +1,6 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :gift, :mailing_email, :payment_mode, :status, :user_id, :full_name, :status_to_s, :payment_mode_to_s, :address_attributes
-  o = Order.first
-  o.update_attributes(:gift => 1, :payment_mode => 1)
   PAYMENT_MODES = {'Wallet' => 0, 'Credit Card' => 1}
   STATUS = { 'Pending' => 0, 'Shipped' => 1 }
 

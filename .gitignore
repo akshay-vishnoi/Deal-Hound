@@ -14,12 +14,10 @@ capybara-*.html
 **.orig
 rerun.txt
 /config/database.yml
-/config/s3.yml
 .DS_Store
 chromedriver.log
 user_images
 tmp/*
-public/scraper_htmls/*
 config/shards.yml
-config/shopsense.yml
 erd.pdf
+erd.dot

@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(:version => 20121006082558) do
     t.string   "item_type"
     t.integer  "quantity"
     t.integer  "p_and_s_id"
+    t.decimal  "price",        :precision => 20, :scale => 2
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "p_and_s_type"
-    t.decimal  "price",        :precision => 20, :scale => 2
     t.integer  "deal_id"
   end
 
