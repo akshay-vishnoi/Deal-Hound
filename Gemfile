@@ -11,6 +11,7 @@ gem "rufus-scheduler", ">= 2.0.1"
 gem "prawn_rails"
 gem 'date_validator'
 gem 'unicorn'
+gem 'bcrypt-ruby', '~> 3.0.0'
 group :development, :test do
   gem 'rails-erd'
   gem 'simplecov', :git => 'https://github.com/colszowka/simplecov'
