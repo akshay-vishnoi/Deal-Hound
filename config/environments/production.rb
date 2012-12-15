@@ -1,6 +1,14 @@
 DealHound::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Action mailer settings
+  config.action_mailer.default_url_options = { :host => '54.232.30.181' }
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :enable_starttls_auto => false,
+    :openssl_verify_mode  => 'none'
+  }
+
   # Code is not reloaded between requests
   config.cache_classes = true
 

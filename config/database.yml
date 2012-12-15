@@ -24,7 +24,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql2
+  database: deal_hound
   pool: 5
   timeout: 5000
+  username: akshay
+  password: nikhil
+  reconnect: false
+  encoding: utf8
