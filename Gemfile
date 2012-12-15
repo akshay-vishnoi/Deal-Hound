@@ -13,6 +13,7 @@ gem 'date_validator'
 gem 'unicorn'
 gem 'bcrypt-ruby', '~> 3.0.0'
 group :development, :test do
+  gem 'sqlite3'
   gem 'rails-erd'
   gem 'simplecov', :git => 'https://github.com/colszowka/simplecov'
   gem 'debugger'

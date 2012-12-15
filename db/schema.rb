@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121006082558) do
+ActiveRecord::Schema.define(:version => 20121215151355) do
 
   create_table "addresses", :force => true do |t|
     t.text     "street"
@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(:version => 20121006082558) do
     t.string   "item_type"
     t.integer  "quantity"
     t.integer  "p_and_s_id"
-    t.decimal  "price",        :precision => 20, :scale => 2
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "p_and_s_type"
+    t.decimal  "price",        :precision => 20, :scale => 2
     t.integer  "deal_id"
   end
 
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20121006082558) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.integer  "mobile_no"
+    t.string   "mobile_no"
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
     t.boolean  "admin",                                            :default => false
