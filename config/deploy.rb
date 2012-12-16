@@ -24,6 +24,7 @@ after 'deploy:restart', 'unicorn:restart'
 
 task :copy_yml_files do
   run "cp #{shared_path}/database.yml #{current_path}/config/database.yml"
+  run "cp #{shared_path}/s3.yml #{current_path}/config/s3.yml"
 end
 
 namespace :assets do

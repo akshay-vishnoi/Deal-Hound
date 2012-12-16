@@ -19,5 +19,6 @@ chromedriver.log
 user_images
 tmp/*
 config/shards.yml
+config/s3.yml
 erd.pdf
 erd.dot
