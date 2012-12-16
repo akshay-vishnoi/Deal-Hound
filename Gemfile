@@ -12,8 +12,11 @@ gem "prawn_rails"
 gem 'date_validator'
 gem 'unicorn'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'aws-s3', '~> 0.6.3', :require => 'aws/s3'
+gem "aws-sdk", "~> 1.7.1"
+gem 'cocaine', '0.3.2'
+
 group :development, :test do
-  gem 'sqlite3'
   gem 'rails-erd'
   gem 'simplecov', :git => 'https://github.com/colszowka/simplecov'
   gem 'debugger'
