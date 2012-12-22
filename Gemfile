@@ -15,6 +15,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'aws-s3', '~> 0.6.3', :require => 'aws/s3'
 gem "aws-sdk", "~> 1.7.1"
 gem 'cocaine', '0.3.2'
+gem "rmagick"
 
 group :development, :test do
   gem 'rails-erd'
@@ -33,6 +34,6 @@ end
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', '0.10.2', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
 end

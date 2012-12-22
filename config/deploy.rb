@@ -8,7 +8,7 @@ set :branch, 'master'
 set :user, 'akshay'
 set :use_sudo, false
 
-set :domain, "54.232.30.181"
+set :domain, "54.232.23.170"
 
 set :rails_env, 'production'
 default_run_options[:pty] = true
