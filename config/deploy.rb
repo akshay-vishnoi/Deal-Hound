@@ -17,7 +17,7 @@ set :deploy_via, :remote_cache
 set :keep_releases, 5
 server domain, :app, :web, :db, :primary => true
 
-before 'deploy:restart', :copy_yml_files, 'assets:precompile'
+before 'bundle:install', :copy_yml_files, 'assets:precompile'
 after 'deploy:restart', 'unicorn:restart'
 
 task :copy_yml_files do
@@ -48,12 +48,4 @@ namespace :unicorn do
   task :stop, :roles => :app, :except => { :no_release => true } do
     run "kill -s QUIT `cat #{shared_path}/tmp/pids/unicorn.pid`"
   end  
-end
-
-namespace :deploy do
-  # task :start do ; end
-  # task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
 end

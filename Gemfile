@@ -17,6 +17,7 @@ gem "aws-sdk", "~> 1.7.1"
 gem 'cocaine', '0.3.2'
 gem "mobile-fu", "~> 1.1.1"
 gem 'jquery_mobile_rails'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 #payment
 gem 'sinatra'
