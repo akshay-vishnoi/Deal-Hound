@@ -1,31 +1,21 @@
 class OrdersController < ApplicationController
 
   before_filter() { |controller| controller.authorize(session[:admin])}
+  before_filter :load_user
+  before_filter :load_cart, :only => [:new, :create]
+  before_filter :load_order, :only => [:edit, :update]
+
   helper_method :sort_column, :sort_direction
   def new
-    @user = User.find(session[:user_id])
-    @cart = @user.cart
-    if @cart.line_items.any?
-      @order = @user.orders.new
-      @order.mailing_email = @user.email
-      @order.full_name = @user.name
-      @payments = Order::PAYMENT_MODES
-      @order.address = Address.new if @user.cart.voucher
-    else
-      flash[:error] = "There is no item in cart"
-      redirect_to commodities_url
-    end
+    @order = @user.orders.new(:mailing_email => @user.email, :full_name => @user.name)
+    @order.address = Address.new if @user.cart.voucher
   end
 
   def edit
-    @user = User.find(session[:user_id])
-    @order = Order.find(params[:id])
   end
 
   def update
-    @order = Order.find(params[:id])
-    # redirect_to request.referrer, notice: params[:order][:status]
-    if @order.update_attribute(:status, params[:order][:status])
+    if @order.update_attributes(:status => params[:order][:status])
       flash[:notice] = "Now Order no. #{@order.id} is #{@order.status_to_s}."
     else
       flash[:error] = "Error while saving order. Please check it again."
@@ -34,25 +24,44 @@ class OrdersController < ApplicationController
   end
 
   def index
-    user = User.find_by_id(session[:user_id])
-    if user && user.admin
-      find_by_attr = params[:search]
-    else
-      find_by_attr = session[:user_id]
-    end
-    @orders = Order.search(find_by_attr, sort_column, sort_direction, params[:page], user.admin)
+    find_by_attr = @user.admin? ? params[:search] : session[:user_id]
+    @orders = Order.search(find_by_attr, sort_column, sort_direction, params[:page], @user.admin?)
   end
 
   def create
-    @user = User.find(session[:user_id])
     @order = @user.orders.new(params[:order])
     @order.address = Order.find_or_init_address(params[:order][:address_attributes]) if @user.cart.voucher
-    @cart = @user.cart
     total_price = @cart.total_price
     if @order.payment_mode == 0
       wallet_processing @order, @user, total_price, @cart
     else
       # credit_card_processing @order, @user, total_price, @cart
+    end
+  end
+
+  private
+
+  def load_user
+    @user = User.where(id: session[:user_id]).first
+    unless @user
+      flash[:error] = "Please login."
+      redirect_to(root_path) && return
+    end
+  end
+
+  def load_cart
+    @cart = @user.cart
+    unless @cart.line_items.present?
+      flash[:error] = "There is no item in cart"
+      redirect_to(commodities_url) && return
+    end
+  end
+
+  def load_order
+    @order = Order.where(id: params[:id]).first
+    unless @order
+      flash[:error] = "No such order exists"
+      redirect_to(orders_path) && return
     end
   end
 

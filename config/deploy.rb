@@ -5,15 +5,13 @@ set :scm, :git
 set :repository,  "git@github.com:akshay-vishnoi/Deal-Hound.git"
 set :branch, 'master'
 
-set :user, 'akshay'
+set :user, 'nakshay'
 set :use_sudo, false
 
-set :domain, "54.232.23.170"
+set :domain, "54.234.102.35"
 
 set :rails_env, 'production'
 default_run_options[:pty] = true
-# set :scm_command, "/usr/bin/git"
-# set :local_scm_command, "/usr/local/bin/git"
 set :deploy_to, "/var/www/apps/#{ application }"
 set :deploy_via, :remote_cache
 set :keep_releases, 5

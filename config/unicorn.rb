@@ -1,6 +1,6 @@
 app_path = "/var/www/apps/deal_hound/"
 
-user 'akshay'
+user 'nakshay'
 worker_processes 2
 
 working_directory "#{app_path}/current"

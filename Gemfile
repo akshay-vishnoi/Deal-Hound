@@ -15,7 +15,13 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'aws-s3', '~> 0.6.3', :require => 'aws/s3'
 gem "aws-sdk", "~> 1.7.1"
 gem 'cocaine', '0.3.2'
-gem "rmagick"
+gem "mobile-fu", "~> 1.1.1"
+gem 'jquery_mobile_rails'
+
+#payment
+gem 'sinatra'
+gem 'braintree'
+gem 'shotgun'
 
 group :development, :test do
   gem 'rails-erd'

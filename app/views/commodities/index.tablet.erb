@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <title>Dealhound.com - Commodities</title>
+  <meta name='viewport' content 'width=device-width, initial-scale=1'>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+  <body>
+    <div data-role="page" data-add-back-btn='true' data-back-btn-text='Home'>
+      <div data-role="header" data-position='fixed'><h1>Commodities</h1></div>
+      <div data-role='content'>
+        <ul data-role="listview" data-inset="true">
+          <li><a href="#iphone">Iphone</a></li>
+          <li><a href="#htc">Htc</a></li>
+          <li><a href="#sony">Sony Ericsson</a></li>
+        </ul>
+      </div>
+      <div data-role='footer' data-position='fixed'>
+        <h1><i>&copy; Nakshay Corp 2008</i></h1>
+      </div>
+    </div>
+    <div data-role="page" id="htc" data-add-back-btn='true' data-back-btn-text='Back' data-fullscreen='true'>
+      <div data-role="header" data-position='fixed'><h1>Htc</h1></div>
+      <div data-role='content'>
+        <img src="img/htc1.jpg">
+      </div>
+      <div data-role='footer' data-position='fixed'>
+        <h1><i>&copy; Nakshay Corp 2008</i></h1>
+      </div>
+    </div>
+    <div data-role="page" id="iphone" data-add-back-btn='true' data-back-btn-text='Back' data-fullscreen='true'>
+      <div data-role="header" data-position='fixed'><h1>Htc</h1></div>
+      <div data-role='content'>
+        <img src="img/iphn1.jpg">
+      </div>
+      <div data-role='footer' data-position='fixed'>
+        <h1><i>&copy; Nakshay Corp 2008</i></h1>
+      </div>
+    </div>
+    <div data-role="page" id="sony" data-add-back-btn='true' data-back-btn-text='Back' data-fullscreen='true'>
+      <div data-role="header" data-position='fixed'><h1>Htc</h1></div>
+      <div data-role='content'>
+        <img src="img/images.jpg">
+      </div>
+      <div data-role='footer' data-position='fixed'>
+        <h1><i>&copy; Nakshay Corp 2008</i></h1>
+      </div>
+    </div>
+  </body>
+</html>

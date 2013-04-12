@@ -1,7 +1,12 @@
 class ApplicationController < ActionController::Base
-
+  has_mobile_fu(true)
+  # before_filter :hee
   protect_from_forgery
 
+  def hee
+    debugger
+    puts "hlo"
+  end
   def authorize(role)
     puts "in authorize"
     user = User.find_by_id(session[:user_id])

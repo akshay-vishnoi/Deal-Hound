@@ -46,4 +46,9 @@ DealHound::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = "s3z8g2x4x2cv4rgm"
+  Braintree::Configuration.public_key = "mjwcs535zr8sxp3f"
+  Braintree::Configuration.private_key = "a4713aba9c72d74342871a1c06a64f0d"
 end
