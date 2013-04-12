@@ -18,7 +18,7 @@ gem 'cocaine', '0.3.2'
 gem "mobile-fu", "~> 1.1.1"
 gem 'jquery_mobile_rails'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
-gem 'therubyracer', '0.10.2', :platforms => :ruby
+gem 'therubyracer', '0.10.2', :platforms => :ruby, :require => 'v8'
 
 #payment
 gem 'sinatra'
