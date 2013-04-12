@@ -30,7 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
   gem "ruby-prof", "~> 0.11.2"
-  gem 'capistrano'
+  gem 'capistrano', "~> 2.14.2"
   gem 'capistrano-ext'
   gem 'selenium-webdriver'
   gem 'nokogiri'
