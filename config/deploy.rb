@@ -17,7 +17,7 @@ set :deploy_via, :remote_cache
 set :keep_releases, 5
 server domain, :app, :web, :db, :primary => true
 
-before 'bundle:install', :copy_yml_files, 'assets:precompile'
+before 'bundle:install', :copy_yml_files
 after 'deploy:restart', 'unicorn:restart'
 
 task :copy_yml_files do
